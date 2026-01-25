@@ -1,0 +1,152 @@
+{
+  "version": "1.0.0",
+  "brand": "Dakota Smith Blog",
+  "updated_at": "2026-01-25",
+  "validation_rules": {
+    "title": {
+      "min_length": 30,
+      "max_length": 70,
+      "must_start_with_capital": true,
+      "forbidden_words": ["simple", "easy", "just", "amazing", "incredible"]
+    },
+    "excerpt": {
+      "min_length": 140,
+      "max_length": 160,
+      "must_contain_action_verb": true
+    },
+    "structure": {
+      "min_word_count": 500,
+      "max_word_count": 3000,
+      "min_headings": 3,
+      "require_introduction": true,
+      "require_conclusion": true
+    },
+    "seo": {
+      "min_keywords": 3,
+      "max_keywords": 7,
+      "min_tags": 2,
+      "max_tags": 5
+    },
+    "tone": {
+      "forbidden_phrases": [
+        "I think",
+        "I believe",
+        "maybe",
+        "perhaps",
+        "sort of",
+        "kind of",
+        "probably",
+        "might be",
+        "could be",
+        "just",
+        "simply",
+        "basically",
+        "obviously",
+        "actually",
+        "really",
+        "very",
+        "amazing",
+        "incredible",
+        "revolutionary",
+        "game-changing",
+        "best ever",
+        "leverage",
+        "synergy",
+        "paradigm shift",
+        "move the needle",
+        "circle back",
+        "at the end of the day"
+      ],
+      "preferred_phrases": [
+        "Here's how",
+        "The key insight is",
+        "This approach",
+        "Notice how",
+        "Let's explore"
+      ],
+      "max_passive_voice_percentage": 20,
+      "max_sentence_length": 35
+    },
+    "code_blocks": {
+      "require_language_identifier": true,
+      "encourage_line_highlighting": true,
+      "max_lines_without_comment": 20
+    },
+    "images": {
+      "thumbnail": {
+        "required": true,
+        "width": 800,
+        "height": 450
+      },
+      "hero": {
+        "required": true,
+        "width": 1600,
+        "height": 900
+      }
+    }
+  },
+  "scoring": {
+    "weights": {
+      "technical_depth": 25,
+      "voice_alignment": 25,
+      "structure": 25,
+      "seo_readiness": 25
+    },
+    "thresholds": {
+      "publish_ready": 80,
+      "needs_minor_edits": 60,
+      "needs_major_revision": 0
+    }
+  },
+  "content_types": {
+    "general": {
+      "description": "Standard blog post",
+      "template": "post.mdx.template",
+      "min_word_count": 500
+    },
+    "tutorial": {
+      "description": "Step-by-step guide with code examples",
+      "template": "tutorial.mdx.template",
+      "min_word_count": 800,
+      "require_code_blocks": true,
+      "require_numbered_steps": true
+    },
+    "project": {
+      "description": "Project showcase or case study",
+      "template": "project.mdx.template",
+      "min_word_count": 600,
+      "require_metrics": true,
+      "require_tech_stack": true
+    }
+  },
+  "seo_strategy": {
+    "keyword_requirements": {
+      "primary_per_post": 1,
+      "secondary_per_post_min": 3,
+      "secondary_per_post_max": 5,
+      "long_tail_per_post_min": 1,
+      "long_tail_per_post_max": 2,
+      "max_keyword_density_percent": 2.5,
+      "min_keyword_density_percent": 0.5
+    },
+    "internal_linking": {
+      "min_internal_links_per_post": 2,
+      "max_internal_links_per_post": 10,
+      "prefer_contextual_links": true
+    },
+    "topic_clusters": {
+      "min_cluster_posts": 3,
+      "pillar_min_word_count": 2000,
+      "cluster_min_word_count": 800
+    },
+    "search_intent_mapping": {
+      "tutorial": ["informational"],
+      "project": ["informational", "commercial"],
+      "general": ["informational"]
+    },
+    "competitor_analysis": {
+      "top_results_to_analyze": 5,
+      "content_angles_to_identify": 3
+    }
+  }
+}

@@ -1,0 +1,28 @@
+{
+  "generated_at": "2026-01-25T20:01:01.026Z",
+  "summary": {
+    "total": 2,
+    "passed": 0,
+    "failed": 2,
+    "warnings": 5,
+    "average_score": 88
+  },
+  "results": [
+    {
+      "slug": "building-with-nextjs",
+      "title": "Building High-Performance Websites with Next.js",
+      "passed": false,
+      "score": 91,
+      "issueCount": 2,
+      "warningCount": 1
+    },
+    {
+      "slug": "welcome-to-my-blog",
+      "title": "Welcome to My Blog",
+      "passed": false,
+      "score": 84,
+      "issueCount": 3,
+      "warningCount": 4
+    }
+  ]
+}

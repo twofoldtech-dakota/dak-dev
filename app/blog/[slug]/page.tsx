@@ -192,12 +192,6 @@ export default async function BlogPost({
                 </div>
               )}
 
-              {/* Excerpt */}
-              {post.frontmatter.excerpt && (
-                <p className="text-lg md:text-xl text-muted leading-relaxed max-w-3xl">
-                  {post.frontmatter.excerpt}
-                </p>
-              )}
             </header>
 
             {/* Post Content */}

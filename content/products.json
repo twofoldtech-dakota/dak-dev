@@ -1,0 +1,18 @@
+[
+  {
+    "id": "claude-marketplace",
+    "name": "CMS Analyzers Marketplace",
+    "description": "Claude Code plugins that analyze enterprise CMS codebases, deliver actionable reports with severity ratings, and generate custom AI enhancements.",
+    "url": "https://github.com/twofoldtech-dakota/claude-marketplace",
+    "icon": "tool",
+    "featured": true
+  },
+  {
+    "id": "apl",
+    "name": "APL - Autonomous Phased Looper",
+    "description": "Claude Code plugin that transforms Claude into an autonomous coding agent with Plan → Execute → Review cycles and self-learning capabilities.",
+    "url": "https://github.com/twofoldtech-dakota/apl",
+    "icon": "code",
+    "featured": true
+  }
+]

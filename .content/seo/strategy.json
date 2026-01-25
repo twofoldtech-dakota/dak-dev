@@ -1,0 +1,157 @@
+{
+  "version": "1.0.0",
+  "updated_at": "2026-01-25",
+  "domain_authority_estimate": "new",
+  "target_keywords": {
+    "primary": [
+      {
+        "keyword": "autonomous coding agent",
+        "intent": "informational",
+        "difficulty": "medium",
+        "posts": ["building-apl-autonomous-coding-agent"]
+      },
+      {
+        "keyword": "claude code plugin",
+        "intent": "informational",
+        "difficulty": "low",
+        "posts": ["building-claude-marketplace-cms-analyzers"]
+      },
+      {
+        "keyword": "automated blog development",
+        "intent": "informational",
+        "difficulty": "low",
+        "posts": ["how-apl-built-this-blog"]
+      }
+    ],
+    "secondary": [
+      {
+        "keyword": "multi-agent coding system",
+        "parent_primary": "autonomous coding agent",
+        "posts": ["building-apl-autonomous-coding-agent"]
+      },
+      {
+        "keyword": "AI code automation",
+        "parent_primary": "autonomous coding agent",
+        "posts": ["building-apl-autonomous-coding-agent"]
+      },
+      {
+        "keyword": "cms code analysis",
+        "parent_primary": "claude code plugin",
+        "posts": ["building-claude-marketplace-cms-analyzers"]
+      },
+      {
+        "keyword": "sitecore code analyzer",
+        "parent_primary": "claude code plugin",
+        "posts": ["building-claude-marketplace-cms-analyzers"]
+      },
+      {
+        "keyword": "enterprise dev tools",
+        "parent_primary": "claude code plugin",
+        "posts": ["building-claude-marketplace-cms-analyzers"]
+      },
+      {
+        "keyword": "AI-built website",
+        "parent_primary": "automated blog development",
+        "posts": ["how-apl-built-this-blog"]
+      },
+      {
+        "keyword": "nextjs blog automation",
+        "parent_primary": "automated blog development",
+        "posts": ["how-apl-built-this-blog"]
+      },
+      {
+        "keyword": "claude code project",
+        "parent_primary": "automated blog development",
+        "posts": ["how-apl-built-this-blog"]
+      }
+    ],
+    "long_tail": [
+      {
+        "keyword": "build autonomous coding agent claude",
+        "parent_primary": "autonomous coding agent",
+        "posts": ["building-apl-autonomous-coding-agent"]
+      },
+      {
+        "keyword": "build claude code plugin marketplace",
+        "parent_primary": "claude code plugin",
+        "posts": ["building-claude-marketplace-cms-analyzers"]
+      },
+      {
+        "keyword": "build blog with autonomous AI agent",
+        "parent_primary": "automated blog development",
+        "posts": ["how-apl-built-this-blog"]
+      }
+    ]
+  },
+  "topic_clusters": [
+    {
+      "id": "cluster_001",
+      "name": "AI-Powered Developer Tools",
+      "description": "Content cluster establishing authority in the Claude Code plugin ecosystem and autonomous AI development tools",
+      "pillar_post": null,
+      "pillar_post_planned": {
+        "title": "The AI Dev Tools I Built in 2026",
+        "slug": "ai-dev-tools-2026",
+        "status": "future"
+      },
+      "cluster_posts": [],
+      "planned_posts": [
+        "building-apl-autonomous-coding-agent",
+        "building-claude-marketplace-cms-analyzers",
+        "how-apl-built-this-blog"
+      ],
+      "created_at": "2026-01-25"
+    }
+  ],
+  "content_gaps": [
+    {
+      "id": "gap_001",
+      "topic": "Claude Code plugin development tutorials",
+      "priority": "high",
+      "suggested_keywords": ["claude code plugin tutorial", "build claude plugin", "claude code extension"],
+      "notes": "Growing ecosystem with limited tutorial content. Good opportunity for authority building.",
+      "created_at": "2026-01-25"
+    },
+    {
+      "id": "gap_002",
+      "topic": "Autonomous AI agent architecture patterns",
+      "priority": "medium",
+      "suggested_keywords": ["LLM agent patterns", "multi-agent architecture", "autonomous AI design"],
+      "notes": "Technical deep-dives on agent architecture are rare. APL post partially fills this.",
+      "created_at": "2026-01-25"
+    }
+  ],
+  "competitor_benchmarks": [
+    {
+      "domain": "alexop.dev",
+      "topic": "Claude Code plugins",
+      "notes": "Published 'Building My First Claude Code Plugin' - good reference for format",
+      "url": "https://alexop.dev/posts/building-my-first-claude-code-plugin/",
+      "analyzed_at": "2026-01-25"
+    },
+    {
+      "domain": "agnost.ai",
+      "topic": "Claude Code plugins",
+      "notes": "Complete guide format - target similar depth with unique project angle",
+      "url": "https://agnost.ai/blog/claude-code-plugins-guide/",
+      "analyzed_at": "2026-01-25"
+    }
+  ],
+  "internal_linking_map": {
+    "building-apl-autonomous-coding-agent": {
+      "outbound": [],
+      "inbound": ["how-apl-built-this-blog"],
+      "recommended": ["building-claude-marketplace-cms-analyzers"]
+    },
+    "building-claude-marketplace-cms-analyzers": {
+      "outbound": [],
+      "inbound": [],
+      "recommended": ["building-apl-autonomous-coding-agent"]
+    },
+    "how-apl-built-this-blog": {
+      "outbound": ["building-apl-autonomous-coding-agent"],
+      "inbound": [],
+      "recommended": ["building-apl-autonomous-coding-agent"]
+    }
+  }
+}

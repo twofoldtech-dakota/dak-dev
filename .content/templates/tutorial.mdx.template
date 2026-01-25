@@ -1,0 +1,109 @@
+---
+title: "{{TITLE}}"
+date: "{{DATE}}"
+excerpt: "{{EXCERPT}}"
+slug: "{{SLUG}}"
+tags: [{{TAGS}}]
+thumbnail: "/images/posts/{{SLUG}}/thumbnail.jpg"
+hero: "/images/posts/{{SLUG}}/hero.jpg"
+published: false
+author: "Dakota Smith"
+keywords: [{{KEYWORDS}}]
+---
+
+{{INTRODUCTION_HOOK}}
+
+## What You'll Learn
+
+By the end of this tutorial, you'll be able to:
+
+- {{LEARNING_OUTCOME_1}}
+- {{LEARNING_OUTCOME_2}}
+- {{LEARNING_OUTCOME_3}}
+
+## Prerequisites
+
+Before starting, make sure you have:
+
+- {{PREREQUISITE_1}}
+- {{PREREQUISITE_2}}
+- {{PREREQUISITE_3}}
+
+## Step 1: {{STEP_1_TITLE}}
+
+{{STEP_1_EXPLANATION}}
+
+```{{LANGUAGE}}
+{{STEP_1_CODE}}
+```
+
+{{STEP_1_RESULT}}
+
+## Step 2: {{STEP_2_TITLE}}
+
+{{STEP_2_EXPLANATION}}
+
+```{{LANGUAGE}} {{{HIGHLIGHT_LINES}}}
+{{STEP_2_CODE}}
+```
+
+{{STEP_2_RESULT}}
+
+## Step 3: {{STEP_3_TITLE}}
+
+{{STEP_3_EXPLANATION}}
+
+```{{LANGUAGE}}
+{{STEP_3_CODE}}
+```
+
+{{STEP_3_RESULT}}
+
+## Step 4: {{STEP_4_TITLE}}
+
+{{STEP_4_EXPLANATION}}
+
+```{{LANGUAGE}}
+{{STEP_4_CODE}}
+```
+
+{{STEP_4_RESULT}}
+
+## Testing Your Implementation
+
+{{TESTING_EXPLANATION}}
+
+```{{LANGUAGE}}
+{{TESTING_CODE}}
+```
+
+## Common Issues
+
+### {{ISSUE_1_TITLE}}
+
+{{ISSUE_1_SOLUTION}}
+
+### {{ISSUE_2_TITLE}}
+
+{{ISSUE_2_SOLUTION}}
+
+## Complete Code
+
+Here's the full implementation for reference:
+
+```{{LANGUAGE}}
+{{COMPLETE_CODE}}
+```
+
+## Next Steps
+
+Now that you've completed this tutorial:
+
+1. {{NEXT_STEP_1}}
+2. {{NEXT_STEP_2}}
+3. {{NEXT_STEP_3}}
+
+## Resources
+
+- [{{RESOURCE_1_TITLE}}]({{RESOURCE_1_URL}})
+- [{{RESOURCE_2_TITLE}}]({{RESOURCE_2_URL}})

@@ -57,6 +57,25 @@ export interface BreadcrumbListSchema {
   }>;
 }
 
+export interface ProfilePageSchema {
+  '@context': 'https://schema.org';
+  '@type': 'ProfilePage';
+  mainEntity: {
+    '@type': 'Person';
+    name: string;
+    jobTitle: string;
+    description: string;
+    url: string;
+    address: {
+      '@type': 'PostalAddress';
+      addressLocality: string;
+      addressRegion: string;
+    };
+    sameAs: string[];
+    knowsAbout: string[];
+  };
+}
+
 /**
  * Generate Person schema for author
  */
@@ -133,6 +152,43 @@ export function generateBreadcrumbSchema(
       name: item.name,
       ...(item.url && { item: `${SITE_URL}${item.url}` }),
     })),
+  };
+}
+
+/**
+ * Generate ProfilePage schema for resume page
+ */
+export function generateResumeSchema(): ProfilePageSchema {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'ProfilePage',
+    mainEntity: {
+      '@type': 'Person',
+      name: AUTHOR_NAME,
+      jobTitle: 'Strategic Technical Leader & Fullstack Architect',
+      description:
+        'Software engineer with 14+ years of enterprise experience and 30+ production-ready projects. Specializing in bridging business vision and technical execution.',
+      url: `${SITE_URL}/resume`,
+      address: {
+        '@type': 'PostalAddress',
+        addressLocality: 'Kansas City',
+        addressRegion: 'MO',
+      },
+      sameAs: [
+        'https://linkedin.com/in/dakota-smith-a855b230',
+        'https://github.com/twofoldtech-dakota',
+      ],
+      knowsAbout: [
+        'Next.js',
+        'React',
+        'TypeScript',
+        '.NET',
+        'Sitecore',
+        'Enterprise CMS',
+        'AI Integration',
+        'Solution Architecture',
+      ],
+    },
   };
 }
 

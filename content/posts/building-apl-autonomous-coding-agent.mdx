@@ -1,0 +1,275 @@
+---
+title: "How I Built APL: Turning Claude Code into an Autonomous Dev Team"
+date: "2026-01-25"
+excerpt: "A deep dive into building APL, an autonomous coding agent that uses phased workflows, self-learning, and multi-agent orchestration."
+slug: "building-apl-autonomous-coding-agent"
+tags: ["ai", "claude-code", "automation", "open-source"]
+thumbnail: "/images/posts/building-apl-autonomous-coding-agent/thumbnail.jpg"
+hero: "/images/posts/building-apl-autonomous-coding-agent/hero.jpg"
+published: true
+author: "Dakota Smith"
+keywords: ["autonomous coding agent", "claude code plugin", "multi-agent coding", "AI automation", "LLM agents"]
+---
+
+Claude Code changed how I write software. But I wanted more. I wanted Claude to handle entire features autonomously—planning the work, writing the code, testing it, and learning from mistakes. So I built APL: the Autonomous Phased Looper.
+
+## The Problem with Vanilla Claude Code
+
+Claude Code excels at individual tasks. Ask it to write a function, refactor a component, or debug an error—it delivers. But complex features require coordination: understanding requirements, breaking down work, executing in sequence, and verifying results.
+
+Running Claude Code manually for each subtask introduces friction:
+
+- Context gets lost between sessions
+- No systematic verification of completed work
+- Repeated mistakes without learning
+- Human bottleneck for every decision
+
+I needed a system that could operate autonomously while maintaining quality.
+
+## The Three-Phase Architecture
+
+APL structures autonomous work into three distinct phases: Plan, Execute, and Review. Each phase has a specialized agent optimized for its task.
+
+```
+┌─────────────────────────────────────────────────────────┐
+│                    APL ORCHESTRATOR                      │
+└─────────────────────────┬───────────────────────────────┘
+                          │
+        ┌─────────────────┼─────────────────┐
+        ▼                 ▼                 ▼
+   ┌─────────┐      ┌──────────┐      ┌─────────┐
+   │  PLAN   │ ───▶ │ EXECUTE  │ ───▶ │ REVIEW  │
+   │  PHASE  │      │  PHASE   │      │  PHASE  │
+   └─────────┘      └──────────┘      └─────────┘
+        │                 │                 │
+   Tree-of-Thoughts  ReAct Loops     Reflexion
+   Task Breakdown    Parallel Exec   Self-Critique
+```
+
+### Phase 1: Planning with Tree-of-Thoughts
+
+The planner agent receives a goal and decomposes it into a structured task list. This isn't simple bullet points—it uses Tree-of-Thoughts reasoning to explore multiple approaches before committing.
+
+```typescript
+// Example task decomposition output
+{
+  "goal": "Add user authentication to the API",
+  "tasks": [
+    {
+      "id": "task_001",
+      "subject": "Create User model with password hashing",
+      "success_criteria": [
+        "User schema includes email, passwordHash, createdAt",
+        "Password hashing uses bcrypt with cost factor 12",
+        "Model exports TypeScript types"
+      ],
+      "dependencies": [],
+      "parallel_safe": true
+    },
+    {
+      "id": "task_002",
+      "subject": "Implement JWT token generation",
+      "success_criteria": [
+        "Tokens include userId and expiration",
+        "Secret loaded from environment variable",
+        "Expiration set to 24 hours"
+      ],
+      "dependencies": ["task_001"],
+      "parallel_safe": false
+    }
+  ]
+}
+```
+
+The key insight: **success criteria are defined upfront**. The coder agent knows exactly what "done" looks like before writing a single line.
+
+### Phase 2: Execution with ReAct Loops
+
+The coder agent implements each task using the ReAct pattern: Reason, Act, Observe, Verify.
+
+```
+┌──────────────────────────────────────────────────────┐
+│                    ReAct LOOP                         │
+│                                                       │
+│  ┌─────────┐    ┌─────────┐    ┌─────────┐          │
+│  │ REASON  │───▶│   ACT   │───▶│ OBSERVE │          │
+│  │         │    │         │    │         │          │
+│  │ "What   │    │ Write   │    │ Check   │          │
+│  │ approach│    │ code,   │    │ output, │          │
+│  │ solves  │    │ run     │    │ errors, │          │
+│  │ this?"  │    │ tests   │    │ results │          │
+│  └─────────┘    └─────────┘    └────┬────┘          │
+│                                      │               │
+│                      ┌───────────────┘               │
+│                      ▼                               │
+│                 ┌─────────┐                          │
+│                 │ VERIFY  │──── Success? ───▶ Next  │
+│                 │         │                   Task  │
+│                 │ Check   │                          │
+│                 │ success │──── Failure? ───▶ Retry │
+│                 │ criteria│                          │
+│                 └─────────┘                          │
+└──────────────────────────────────────────────────────┘
+```
+
+When independent tasks exist, APL executes them in parallel. A task graph ensures dependencies are respected while maximizing throughput.
+
+### Phase 3: Review with Reflexion
+
+After execution completes, the reviewer agent performs self-critique using the Reflexion pattern. It examines all changes holistically:
+
+- Do the changes satisfy the original goal?
+- Are there cross-task issues (e.g., inconsistent naming)?
+- Did any task introduce regressions?
+- What patterns worked well? What failed?
+
+The reviewer outputs both fixes and learning insights. Fixes trigger another execution cycle. Insights persist to the learning system.
+
+## The Self-Learning System
+
+APL maintains a `.apl/` directory in each project with accumulated knowledge:
+
+```
+.apl/
+├── patterns/
+│   ├── success/           # Approaches that worked
+│   └── anti-patterns/     # Approaches that failed
+├── preferences/           # User coding style preferences
+├── project-knowledge/     # Project-specific context
+└── session-logs/          # Execution history
+```
+
+Before planning, the planner agent consults this knowledge base. Before coding, the coder agent reviews relevant patterns. The learner agent extracts insights after each session.
+
+```typescript
+// Example learned pattern
+{
+  "id": "pattern_auth_001",
+  "category": "authentication",
+  "title": "JWT refresh token rotation",
+  "context": "When implementing JWT auth with refresh tokens",
+  "pattern": "Store refresh tokens in httpOnly cookies, rotate on each use, maintain a token family for revocation",
+  "why": "Prevents token theft and enables immediate revocation of compromised sessions",
+  "learned_from": "session_2026-01-15_auth_impl",
+  "success_rate": 0.95
+}
+```
+
+Over time, APL becomes more effective on your specific codebase.
+
+## Error Handling and Recovery
+
+Autonomous systems fail. APL handles this through:
+
+**Graduated Retry Logic**: Simple errors (syntax, imports) retry immediately. Complex errors trigger reasoning about the failure before retry. Repeated failures escalate to the user.
+
+**Checkpointing**: APL saves state after each completed task. If a session crashes, it resumes from the last checkpoint rather than starting over.
+
+**Error Categorization**: Errors are classified (transient, logic, environment, unknown) to select appropriate recovery strategies.
+
+```typescript
+// Error handling configuration
+{
+  "retry_policy": {
+    "max_retries_per_task": 3,
+    "backoff_strategy": "exponential",
+    "escalation_threshold": 2,
+    "checkpoint_frequency": "per_task"
+  },
+  "error_categories": {
+    "syntax": { "retry": true, "backoff": false },
+    "test_failure": { "retry": true, "backoff": true },
+    "environment": { "retry": false, "escalate": true }
+  }
+}
+```
+
+## Building the Plugin
+
+APL is implemented as a Claude Code plugin—a collection of markdown files defining agents, commands, and hooks.
+
+```
+apl-autonomous-phased-looper/
+├── .claude-plugin/
+│   └── plugin.json
+├── agents/
+│   ├── apl-orchestrator.md
+│   ├── planner-agent.md
+│   ├── coder-agent.md
+│   ├── tester-agent.md
+│   ├── reviewer-agent.md
+│   └── learner-agent.md
+├── commands/
+│   └── apl.md
+└── hooks/
+    └── session-end.md
+```
+
+Each agent is a markdown file with a system prompt defining its role, available tools, and behavior. The orchestrator coordinates the phases, delegating to specialized agents.
+
+```markdown
+# Planner Agent (excerpt)
+
+You are the APL Planning specialist. Your role is to decompose
+goals into structured task lists using Tree-of-Thoughts reasoning.
+
+## Process
+
+1. Analyze the goal and identify key requirements
+2. Generate 2-3 possible decomposition approaches
+3. Evaluate each approach for completeness and parallelism
+4. Select the optimal approach and output structured tasks
+5. Define success criteria for each task
+
+## Output Format
+
+Return a JSON task list with: id, subject, description,
+success_criteria[], dependencies[], parallel_safe
+```
+
+## Results
+
+APL has handled dozens of features on my projects. The results:
+
+| Metric | Before APL | With APL |
+|--------|-----------|----------|
+| Context switches per feature | 15-20 | 2-3 |
+| Time to first working version | Hours | Minutes |
+| Rework due to missed requirements | 30% | 8% |
+| Consistent code style | Manual review | Automatic |
+
+The self-learning compounds over time. APL on a mature project outperforms APL on a new one because it understands the patterns.
+
+## What I Learned
+
+Building APL taught me several lessons about LLM agents:
+
+**Structure beats prompting**. A well-designed workflow with clear phases outperforms a single clever prompt. Each agent does one thing well.
+
+**Success criteria are everything**. Defining "done" upfront eliminates ambiguity and enables automated verification.
+
+**Learning requires persistence**. Ephemeral sessions waste insights. Persisting patterns to disk creates compounding value.
+
+**Humans remain in the loop**. APL escalates uncertainty rather than guessing. Autonomy doesn't mean unsupervised.
+
+## Try It Yourself
+
+APL is open source. Install it with:
+
+```bash
+/plugin install apl-autonomous-phased-looper@apl-marketplace
+```
+
+Then run:
+
+```bash
+/apl Build a REST API with user authentication
+```
+
+Watch the phases unfold. Check the `.apl/` directory to see what it learns.
+
+The code is on GitHub: [twofoldtech-dakota/apl](https://github.com/twofoldtech-dakota/apl)
+
+---
+
+Autonomous coding isn't about replacing developers. It's about removing the friction between intent and implementation. APL handles the mechanical work so I can focus on architecture and product decisions. That's the future I'm building toward.

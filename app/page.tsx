@@ -1,6 +1,7 @@
 import { getAllPosts } from '@/lib/posts';
 import { Card } from '@/components/ui/Card';
 import { Hero } from '@/components/home/Hero';
+import { ProductsShowcase } from '@/components/home/ProductsShowcase';
 import { JsonLd } from '@/components/seo/JsonLd';
 import { generateWebSiteSchema } from '@/lib/schema';
 import Link from 'next/link';
@@ -26,6 +27,9 @@ export default async function Home() {
 
       {/* Hero Section */}
       <Hero />
+
+      {/* Products & Tools Section */}
+      <ProductsShowcase />
 
       {/* Recent Posts Section */}
       <section className="py-16 md:py-24">

@@ -1,0 +1,81 @@
+{
+  "version": "1.0.0",
+  "updated_at": "2026-01-25",
+  "workflow_stages": ["idea", "outlined", "drafting", "review", "ready", "published"],
+  "topics": [
+    {
+      "id": "topic_001",
+      "title": "How I Built APL: Turning Claude Code into an Autonomous Dev Team",
+      "slug": "building-apl-autonomous-coding-agent",
+      "type": "project",
+      "status": "published",
+      "priority": "high",
+      "target_date": "2026-01-25",
+      "published_date": "2026-01-25",
+      "tags": ["ai", "claude-code", "automation", "open-source"],
+      "notes": "Part of AI Dev Tools cluster. Primary keyword: autonomous coding agent. Links to GitHub repo.",
+      "created_at": "2026-01-25",
+      "updated_at": "2026-01-25"
+    },
+    {
+      "id": "topic_002",
+      "title": "Building a Claude Code Plugin Marketplace for CMS Analysis",
+      "slug": "building-claude-marketplace-cms-analyzers",
+      "type": "project",
+      "status": "published",
+      "priority": "high",
+      "target_date": "2026-01-24",
+      "published_date": "2026-01-24",
+      "tags": ["ai", "claude-code", "cms", "enterprise", "open-source"],
+      "notes": "Part of AI Dev Tools cluster. Primary keyword: claude code plugin. Targets enterprise CMS developers.",
+      "created_at": "2026-01-25",
+      "updated_at": "2026-01-25"
+    },
+    {
+      "id": "topic_003",
+      "title": "How APL Built This Entire Blog While I Watched",
+      "slug": "how-apl-built-this-blog",
+      "type": "project",
+      "status": "published",
+      "priority": "high",
+      "target_date": "2026-01-23",
+      "published_date": "2026-01-23",
+      "tags": ["ai", "automation", "nextjs", "project-showcase"],
+      "notes": "Capstone of AI Dev Tools cluster. Links back to APL post. Showcase real autonomous results.",
+      "created_at": "2026-01-25",
+      "updated_at": "2026-01-25"
+    }
+  ],
+  "ideas_backlog": [
+    {
+      "id": "idea_001",
+      "title": "Advanced Caching Strategies in Next.js",
+      "type": "tutorial",
+      "priority": "high",
+      "notes": "Cover ISR, cache tags, on-demand revalidation, edge caching",
+      "tags": ["nextjs", "performance", "caching"],
+      "source": "Personal experience building dak-dev",
+      "created_at": "2026-01-25"
+    },
+    {
+      "id": "idea_002",
+      "title": "Building Accessible Components from Scratch",
+      "type": "tutorial",
+      "priority": "medium",
+      "notes": "Focus on keyboard navigation, ARIA, screen readers",
+      "tags": ["accessibility", "react", "components"],
+      "source": "WCAG compliance work on this blog",
+      "created_at": "2026-01-25"
+    },
+    {
+      "id": "idea_003",
+      "title": "My Development Setup in 2026",
+      "type": "project",
+      "priority": "low",
+      "notes": "Hardware, software, dotfiles, CLI tools",
+      "tags": ["productivity", "tools", "setup"],
+      "source": "Frequently asked question",
+      "created_at": "2026-01-25"
+    }
+  ]
+}

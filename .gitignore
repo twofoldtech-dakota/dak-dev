@@ -34,3 +34,9 @@ Thumbs.db
 # Misc
 *.log
 .vercel
+
+# TypeScript build cache
+tsconfig.tsbuildinfo
+
+# Claude Code
+.claude/

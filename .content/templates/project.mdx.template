@@ -1,0 +1,101 @@
+---
+title: "{{TITLE}}"
+date: "{{DATE}}"
+excerpt: "{{EXCERPT}}"
+slug: "{{SLUG}}"
+tags: [{{TAGS}}]
+thumbnail: "/images/posts/{{SLUG}}/thumbnail.jpg"
+hero: "/images/posts/{{SLUG}}/hero.jpg"
+published: false
+author: "Dakota Smith"
+keywords: [{{KEYWORDS}}]
+---
+
+{{INTRODUCTION_HOOK}}
+
+## Project Overview
+
+{{PROJECT_DESCRIPTION}}
+
+### The Challenge
+
+{{CHALLENGE_DESCRIPTION}}
+
+### The Solution
+
+{{SOLUTION_SUMMARY}}
+
+## Tech Stack
+
+| Category | Technology | Why |
+|----------|------------|-----|
+| {{CATEGORY_1}} | {{TECH_1}} | {{REASON_1}} |
+| {{CATEGORY_2}} | {{TECH_2}} | {{REASON_2}} |
+| {{CATEGORY_3}} | {{TECH_3}} | {{REASON_3}} |
+| {{CATEGORY_4}} | {{TECH_4}} | {{REASON_4}} |
+
+## Architecture
+
+{{ARCHITECTURE_OVERVIEW}}
+
+```
+{{ARCHITECTURE_DIAGRAM}}
+```
+
+## Key Features
+
+### {{FEATURE_1_TITLE}}
+
+{{FEATURE_1_DESCRIPTION}}
+
+```{{LANGUAGE}}
+{{FEATURE_1_CODE}}
+```
+
+### {{FEATURE_2_TITLE}}
+
+{{FEATURE_2_DESCRIPTION}}
+
+```{{LANGUAGE}}
+{{FEATURE_2_CODE}}
+```
+
+### {{FEATURE_3_TITLE}}
+
+{{FEATURE_3_DESCRIPTION}}
+
+## Performance Results
+
+| Metric | Before | After | Improvement |
+|--------|--------|-------|-------------|
+| {{METRIC_1}} | {{BEFORE_1}} | {{AFTER_1}} | {{IMPROVEMENT_1}} |
+| {{METRIC_2}} | {{BEFORE_2}} | {{AFTER_2}} | {{IMPROVEMENT_2}} |
+| {{METRIC_3}} | {{BEFORE_3}} | {{AFTER_3}} | {{IMPROVEMENT_3}} |
+
+## Lessons Learned
+
+### What Worked Well
+
+{{WHAT_WORKED}}
+
+### What I'd Do Differently
+
+{{IMPROVEMENTS}}
+
+## Try It Yourself
+
+{{DEMO_INSTRUCTIONS}}
+
+**Live Demo:** [{{DEMO_URL}}]({{DEMO_URL}})
+
+**Source Code:** [GitHub]({{GITHUB_URL}})
+
+## Conclusion
+
+{{CONCLUSION_SUMMARY}}
+
+**Key Takeaways:**
+
+- {{TAKEAWAY_1}}
+- {{TAKEAWAY_2}}
+- {{TAKEAWAY_3}}

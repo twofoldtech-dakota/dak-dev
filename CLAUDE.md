@@ -194,7 +194,11 @@ useEffect(() => {
 ### Directory Layout
 
 ```
-my-site/
+dak-dev/
+├── .content/                 # Content workflow system
+│   ├── brand/                # Brand voice & validation rules
+│   ├── templates/            # Post templates (general, tutorial, project)
+│   └── calendar/             # Content planning & pipeline
 ├── app/                      # Next.js App Router pages
 │   ├── page.tsx              # Homepage
 │   ├── blog/
@@ -212,7 +216,10 @@ my-site/
 │       └── another-post.mdx
 ├── lib/                      # Utility functions
 │   ├── posts.ts              # Post fetching logic
+│   ├── content-validation.ts # Content validation utilities
 │   └── seo.ts                # SEO helpers
+├── scripts/
+│   └── validate-posts.ts     # Batch content validation
 ├── public/
 │   └── images/
 │       └── posts/
@@ -278,6 +285,95 @@ interface PostFrontmatter {
 1. **Branch Strategy** - `main` branch for production, feature branches for development
 2. **Commit Messages** - Conventional Commits format (`feat:`, `fix:`, `docs:`)
 3. **Content Workflow** - Add MDX files to `/content/posts`, commit, and push to deploy
+
+---
+
+## Content Workflow System
+
+A comprehensive content management system for maintaining consistent tone, messaging, and brand alignment across all blog content.
+
+### Directory Structure
+
+```
+.content/
+├── brand/
+│   ├── voice.md              # Brand voice & style guide
+│   └── guidelines.json       # Machine-readable validation rules
+├── templates/
+│   ├── post.mdx.template     # General post template
+│   ├── tutorial.mdx.template # Step-by-step tutorial template
+│   └── project.mdx.template  # Project showcase template
+├── calendar/
+│   └── content-plan.json     # Content pipeline & ideas backlog
+├── seo/
+│   └── strategy.json         # SEO strategy, keywords, clusters, gaps
+└── validation-report.json    # Latest validation results
+```
+
+### Content Skills
+
+| Command | Description |
+|---------|-------------|
+| `/write-post` | Create a new blog post with brand-consistent structure |
+| `/review-post` | Review a post for brand consistency, quality, and SEO |
+| `/content-calendar` | View/manage content pipeline and idea backlog |
+| `/brand-check` | Quick check any text against brand voice guidelines |
+| `/content-strategist` | SEO strategy, keyword research, gap analysis, topic clusters |
+
+### Validation Scripts
+
+```bash
+npm run validate:content        # Validate all published posts
+npm run validate:content:all    # Validate all posts including drafts
+```
+
+### Brand Voice Summary
+
+- **Voice**: Technical but accessible, direct, educational, practical
+- **Avoid**: Hedging ("I think", "maybe"), filler words ("just", "simply"), hyperbole
+- **Use**: Active voice, specific metrics, concrete examples, confident statements
+- **Structure**: Hook intro, 3+ H2 sections, conclusion with takeaways
+
+### Content Types
+
+| Type | Template | Use For |
+|------|----------|---------|
+| General | `post.mdx.template` | Standard blog posts |
+| Tutorial | `tutorial.mdx.template` | Step-by-step guides with code |
+| Project | `project.mdx.template` | Project showcases with metrics |
+
+### Validation Rules
+
+- **Title**: 30-70 characters
+- **Excerpt**: 150-160 characters exactly
+- **Word count**: 500-3000 words
+- **Headings**: Minimum 3 H2 sections
+- **Tags**: 2-5 relevant tags
+- **Keywords**: 3-7 SEO keywords
+
+### Content Workflow
+
+```
+idea → outlined → drafting → review → ready → published
+  │        │          │         │        │
+  │        │          │         │        └─ Set published: true, deploy
+  │        │          │         └─ Run /review-post, fix issues
+  │        │          └─ Run /write-post, create MDX
+  │        └─ Add outline to calendar notes
+  └─ Add to /content-calendar
+```
+
+### SEO Strategy Workflow
+
+```
+/content-strategist keywords [topic]  → Keyword research
+/content-strategist gaps              → Find content opportunities
+/content-strategist cluster [topic]   → Plan topic authority
+/content-strategist audit [slug]      → SEO audit before publish
+/content-strategist compete [topic]   → Competitive analysis
+```
+
+Integration: `/content-strategist` → `/content-calendar` → `/write-post` → `/review-post`
 
 ---
 
@@ -421,6 +517,18 @@ cat .meta/PROJECT_OVERVIEW.md
 
 ## Useful Commands
 
+### Content Workflow
+
+| Command | Description |
+|---------|-------------|
+| `/write-post` | Create a new blog post with brand-consistent structure |
+| `/review-post` | Review a post for brand consistency and SEO |
+| `/content-calendar` | View/manage content pipeline and ideas |
+| `/brand-check` | Quick check text against brand voice |
+| `npm run validate:content` | Validate all published posts |
+
+### Project Management
+
 | Command | Description |
 |---------|-------------|
 | `/meta loop` | Execute next Epic |
@@ -433,6 +541,13 @@ cat .meta/PROJECT_OVERVIEW.md
 
 ## Resources
 
+### Content Workflow
+- **Brand Voice Guide:** `.content/brand/voice.md`
+- **Validation Rules:** `.content/brand/guidelines.json`
+- **Content Calendar:** `.content/calendar/content-plan.json`
+- **Post Templates:** `.content/templates/`
+
+### Project Management
 - **Project Plan:** `.meta/plan.json`
 - **Epic Definitions:** `.meta/epics/epic_*.json`
 - **Clarifications:** `.meta/clarifications.json`

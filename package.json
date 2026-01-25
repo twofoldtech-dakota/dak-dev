@@ -1,5 +1,5 @@
 {
-  "name": "my-site",
+  "name": "dak-dev",
   "version": "1.0.0",
   "description": "Personal website for blogging, showcasing work, and promoting skills.",
   "main": "index.js",
@@ -9,7 +9,9 @@
     "start": "next start",
     "lint": "next lint",
     "format": "prettier --write \"**/*.{ts,tsx,js,jsx,json,css,md}\"",
-    "analyze": "ANALYZE=true next build --webpack"
+    "analyze": "ANALYZE=true next build --webpack",
+    "validate:content": "npx tsx scripts/validate-posts.ts",
+    "validate:content:all": "npx tsx scripts/validate-posts.ts --all"
   },
   "repository": {
     "type": "git",

@@ -1,0 +1,50 @@
+---
+title: "{{TITLE}}"
+date: "{{DATE}}"
+excerpt: "{{EXCERPT}}"
+slug: "{{SLUG}}"
+tags: [{{TAGS}}]
+thumbnail: "/images/posts/{{SLUG}}/thumbnail.jpg"
+hero: "/images/posts/{{SLUG}}/hero.jpg"
+published: false
+author: "Dakota Smith"
+keywords: [{{KEYWORDS}}]
+---
+
+{{INTRODUCTION_HOOK}}
+
+{{INTRODUCTION_CONTEXT}}
+
+{{INTRODUCTION_PROMISE}}
+
+## {{SECTION_1_TITLE}}
+
+{{SECTION_1_CONTENT}}
+
+```{{LANGUAGE}}
+{{CODE_EXAMPLE_1}}
+```
+
+## {{SECTION_2_TITLE}}
+
+{{SECTION_2_CONTENT}}
+
+### {{SUBSECTION_TITLE}}
+
+{{SUBSECTION_CONTENT}}
+
+## {{SECTION_3_TITLE}}
+
+{{SECTION_3_CONTENT}}
+
+## Conclusion
+
+{{CONCLUSION_SUMMARY}}
+
+**Key Takeaways:**
+
+- {{TAKEAWAY_1}}
+- {{TAKEAWAY_2}}
+- {{TAKEAWAY_3}}
+
+{{CALL_TO_ACTION}}
