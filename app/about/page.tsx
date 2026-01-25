@@ -1,20 +1,113 @@
 import { PageTransition } from '@/components/ui/PageTransition';
 import { JsonLd } from '@/components/seo/JsonLd';
 import {
-  generatePersonSchema,
+  generateResumeSchema,
   generateBreadcrumbSchema,
 } from '@/lib/schema';
+import { ExperienceCard } from '@/components/resume/ExperienceCard';
+import { SkillCategory } from '@/components/resume/SkillCategory';
 import Link from 'next/link';
 
 export const metadata = {
   title: 'About | Dakota Smith',
   description:
-    'Software engineer, technical writer, and builder of high-performance web applications. Learn more about Dakota Smith.',
+    'Strategic Technical Leader & Fullstack Architect with 14 years of enterprise experience. Building high-performance web applications.',
 };
 
+const experiences = [
+  {
+    company: 'RBA Consulting',
+    title: 'Senior Fullstack Engineer',
+    location: 'Remote',
+    period: 'Dec 2023 - Present',
+    highlights: [
+      'Lead Architect for global web solutions, ensuring adherence to international accessibility (ADA) and performance standards.',
+      'Strategist: Shifted team focus from tactical execution to strategic resource allocation and workflow optimization.',
+    ],
+  },
+  {
+    company: 'TwofoldTech',
+    title: 'Founder & Tech Lead',
+    location: 'Remote',
+    period: 'Mar 2020 - Present',
+    highlights: [
+      'Executive Leadership: Define technical strategy and manage cross-functional teams for 29+ enterprise client projects.',
+      'Fullstack Implementation: Deliver bespoke e-commerce and SaaS solutions using modern tech stacks and agile methodologies.',
+    ],
+  },
+  {
+    company: 'XCentium',
+    title: 'Senior Fullstack Engineer',
+    location: 'Remote',
+    period: 'Apr 2019 - Mar 2020',
+    highlights: [
+      'International Implementation: Pioneered the first Sitecore instance hosted behind China\'s firewall, navigating complex regulatory landscapes.',
+      'Platform Extension: Optimized content management by extending Sitecore pipelines and building reusable components.',
+    ],
+  },
+  {
+    company: 'Aware',
+    title: 'Senior Software Engineer',
+    location: 'Remote',
+    period: 'Sep 2016 - Mar 2019',
+    highlights: [
+      'Architected and supported complex CMS migrations (Sitecore to Episerver) and custom data warehouses.',
+    ],
+  },
+  {
+    company: 'AJi Software',
+    title: 'Solutions Architect',
+    location: 'Kansas City, MO',
+    period: 'Aug 2014 - Sep 2016',
+    highlights: [
+      'Architecture: Designed multi-site Sitecore systems and custom payment service integrations for clients like VFW and Medical News Network.',
+    ],
+  },
+  {
+    company: 'Roundedcube',
+    title: 'Lead Software Engineer',
+    location: 'St. Louis, MO',
+    period: 'Jan 2012 - Aug 2014',
+    highlights: [
+      'Structural Design: Architected secure, multi-tier .NET systems and optimized multi-site Sitecore instances for high-traffic brands like SeaWorld.',
+    ],
+  },
+];
+
+const competencies = [
+  {
+    title: 'Technical Strategy & Leadership',
+    items: [
+      { name: 'Vision & Strategy', description: 'Defining long-term technical roadmaps aligned with business ROI.' },
+      { name: 'Mentorship', description: 'Cultivating talent through high-level code reviews and "player-coach" leadership.' },
+    ],
+  },
+  {
+    title: 'Architecture & Innovation',
+    items: [
+      { name: 'Fullstack Mastery', description: 'Expert-level proficiency in NextJS, ReactJS, .NET, and C#.' },
+      { name: 'Enterprise CMS', description: '11+ years architecting Sitecore (XM Cloud), Optimizely, and Umbraco solutions.' },
+    ],
+  },
+  {
+    title: 'Operational Excellence',
+    items: [
+      { name: 'RAID Management', description: 'Expert at mitigating Risks, Assumptions, Issues, and Dependencies.' },
+      { name: 'Agile Orchestration', description: '9+ years leading Scrum teams to deliver under tight deadlines.' },
+    ],
+  },
+];
+
+const certifications = [
+  'Sitecore XM Cloud Certified Developer',
+  'Sitecore 9 Certified Developer',
+  'Microsoft Certified Technology Specialist (MCTS)',
+  'Microsoft Certified Professional (MCP)',
+  'Shopify Developer Certification (In Progress)',
+];
+
 export default function AboutPage() {
-  // Generate Schema.org structured data
-  const personSchema = generatePersonSchema();
+  const resumeSchema = generateResumeSchema();
   const breadcrumbSchema = generateBreadcrumbSchema([
     { name: 'Home', url: '/' },
     { name: 'About' },
@@ -22,185 +115,156 @@ export default function AboutPage() {
 
   return (
     <PageTransition className="min-h-screen py-16">
-      {/* Schema.org JSON-LD */}
-      <JsonLd data={personSchema} />
+      <JsonLd data={resumeSchema} />
       <JsonLd data={breadcrumbSchema} />
       <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <header className="mb-16 border-b-4 border-text pb-8">
-          <h1 className="text-5xl md:text-6xl font-bold mb-4">About Me</h1>
-          <p className="text-xl text-muted">
-            Software Engineer & Technical Writer
-          </p>
+          <h1 className="text-5xl md:text-6xl font-bold mb-4">About</h1>
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+            <div>
+              <p className="text-2xl font-semibold text-text">Dakota Smith</p>
+              <p className="text-lg text-muted">Kansas City, MO</p>
+            </div>
+          </div>
         </header>
 
         {/* Main Content */}
         <div className="space-y-12">
-          {/* Bio Section */}
-          <section>
-            <h2 className="text-3xl font-bold mb-6 border-l-4 border-text pl-6">
-              Who I Am
-            </h2>
-            <div className="prose prose-invert prose-lg max-w-none space-y-4 text-muted leading-relaxed">
-              <p>
-                I'm Dakota Smith, a software engineer passionate about building
-                high-performance web applications with a focus on accessibility,
-                user experience, and clean code.
-              </p>
-              <p>
-                My work centers on modern web technologies like Next.js,
-                React, and TypeScript, with a strong emphasis on performance
-                optimization and best practices. I believe great software
-                should be fast, accessible, and delightful to use.
-              </p>
-              <p>
-                Through this blog, I share insights on software engineering,
-                web performance, architecture patterns, and the lessons I learn
-                while building complex applications.
-              </p>
-            </div>
-          </section>
-
-          {/* What I Do Section */}
+          {/* Executive Summary */}
           <section className="border-4 border-text bg-surface p-8">
-            <h2 className="text-3xl font-bold mb-6">What I Do</h2>
-            <div className="grid md:grid-cols-2 gap-6">
-              <div>
-                <h3 className="text-xl font-bold mb-3 text-text">
-                  Web Development
-                </h3>
-                <p className="text-muted leading-relaxed">
-                  Building modern, performant web applications with Next.js,
-                  React, and TypeScript. Focused on delivering exceptional
-                  user experiences.
-                </p>
-              </div>
-              <div>
-                <h3 className="text-xl font-bold mb-3 text-text">
-                  Technical Writing
-                </h3>
-                <p className="text-muted leading-relaxed">
-                  Sharing knowledge through clear, actionable articles on
-                  software engineering, architecture, and web development
-                  best practices.
-                </p>
-              </div>
-              <div>
-                <h3 className="text-xl font-bold mb-3 text-text">
-                  Performance Optimization
-                </h3>
-                <p className="text-muted leading-relaxed">
-                  Optimizing web applications for speed, targeting Lighthouse
-                  scores of 98+ and sub-second load times.
-                </p>
-              </div>
-              <div>
-                <h3 className="text-xl font-bold mb-3 text-text">
-                  Accessibility
-                </h3>
-                <p className="text-muted leading-relaxed">
-                  Ensuring all applications meet WCAG 2.1 standards, with
-                  keyboard navigation, screen reader support, and inclusive
-                  design.
-                </p>
-              </div>
-            </div>
+            <h2 className="text-3xl font-bold mb-6">Executive Summary</h2>
+            <p className="text-lg text-muted leading-relaxed">
+              Strategic Technical Leader & Fullstack Architect with 14 years of enterprise experience
+              and a track record of shipping 30+ production-ready projects. I specialize in bridging
+              the gap between high-level business vision and deep technical execution, possessing an
+              &quot;M-shaped&quot; skill set that encompasses multiple technical domains, leadership, and project
+              management. I am a &quot;Big Picture Thinker&quot; who excels at translating business requirements
+              into scalable, secure, and maintainable architectural blueprints.
+            </p>
           </section>
 
-          {/* Tech Stack Section */}
+          {/* Core Competencies */}
           <section>
             <h2 className="text-3xl font-bold mb-6 border-l-4 border-text pl-6">
-              Tech Stack
+              Core Competencies: The &quot;M-Shaped&quot; Profile
             </h2>
-            <div className="flex flex-wrap gap-3">
-              {[
-                'Next.js',
-                'React',
-                'TypeScript',
-                'Tailwind CSS',
-                'Node.js',
-                'Vercel',
-                'Git',
-                'MDX',
-                'Framer Motion',
-                'PostgreSQL',
-              ].map((tech) => (
-                <span
-                  key={tech}
-                  className="inline-block border-2 border-text bg-background px-4 py-2 text-sm font-semibold"
-                >
-                  {tech}
-                </span>
+            <div className="grid md:grid-cols-3 gap-6">
+              {competencies.map((category) => (
+                <div key={category.title} className="border-4 border-text bg-surface p-6">
+                  <h3 className="text-xl font-bold mb-4 text-accent">{category.title}</h3>
+                  <div className="space-y-4">
+                    {category.items.map((item) => (
+                      <div key={item.name}>
+                        <h4 className="font-bold text-text">{item.name}</h4>
+                        <p className="text-sm text-muted">{item.description}</p>
+                      </div>
+                    ))}
+                  </div>
+                </div>
               ))}
             </div>
           </section>
 
-          {/* Contact Section */}
-          <section className="border-4 border-text p-8">
-            <h2 className="text-3xl font-bold mb-6">Get In Touch</h2>
+          {/* Technical Toolkit */}
+          <section className="border-4 border-text bg-surface p-8">
+            <h2 className="text-3xl font-bold mb-6">Technical Toolkit</h2>
+            <div className="grid md:grid-cols-2 gap-8">
+              <SkillCategory
+                title="Frontend Mastery"
+                skills={['NextJS', 'ReactJS', 'TypeScript', 'TailwindCSS', 'JavaScript', 'jQuery', 'SASS', 'Bootstrap']}
+              />
+              <SkillCategory
+                title="Backend & Data"
+                skills={['.NET Core', 'C#', 'GraphQL', 'SQL Server', 'MongoDB', 'Postgres', 'Prisma', 'Solr', 'Fabric']}
+              />
+              <SkillCategory
+                title="Platform & DevOps"
+                skills={['Sitecore XM Cloud', 'Umbraco', 'Optimizely', 'Shopify', 'GitHub Actions', 'Azure DevOps', 'Vercel', 'Docker']}
+              />
+              <SkillCategory
+                title="AI & Innovation"
+                skills={['AI-powered CMS analyzers', 'Automated security scanning', 'Performance scanning agents']}
+              />
+            </div>
+          </section>
+
+          {/* Key Innovations */}
+          <section>
+            <h2 className="text-3xl font-bold mb-6 border-l-4 border-text pl-6">
+              Key Innovations & Projects
+            </h2>
+            <div className="grid gap-6">
+              <div className="border-4 border-text bg-surface p-6">
+                <h3 className="text-xl font-bold text-accent mb-2">Claude CMS Marketplace</h3>
+                <p className="text-sm text-muted mb-1">Creator</p>
+                <ul className="space-y-2 mt-4">
+                  <li className="text-muted leading-relaxed pl-4 border-l-2 border-muted">
+                    Architected a suite of AI-powered plugins for analyzing enterprise CMS platforms (Sitecore, XM Cloud, Umbraco, Optimizely).
+                  </li>
+                  <li className="text-muted leading-relaxed pl-4 border-l-2 border-muted">
+                    Developed automated agents that detect architectural debt (Helix compliance), security vulnerabilities, and performance bottlenecks.
+                  </li>
+                  <li className="text-muted leading-relaxed pl-4 border-l-2 border-muted">
+                    Integrated CI/CD ready exit codes for PR pipelines to ensure critical issues are caught before code merges.
+                  </li>
+                </ul>
+              </div>
+              <div className="border-4 border-text bg-surface p-6">
+                <h3 className="text-xl font-bold text-accent mb-2">&quot;Continuum&quot; SaaS Platform</h3>
+                <p className="text-sm text-muted mb-1">Architect</p>
+                <ul className="space-y-2 mt-4">
+                  <li className="text-muted leading-relaxed pl-4 border-l-2 border-muted">
+                    Designed a fullstack Real Estate CE tracking application using NextJS, ReactJS, and TailwindCSS.
+                  </li>
+                  <li className="text-muted leading-relaxed pl-4 border-l-2 border-muted">
+                    Implemented complex data management using Postgres with Prisma and automated web scrapers for regulatory data.
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </section>
+
+          {/* Professional Experience */}
+          <section>
+            <h2 className="text-3xl font-bold mb-6 border-l-4 border-text pl-6">
+              Professional Experience
+            </h2>
             <div className="space-y-6">
-              <p className="text-lg text-muted leading-relaxed">
-                I'm always interested in connecting with fellow engineers,
-                discussing projects, or answering questions about my articles.
-              </p>
+              {experiences.map((exp) => (
+                <ExperienceCard key={`${exp.company}-${exp.period}`} {...exp} />
+              ))}
+            </div>
+          </section>
 
-              <div className="space-y-4">
-                {/* Email */}
-                <div className="flex items-start gap-4">
-                  <div className="flex-shrink-0 w-12 h-12 border-2 border-text bg-surface flex items-center justify-center">
-                    <svg
-                      className="w-6 h-6"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                      aria-hidden="true"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
-                      />
-                    </svg>
-                  </div>
-                  <div>
-                    <h3 className="font-bold mb-1">Email</h3>
-                    <a
-                      href="mailto:dakota@example.com"
-                      className="text-muted hover:text-text hover:underline underline-offset-2 focus:outline-none focus:ring-2 focus:ring-text focus:ring-offset-2 focus:ring-offset-background"
-                    >
-                      dakota@example.com
-                    </a>
-                  </div>
-                </div>
-
-                {/* GitHub */}
-                <div className="flex items-start gap-4">
-                  <div className="flex-shrink-0 w-12 h-12 border-2 border-text bg-surface flex items-center justify-center">
-                    <svg
-                      className="w-6 h-6"
-                      fill="currentColor"
-                      viewBox="0 0 24 24"
-                      aria-hidden="true"
-                    >
-                      <path
-                        fillRule="evenodd"
-                        d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"
-                        clipRule="evenodd"
-                      />
-                    </svg>
-                  </div>
-                  <div>
-                    <h3 className="font-bold mb-1">GitHub</h3>
-                    <a
-                      href="https://github.com/twofoldtech-dakota"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-muted hover:text-text hover:underline underline-offset-2 focus:outline-none focus:ring-2 focus:ring-text focus:ring-offset-2 focus:ring-offset-background"
-                    >
-                      @twofoldtech-dakota
-                    </a>
-                  </div>
+          {/* Certifications & Education */}
+          <section className="border-4 border-text bg-surface p-8">
+            <h2 className="text-3xl font-bold mb-6">Certifications & Education</h2>
+            <div className="grid md:grid-cols-2 gap-8">
+              <div>
+                <h3 className="text-xl font-bold mb-4 text-text">Certifications</h3>
+                <ul className="space-y-2">
+                  {certifications.map((cert) => (
+                    <li key={cert} className="flex items-start gap-2">
+                      <svg
+                        className="w-5 h-5 text-accent flex-shrink-0 mt-0.5"
+                        fill="currentColor"
+                        viewBox="0 0 20 20"
+                        aria-hidden="true"
+                      >
+                        <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                      </svg>
+                      <span className="text-muted">{cert}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+              <div>
+                <h3 className="text-xl font-bold mb-4 text-text">Education</h3>
+                <div className="border-l-4 border-accent pl-4">
+                  <p className="font-bold text-text">C# ASP.NET Graduate</p>
+                  <p className="text-muted">Centriq Training</p>
+                  <p className="text-sm text-muted">Leawood, KS | Jan 2011 - May 2011</p>
                 </div>
               </div>
             </div>
