@@ -54,7 +54,7 @@ export function Footer() {
           {/* Contact */}
           <div className="text-center md:text-right">
             <a
-              href="mailto:contact@example.com"
+              href="mailto:dakota@twofold.tech"
               className="inline-flex items-center gap-2 text-sm font-semibold text-text hover:text-muted transition-colors border-b-2 border-text hover:border-muted focus:outline-none focus:ring-2 focus:ring-text focus:ring-offset-2 focus:ring-offset-background"
             >
               <svg
