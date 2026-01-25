@@ -1,28 +1,36 @@
 {
-  "generated_at": "2026-01-25T20:01:01.026Z",
+  "generated_at": "2026-01-25T21:45:17.015Z",
   "summary": {
-    "total": 2,
+    "total": 3,
     "passed": 0,
-    "failed": 2,
-    "warnings": 5,
-    "average_score": 88
+    "failed": 3,
+    "warnings": 27,
+    "average_score": 90
   },
   "results": [
     {
-      "slug": "building-with-nextjs",
-      "title": "Building High-Performance Websites with Next.js",
+      "slug": "building-apl-autonomous-coding-agent",
+      "title": "How I Built APL: Turning Claude Code into an Autonomous Dev Team",
       "passed": false,
-      "score": 91,
-      "issueCount": 2,
-      "warningCount": 1
+      "score": 90,
+      "issueCount": 1,
+      "warningCount": 9
     },
     {
-      "slug": "welcome-to-my-blog",
-      "title": "Welcome to My Blog",
+      "slug": "building-claude-marketplace-cms-analyzers",
+      "title": "Building a Claude Code Plugin Marketplace for CMS Analysis",
       "passed": false,
-      "score": 84,
-      "issueCount": 3,
-      "warningCount": 4
+      "score": 90,
+      "issueCount": 1,
+      "warningCount": 9
+    },
+    {
+      "slug": "how-apl-built-this-blog",
+      "title": "How APL Built This Entire Blog While I Watched",
+      "passed": false,
+      "score": 90,
+      "issueCount": 1,
+      "warningCount": 9
     }
   ]
 }

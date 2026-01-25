@@ -1,6 +1,7 @@
 import fs from 'fs';
 import path from 'path';
 import { getPostBySlug, type PostFrontmatter, type Post } from './posts';
+import { validateImageSpec, IMAGE_SPECS, getImageMetadata } from './image-utils';
 
 // Types
 export interface ValidationIssue {
@@ -493,7 +494,7 @@ export function validateSEO(frontmatter: PostFrontmatter, content: string): Vali
 }
 
 // Validate images
-export function validateImages(frontmatter: PostFrontmatter): ValidationResult {
+export async function validateImages(frontmatter: PostFrontmatter): Promise<ValidationResult> {
   const issues: ValidationIssue[] = [];
   const warnings: ValidationIssue[] = [];
 
@@ -510,6 +511,26 @@ export function validateImages(frontmatter: PostFrontmatter): ValidationResult {
         message: `Thumbnail image not found: ${frontmatter.thumbnail}`,
         suggestion: 'Add thumbnail image (800x450) to the specified path',
       });
+    } else {
+      // Validate dimensions and size
+      try {
+        const imageIssues = await validateImageSpec(thumbnailPath, IMAGE_SPECS.thumbnail);
+        for (const issue of imageIssues) {
+          if (issue.type === 'error') {
+            issues.push(issue as ValidationIssue);
+          } else {
+            warnings.push(issue as ValidationIssue);
+          }
+        }
+      } catch {
+        warnings.push({
+          type: 'warning',
+          category: 'images',
+          field: 'thumbnail',
+          message: 'Failed to validate thumbnail image',
+          suggestion: 'Ensure the image file is a valid JPEG',
+        });
+      }
     }
   }
 
@@ -523,7 +544,48 @@ export function validateImages(frontmatter: PostFrontmatter): ValidationResult {
         message: `Hero image not found: ${frontmatter.hero}`,
         suggestion: 'Add hero image (1600x900) to the specified path',
       });
+    } else {
+      // Validate dimensions and size
+      try {
+        const imageIssues = await validateImageSpec(heroPath, IMAGE_SPECS.hero);
+        for (const issue of imageIssues) {
+          if (issue.type === 'error') {
+            issues.push(issue as ValidationIssue);
+          } else {
+            warnings.push(issue as ValidationIssue);
+          }
+        }
+      } catch {
+        warnings.push({
+          type: 'warning',
+          category: 'images',
+          field: 'hero',
+          message: 'Failed to validate hero image',
+          suggestion: 'Ensure the image file is a valid JPEG',
+        });
+      }
     }
+  }
+
+  // Check for blur placeholders
+  if (frontmatter.thumbnail && !frontmatter.thumbnailBlur) {
+    warnings.push({
+      type: 'warning',
+      category: 'images',
+      field: 'thumbnailBlur',
+      message: 'Missing blur placeholder for thumbnail',
+      suggestion: 'Run npm run images:process to generate blur data',
+    });
+  }
+
+  if (frontmatter.hero && !frontmatter.heroBlur) {
+    warnings.push({
+      type: 'warning',
+      category: 'images',
+      field: 'heroBlur',
+      message: 'Missing blur placeholder for hero',
+      suggestion: 'Run npm run images:process to generate blur data',
+    });
   }
 
   const passed = issues.length === 0;
@@ -570,7 +632,7 @@ export async function validatePost(slug: string): Promise<ValidationResult & { b
   const structureResult = validateStructure(post.content);
   const voiceResult = validateBrandVoice(post.content);
   const seoResult = validateSEO(post.frontmatter, post.content);
-  const imagesResult = validateImages(post.frontmatter);
+  const imagesResult = await validateImages(post.frontmatter);
 
   // Combine results
   const allIssues = [

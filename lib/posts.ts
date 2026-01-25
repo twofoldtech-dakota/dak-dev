@@ -10,7 +10,9 @@ export interface PostFrontmatter {
   slug: string;
   tags: string[];
   thumbnail: string;
+  thumbnailBlur?: string;
   hero: string;
+  heroBlur?: string;
   published: boolean;
   author?: string;
   keywords?: string[];

@@ -11,7 +11,10 @@
     "format": "prettier --write \"**/*.{ts,tsx,js,jsx,json,css,md}\"",
     "analyze": "ANALYZE=true next build --webpack",
     "validate:content": "npx tsx scripts/validate-posts.ts",
-    "validate:content:all": "npx tsx scripts/validate-posts.ts --all"
+    "validate:content:all": "npx tsx scripts/validate-posts.ts --all",
+    "images:process": "npx tsx scripts/process-images.ts",
+    "images:validate": "npx tsx scripts/process-images.ts --validate",
+    "images:check": "npx tsx scripts/process-images.ts --check"
   },
   "repository": {
     "type": "git",
@@ -37,6 +40,7 @@
     "react-dom": "^19.2.3",
     "reading-time": "^1.5.0",
     "rehype-pretty-code": "^0.14.1",
+    "sharp": "^0.34.5",
     "shiki": "^3.21.0"
   },
   "devDependencies": {
@@ -45,6 +49,7 @@
     "@types/node": "^25.0.10",
     "@types/react": "^19.2.9",
     "@types/react-dom": "^19.2.3",
+    "@types/sharp": "^0.31.1",
     "autoprefixer": "^10.4.23",
     "eslint": "^9.39.2",
     "eslint-config-next": "^16.1.4",

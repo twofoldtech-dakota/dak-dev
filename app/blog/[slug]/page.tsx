@@ -122,13 +122,13 @@ export default async function BlogPost({
       <JsonLd data={breadcrumbSchema} />
       {/* Hero Image */}
       {post.frontmatter.hero && (
-        <div className="relative w-full aspect-[16/9] md:aspect-[21/9] border-b-4 border-text">
+        <div className="relative w-full aspect-[16/9] border-b-4 border-text">
           <Image
             src={post.frontmatter.hero}
             alt={post.frontmatter.title}
             fill
             priority
-            className="object-cover"
+            className="object-cover object-center"
             sizes="100vw"
             placeholder="blur"
             blurDataURL="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 225'%3E%3Cfilter id='b' color-interpolation-filters='sRGB'%3E%3CfeGaussianBlur stdDeviation='20'/%3E%3CfeColorMatrix values='1 0 0 0 0 0 1 0 0 0 0 0 1 0 0 0 0 0 100 -1' result='s'/%3E%3CfeFlood x='0' y='0' width='100%25' height='100%25'/%3E%3CfeComposite operator='out' in='s'/%3E%3CfeComposite in2='SourceGraphic'/%3E%3CfeGaussianBlur stdDeviation='20'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' fill='%230a0a0a'/%3E%3C/svg%3E"
