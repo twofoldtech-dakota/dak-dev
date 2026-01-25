@@ -1,0 +1,80 @@
+---
+title: "Building High-Performance Websites with Next.js"
+date: "2026-01-20"
+excerpt: "Learn how to leverage Next.js 16's App Router and static site generation to build lightning-fast websites with perfect Lighthouse scores."
+slug: "building-with-nextjs"
+tags: ["nextjs", "performance", "web-development", "react"]
+thumbnail: "/images/posts/building-with-nextjs/thumbnail.jpg"
+hero: "/images/posts/building-with-nextjs/hero.jpg"
+published: true
+author: "Dakota Smith"
+keywords: ["Next.js", "performance", "SSG", "React", "web optimization"]
+---
+
+# Building High-Performance Websites with Next.js
+
+Next.js has revolutionized the way we build modern web applications. With the introduction of the App Router in version 13 and continuous improvements through version 16, it's never been easier to create fast, SEO-friendly websites.
+
+## Why Static Site Generation?
+
+Static Site Generation (SSG) offers several key benefits:
+
+1. **Blazing Fast Load Times** - Pre-rendered HTML served from a CDN
+2. **Superior SEO** - Search engines can easily crawl static content
+3. **Reduced Server Costs** - No server-side rendering needed
+4. **Enhanced Security** - Smaller attack surface with static files
+
+## Key Features
+
+### App Router Architecture
+
+The new App Router introduces powerful features:
+
+```typescript
+// app/blog/[slug]/page.tsx
+export async function generateStaticParams() {
+  const posts = await getAllPosts();
+  return posts.map((post) => ({
+    slug: post.slug,
+  }));
+}
+
+export default async function BlogPost({ params }: { params: { slug: string } }) {
+  const post = await getPostBySlug(params.slug);
+  return <article>{/* Render post content */}</article>;
+}
+```
+
+### Image Optimization
+
+Next.js automatically optimizes images:
+
+- Serves modern formats (AVIF, WebP)
+- Generates multiple sizes for responsive images
+- Lazy loads images outside viewport
+- Prevents layout shift with placeholders
+
+### Font Optimization
+
+Using `next/font` eliminates FOIT/FOUT:
+
+```typescript
+import { Space_Grotesk } from 'next/font/google';
+
+const spaceGrotesk = Space_Grotesk({
+  subsets: ['latin'],
+  display: 'swap',
+});
+```
+
+## Performance Metrics
+
+Targeting these Core Web Vitals:
+
+- **LCP** (Largest Contentful Paint): < 2.0s
+- **FID** (First Input Delay): < 50ms
+- **CLS** (Cumulative Layout Shift): < 0.05
+
+## Conclusion
+
+Next.js 16 provides all the tools needed to build world-class web applications. By leveraging SSG, optimizing assets, and following best practices, achieving perfect Lighthouse scores is within reach.

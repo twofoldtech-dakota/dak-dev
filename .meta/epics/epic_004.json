@@ -1,0 +1,160 @@
+{
+  "id": "epic_004",
+  "title": "Blog Pages & Content Display",
+  "description": "Build all blog-related pages including homepage, post listing, individual post pages, tag filtering, and about page. Implement MDX rendering with custom components and ensure optimal SEO.",
+  "status": "pending",
+  "priority": 4,
+  "estimated_duration": "7-9 hours",
+  "features": [
+    {
+      "id": "feat_008",
+      "title": "Homepage & Blog Listing",
+      "status": "pending",
+      "stories": [
+        {
+          "id": "story_018",
+          "title": "Build homepage with hero and recent posts",
+          "status": "pending",
+          "estimated_time": "2h",
+          "acceptance_criteria": [
+            "Homepage (/) with hero section introducing Dakota Smith",
+            "Recent posts section showing 6 most recent posts in grid",
+            "CTA button to view all posts (/blog)",
+            "Hero uses brutalist design with high-contrast text",
+            "Responsive grid: 1 column mobile, 2 tablet, 3 desktop"
+          ],
+          "apl_goal": "Create homepage with hero section, fetch and display 6 most recent posts using Card components, implement responsive grid layout, and add 'View All Posts' CTA",
+          "technical_notes": [
+            "Fetch posts with getAllPosts() utility sorted by date",
+            "Hero section should include short bio and social links",
+            "Use next/image for hero background or accent graphic"
+          ]
+        },
+        {
+          "id": "story_019",
+          "title": "Create blog listing page with pagination",
+          "status": "pending",
+          "estimated_time": "2h",
+          "acceptance_criteria": [
+            "Blog listing page (/blog) showing all published posts",
+            "Pagination with 12 posts per page",
+            "Previous/Next navigation with page numbers",
+            "Page numbers are accessible and keyboard navigable",
+            "Static generation for each paginated page"
+          ],
+          "apl_goal": "Build /blog page with pagination (12 posts per page), implement generateStaticParams for all pages, create accessible pagination controls with prev/next buttons",
+          "technical_notes": [
+            "Route: /blog/page/[page] for pagination",
+            "Page 1 should be accessible at both /blog and /blog/page/1",
+            "Use generateStaticParams to pre-render all paginated pages"
+          ]
+        },
+        {
+          "id": "story_020",
+          "title": "Implement tag filtering page",
+          "status": "pending",
+          "estimated_time": "1.5h",
+          "acceptance_criteria": [
+            "Tag filter page (/blog/tags/[tag]) showing posts with specific tag",
+            "Page title shows 'Posts tagged with [Tag Name]'",
+            "Count of posts displayed",
+            "generateStaticParams pre-renders all tag pages",
+            "404 page for non-existent tags"
+          ],
+          "apl_goal": "Create dynamic tag filtering page at /blog/tags/[tag], implement getPostsByTag utility, use generateStaticParams to pre-render all tag pages, and handle non-existent tags gracefully",
+          "technical_notes": [
+            "Extract all unique tags from all posts",
+            "Slugify tag names for URLs",
+            "Display tag name in human-readable format (not slug)"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "feat_009",
+      "title": "Individual Post Pages",
+      "status": "pending",
+      "stories": [
+        {
+          "id": "story_021",
+          "title": "Create post page layout with hero image",
+          "status": "pending",
+          "estimated_time": "2h",
+          "acceptance_criteria": [
+            "Individual post page at /blog/[slug]",
+            "Hero image displayed at top (full-width or contained)",
+            "Post metadata (date, reading time, tags) displayed prominently",
+            "Responsive typography with proper line-height and measure",
+            "Table of contents generated from headings (h2, h3)"
+          ],
+          "apl_goal": "Build post page template at /blog/[slug], implement hero image display with next/image, show post metadata, generate table of contents from MDX headings, and ensure readable typography",
+          "technical_notes": [
+            "Use generateStaticParams to pre-render all posts",
+            "Extract headings during MDX compilation for TOC",
+            "Max content width: 65ch for optimal readability"
+          ]
+        },
+        {
+          "id": "story_022",
+          "title": "Implement MDX component overrides for rich content",
+          "status": "pending",
+          "estimated_time": "1.5h",
+          "acceptance_criteria": [
+            "Custom components for MDX elements (h1-h6, p, a, img, blockquote, ul, ol)",
+            "Links styled with brutalist underline and hover effect",
+            "Images use next/image with proper aspect ratios",
+            "Blockquotes have distinct brutalist border/background treatment",
+            "Code blocks use CodeBlock component from Epic 2"
+          ],
+          "apl_goal": "Create MDX components object with styled overrides for all standard markdown elements, integrate CodeBlock component for code fences, and ensure consistent neo-brutalist styling",
+          "technical_notes": [
+            "Map code blocks to CodeBlock component",
+            "Add external link icon for anchor tags with external hrefs",
+            "Style lists with custom bullets/numbers matching design system"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "feat_010",
+      "title": "About & Static Pages",
+      "status": "pending",
+      "stories": [
+        {
+          "id": "story_023",
+          "title": "Create About page with bio and contact",
+          "status": "pending",
+          "estimated_time": "1h",
+          "acceptance_criteria": [
+            "About page (/about) with Dakota's bio and background",
+            "Contact section with mailto link (no form needed)",
+            "Social links (GitHub @daksmitty, etc.)",
+            "Professional photo or avatar with next/image",
+            "Markdown or MDX content for easy editing"
+          ],
+          "apl_goal": "Build About page with bio content, mailto contact link, social links, and optional avatar image, using MDX for easy content updates",
+          "technical_notes": [
+            "Can use MDX file in /content/pages/about.mdx",
+            "Mailto link: dakota@example.com (replace with actual)",
+            "Link to GitHub: github.com/daksmitty"
+          ]
+        }
+      ]
+    }
+  ],
+  "architectural_decisions": [
+    "Static Site Generation (SSG) for all pages using generateStaticParams",
+    "12 posts per page for pagination (optimal for performance and UX)",
+    "Table of contents auto-generated from MDX headings",
+    "65ch max-width for post content (optimal readability)",
+    "MDX component overrides for consistent styling",
+    "Tag pages pre-rendered for all tags at build time"
+  ],
+  "verification_requirements": {
+    "pencil_required": true,
+    "pencil_check": "Page layouts and content display must be visually verified against Pencil canvas designs. Verify neo-brutalist styling consistency, responsive behavior, and typography hierarchy.",
+    "acceptance_criteria_addition": "Visual design verified against Pencil canvas selections"
+  },
+  "dependencies": ["epic_001", "epic_002", "epic_003"],
+  "blocks_epics": ["epic_005"]
+}

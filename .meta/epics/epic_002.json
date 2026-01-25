@@ -1,0 +1,102 @@
+{
+  "id": "epic_002",
+  "title": "Advanced Code Highlighting System",
+  "description": "Implement professional-grade syntax highlighting with Shiki or Prism, featuring line numbers, syntax highlighting, diff support, copy-to-clipboard functionality, and custom neo-brutalist theme.",
+  "status": "completed",
+  "priority": 2,
+  "estimated_duration": "5-7 hours",
+  "features": [
+    {
+      "id": "feat_004",
+      "title": "Syntax Highlighter Integration",
+      "status": "completed",
+      "stories": [
+        {
+          "id": "story_006",
+          "title": "Install and configure Shiki with custom theme",
+          "status": "completed",
+          "estimated_time": "1.5h",
+          "acceptance_criteria": [
+            "Shiki installed and integrated with MDX pipeline",
+            "Custom dark theme created matching neo-brutalist palette",
+            "Support for 20+ languages (JS, TS, Python, Rust, Go, etc.)",
+            "Code blocks render with syntax highlighting at build time (SSG)",
+            "Theme colors provide WCAG AA contrast ratios"
+          ],
+          "apl_goal": "Install Shiki, create custom dark syntax theme matching neo-brutalist design (#0A0A0A background), integrate with MDX rendering, and verify syntax highlighting works for multiple languages",
+          "technical_notes": [
+            "Use shiki for build-time highlighting (better performance than runtime)",
+            "Create custom theme based on existing dark theme (Nord, Tokyo Night)",
+            "Ensure code blocks are highlighted during SSG, not client-side"
+          ]
+        },
+        {
+          "id": "story_007",
+          "title": "Build advanced code block component with line numbers",
+          "status": "completed",
+          "estimated_time": "2h",
+          "acceptance_criteria": [
+            "CodeBlock component with line number gutter",
+            "Line numbers are selectable-disabled (don't copy with code)",
+            "Support for language badge/label display",
+            "Horizontal scrolling for long lines (no word wrap)",
+            "Proper spacing and alignment for neo-brutalist aesthetic"
+          ],
+          "apl_goal": "Create CodeBlock React component with line numbers in separate gutter, language label, horizontal scroll support, and ensure line numbers don't interfere with code selection",
+          "technical_notes": [
+            "Use CSS Grid or Flexbox for line number + code layout",
+            "Add user-select: none to line numbers",
+            "Use custom scrollbar styling for consistency"
+          ]
+        },
+        {
+          "id": "story_008",
+          "title": "Add line highlighting and diff support",
+          "status": "completed",
+          "estimated_time": "1.5h",
+          "acceptance_criteria": [
+            "Support for highlighting specific lines via metadata (e.g., {1,3-5})",
+            "Diff mode support with + and - line prefixes",
+            "Color coding for added (green) and removed (red) lines",
+            "Highlighting respects accessibility (not color-only indicators)",
+            "Metadata parsing from code fence info string"
+          ],
+          "apl_goal": "Extend CodeBlock component to parse line highlight ranges from code fence metadata, implement diff mode with visual indicators beyond color, and ensure accessibility compliance",
+          "technical_notes": [
+            "Parse metadata like: ```js {1,3-5} diff",
+            "Use icons or symbols in addition to color for diff (+/-)",
+            "Add aria-label for screen reader support"
+          ]
+        },
+        {
+          "id": "story_009",
+          "title": "Implement copy-to-clipboard button",
+          "status": "completed",
+          "estimated_time": "1h",
+          "acceptance_criteria": [
+            "Copy button positioned in top-right of code block",
+            "Button shows 'Copy' initially, 'Copied!' after click",
+            "Only copies code content (excludes line numbers and diff markers)",
+            "Keyboard accessible (Tab + Enter)",
+            "Visual feedback on hover and focus states"
+          ],
+          "apl_goal": "Add copy-to-clipboard button to CodeBlock component with accessible keyboard support, visual state feedback, and smart code extraction that excludes line numbers and diff markers",
+          "technical_notes": [
+            "Use Clipboard API (navigator.clipboard.writeText)",
+            "Fallback for older browsers if needed",
+            "Reset 'Copied!' state after 2 seconds"
+          ]
+        }
+      ]
+    }
+  ],
+  "architectural_decisions": [
+    "Shiki for build-time syntax highlighting (better performance than Prism)",
+    "Custom VSCode-style theme matching neo-brutalist palette",
+    "Line highlighting and diff support via code fence metadata",
+    "Client-side clipboard API for copy functionality",
+    "Accessibility-first: keyboard navigation, screen reader labels, non-color-only indicators"
+  ],
+  "dependencies": ["epic_001"],
+  "blocks_epics": ["epic_003"]
+}

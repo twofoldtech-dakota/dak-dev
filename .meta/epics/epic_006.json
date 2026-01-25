@@ -1,0 +1,282 @@
+{
+  "id": "epic_006",
+  "title": "Performance Optimization & Deployment",
+  "description": "Optimize bundle size, implement image optimization strategies, conduct Lighthouse audits, fix performance bottlenecks, configure Vercel deployment, and ensure all performance targets (98+ scores) are met.",
+  "status": "pending",
+  "priority": 6,
+  "estimated_duration": "6-8 hours",
+  "features": [
+    {
+      "id": "feat_014",
+      "title": "Bundle Size Optimization",
+      "status": "pending",
+      "stories": [
+        {
+          "id": "story_030",
+          "title": "Analyze and optimize JavaScript bundle",
+          "status": "pending",
+          "estimated_time": "2h",
+          "acceptance_criteria": [
+            "Bundle analysis with @next/bundle-analyzer",
+            "Framer Motion tree-shaken (only used components imported)",
+            "All dependencies code-split and lazy-loaded where appropriate",
+            "Main bundle under 100KB (gzipped)",
+            "No duplicate dependencies in bundle"
+          ],
+          "apl_goal": "Install @next/bundle-analyzer, audit JavaScript bundle for large dependencies, implement tree-shaking for Framer Motion, lazy-load non-critical components, and reduce main bundle to under 100KB gzipped",
+          "technical_notes": [
+            "Use dynamic imports for Giscus and other heavy components",
+            "Configure next.config.js with modularizeImports for icons",
+            "Remove unused dependencies from package.json",
+            "Verify with npm run analyze"
+          ]
+        },
+        {
+          "id": "story_031",
+          "title": "Optimize fonts and CSS delivery",
+          "status": "pending",
+          "estimated_time": "1h",
+          "acceptance_criteria": [
+            "Fonts preloaded and subset to used characters (if possible)",
+            "Critical CSS inlined for above-the-fold content",
+            "Tailwind CSS purged of unused classes",
+            "Font files use woff2 format with fallbacks",
+            "No FOIT (Flash of Invisible Text) or FOUT (Flash of Unstyled Text)"
+          ],
+          "apl_goal": "Configure font optimization with next/font to preload and subset fonts, inline critical CSS, verify Tailwind purge configuration, and eliminate FOIT/FOUT",
+          "technical_notes": [
+            "next/font/google handles optimization automatically",
+            "Ensure Tailwind purge is configured for all template files",
+            "Use font-display: swap for fallback behavior"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "feat_015",
+      "title": "Image Optimization & Lazy Loading",
+      "status": "pending",
+      "stories": [
+        {
+          "id": "story_032",
+          "title": "Configure responsive images with next/image",
+          "status": "pending",
+          "estimated_time": "1.5h",
+          "acceptance_criteria": [
+            "All images use next/image with proper sizing",
+            "Responsive images with srcset for multiple screen sizes",
+            "Loading='lazy' for below-the-fold images",
+            "Priority loading for hero images and LCP candidates",
+            "Image formats: WebP with fallbacks"
+          ],
+          "apl_goal": "Audit all image usage, ensure next/image is used everywhere, configure responsive sizes, set priority for above-the-fold images, and verify WebP format delivery",
+          "technical_notes": [
+            "Define image sizes in next.config.js (deviceSizes, imageSizes)",
+            "Use priority prop for hero images and thumbnails above fold",
+            "Set explicit width/height to prevent CLS"
+          ]
+        },
+        {
+          "id": "story_033",
+          "title": "Implement blur placeholder for images",
+          "status": "pending",
+          "estimated_time": "1h",
+          "acceptance_criteria": [
+            "Blur-up placeholders for all post images",
+            "Placeholders generated at build time (plaiceholder or similar)",
+            "No layout shift when images load (CLS score < 0.1)",
+            "Fallback to solid color if blur generation fails",
+            "Placeholder matches dominant color of image"
+          ],
+          "apl_goal": "Implement blur placeholder generation for post images using plaiceholder or base64 encoding, integrate with next/image, and verify zero layout shift during image loading",
+          "technical_notes": [
+            "Use plaiceholder library for blur generation",
+            "Store base64 placeholders in frontmatter or generate at build time",
+            "Ensure aspect-ratio CSS prevents CLS"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "feat_016",
+      "title": "Lighthouse Audits & Performance Tuning",
+      "status": "pending",
+      "stories": [
+        {
+          "id": "story_034",
+          "title": "Run Lighthouse CI and fix performance issues",
+          "status": "pending",
+          "estimated_time": "2h",
+          "acceptance_criteria": [
+            "Lighthouse Performance score 98+",
+            "Lighthouse Accessibility score 100",
+            "Lighthouse Best Practices score 100",
+            "Lighthouse SEO score 100",
+            "All Core Web Vitals in green (LCP < 2.5s, FID < 100ms, CLS < 0.1)"
+          ],
+          "apl_goal": "Run Lighthouse audits on production build, identify and fix all performance bottlenecks, optimize Core Web Vitals (LCP, FID, CLS), and achieve 98+ scores across all categories",
+          "technical_notes": [
+            "Test with Lighthouse CLI: lighthouse https://your-site.vercel.app",
+            "Run multiple tests (Lighthouse scores can vary)",
+            "Test both desktop and mobile configurations",
+            "Fix common issues: render-blocking resources, oversized images, unused JavaScript"
+          ]
+        },
+        {
+          "id": "story_035",
+          "title": "Optimize Core Web Vitals (LCP, FID, CLS)",
+          "status": "pending",
+          "estimated_time": "1.5h",
+          "acceptance_criteria": [
+            "Largest Contentful Paint (LCP) under 2.0 seconds",
+            "First Input Delay (FID) under 50 milliseconds",
+            "Cumulative Layout Shift (CLS) under 0.05",
+            "Verified with WebPageTest and Chrome DevTools",
+            "Optimizations documented for future reference"
+          ],
+          "apl_goal": "Measure Core Web Vitals with real tools (WebPageTest, PageSpeed Insights), optimize LCP by preloading critical resources, minimize FID with code splitting, eliminate CLS with explicit dimensions, and document all optimizations",
+          "technical_notes": [
+            "LCP optimization: preload hero image, optimize fonts, reduce server response time",
+            "FID optimization: minimize main thread work, defer non-critical JavaScript",
+            "CLS optimization: set dimensions for images/ads, avoid dynamic content injection"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "feat_017",
+      "title": "Accessibility Audit & WCAG Compliance",
+      "status": "pending",
+      "stories": [
+        {
+          "id": "story_036",
+          "title": "Conduct accessibility audit with axe DevTools",
+          "status": "pending",
+          "estimated_time": "1.5h",
+          "acceptance_criteria": [
+            "Zero critical or serious accessibility issues",
+            "All interactive elements keyboard accessible",
+            "Proper heading hierarchy (no skipped levels)",
+            "All images have meaningful alt text",
+            "Color contrast ratios meet WCAG AA (4.5:1 for text, 3:1 for UI)"
+          ],
+          "apl_goal": "Run axe DevTools accessibility audit on all major pages, fix all critical and serious issues, verify keyboard navigation, check heading hierarchy, and ensure WCAG AA contrast compliance",
+          "technical_notes": [
+            "Install axe DevTools browser extension",
+            "Test all pages: homepage, blog listing, post page, about",
+            "Use ChromeVox or NVDA to test screen reader experience",
+            "Document accessibility testing checklist"
+          ]
+        },
+        {
+          "id": "story_037",
+          "title": "Add skip links and ARIA landmarks",
+          "status": "pending",
+          "estimated_time": "1h",
+          "acceptance_criteria": [
+            "Skip to main content link (visible on focus)",
+            "ARIA landmark roles (navigation, main, complementary, contentinfo)",
+            "Focus management for modal/menu interactions",
+            "Live regions for dynamic content updates (if any)",
+            "Keyboard trap prevention verified"
+          ],
+          "apl_goal": "Implement skip navigation link, add ARIA landmark roles to layout sections, ensure focus management for interactive components, and verify no keyboard traps exist",
+          "technical_notes": [
+            "Skip link should be first focusable element",
+            "Use semantic HTML (nav, main, aside, footer) with ARIA roles as backup",
+            "Test tab order makes logical sense",
+            "Ensure modal dialogs trap focus when open"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "feat_018",
+      "title": "Vercel Deployment Configuration",
+      "status": "pending",
+      "stories": [
+        {
+          "id": "story_038",
+          "title": "Configure Vercel project and environment variables",
+          "status": "pending",
+          "estimated_time": "1h",
+          "acceptance_criteria": [
+            "Vercel project connected to GitHub repository",
+            "Environment variables configured (GISCUS_REPO, etc.)",
+            "Build command and output directory verified",
+            "Custom domain configured (*.vercel.app for MVP)",
+            "Automatic deployments on git push enabled"
+          ],
+          "apl_goal": "Create Vercel project, connect GitHub repository, configure necessary environment variables, set up automatic deployments, and verify build succeeds",
+          "technical_notes": [
+            "Framework Preset: Next.js",
+            "Build Command: next build",
+            "Output Directory: .next",
+            "Environment variables: Add in Vercel dashboard"
+          ]
+        },
+        {
+          "id": "story_039",
+          "title": "Set up production caching and headers",
+          "status": "pending",
+          "estimated_time": "1h",
+          "acceptance_criteria": [
+            "Cache-Control headers configured for static assets",
+            "Immutable assets (JS, CSS, images) cached for 1 year",
+            "HTML pages cached with revalidation",
+            "Security headers (CSP, X-Frame-Options, etc.) configured",
+            "HTTPS enforced with HSTS"
+          ],
+          "apl_goal": "Configure Vercel headers for optimal caching strategy, set up security headers (CSP, X-Frame-Options, X-Content-Type-Options, HSTS), and verify with security headers checker",
+          "technical_notes": [
+            "Create vercel.json or next.config.js headers configuration",
+            "Static assets: Cache-Control: public, max-age=31536000, immutable",
+            "HTML: Cache-Control: public, max-age=0, must-revalidate",
+            "Use securityheaders.com to validate"
+          ]
+        },
+        {
+          "id": "story_040",
+          "title": "Create deployment checklist and documentation",
+          "status": "pending",
+          "estimated_time": "1h",
+          "acceptance_criteria": [
+            "Deployment checklist documented in README",
+            "Environment variables documented",
+            "Local development setup instructions",
+            "Content authoring guide (MDX frontmatter schema)",
+            "Troubleshooting section for common issues"
+          ],
+          "apl_goal": "Create comprehensive README with deployment checklist, environment setup instructions, content authoring guide with frontmatter schema, and troubleshooting tips",
+          "technical_notes": [
+            "Document all required environment variables",
+            "Include example .env.local file",
+            "Add Giscus setup instructions",
+            "Document how to add new blog posts"
+          ]
+        }
+      ]
+    }
+  ],
+  "architectural_decisions": [
+    "Next.js automatic image optimization with WebP format",
+    "Bundle analyzer for ongoing performance monitoring",
+    "Lighthouse CI integration for continuous performance testing",
+    "WCAG 2.1 AA minimum compliance (targeting AAA where feasible)",
+    "Vercel Edge Network for global CDN delivery",
+    "Security headers configured via vercel.json",
+    "Production caching: 1 year for immutable assets, revalidation for HTML"
+  ],
+  "dependencies": ["epic_001", "epic_002", "epic_003", "epic_004", "epic_005"],
+  "blocks_epics": [],
+  "performance_targets": {
+    "lighthouse_performance": 98,
+    "lighthouse_accessibility": 100,
+    "lighthouse_best_practices": 100,
+    "lighthouse_seo": 100,
+    "lcp": "< 2.0s",
+    "fid": "< 50ms",
+    "cls": "< 0.05",
+    "bundle_size_gzipped": "< 100KB"
+  }
+}

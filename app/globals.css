@@ -1,0 +1,123 @@
+@import "tailwindcss";
+
+@theme inline {
+  --color-background: #0a0a0a;
+  --color-surface: #333333;
+  --color-text: #f5f5f5;
+  --color-muted: #a9a9a9;
+  --color-accent: #00ff88;
+
+  --font-sans: var(--font-space-grotesk), ui-sans-serif, system-ui, sans-serif;
+}
+
+@layer base {
+  html {
+    font-family: var(--font-sans);
+  }
+}
+
+body {
+  background-color: var(--color-background);
+  color: var(--color-text);
+}
+
+/* Code block styling (rehype-pretty-code output) */
+.mdx-content pre {
+  margin: 1.5rem 0;
+  padding: 0;
+  background-color: #0a0a0a !important;
+  border: 2px solid #f5f5f5;
+  overflow-x: auto;
+}
+
+.mdx-content pre > code {
+  display: grid;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  font-size: 0.875rem;
+  line-height: 1.75rem;
+  counter-reset: line;
+  padding: 1rem;
+}
+
+.mdx-content pre > code > [data-line] {
+  padding: 0 1rem;
+  border-left: 2px solid transparent;
+}
+
+/* Line numbers */
+.mdx-content pre > code[data-line-numbers] > [data-line]::before {
+  counter-increment: line;
+  content: counter(line);
+  display: inline-block;
+  width: 1.5rem;
+  margin-right: 1.5rem;
+  text-align: right;
+  color: #666666;
+  user-select: none;
+}
+
+/* Highlighted lines */
+.mdx-content pre > code > [data-highlighted-line] {
+  background-color: rgba(255, 184, 108, 0.1);
+  border-left-color: #ffb86c;
+}
+
+/* Line numbers for highlighted lines */
+.mdx-content pre > code[data-line-numbers] > [data-highlighted-line]::before {
+  color: #ffb86c;
+  font-weight: bold;
+}
+
+/* Diff support - added lines */
+.mdx-content pre > code > [data-line].diff.add {
+  background-color: rgba(168, 230, 163, 0.1);
+  border-left-color: #a8e6a3;
+}
+
+.mdx-content pre > code > [data-line].diff.add::after {
+  content: '+';
+  position: absolute;
+  left: 0.5rem;
+  color: #a8e6a3;
+}
+
+/* Diff support - removed lines */
+.mdx-content pre > code > [data-line].diff.remove {
+  background-color: rgba(255, 85, 85, 0.1);
+  border-left-color: #ff5555;
+}
+
+.mdx-content pre > code > [data-line].diff.remove::after {
+  content: '-';
+  position: absolute;
+  left: 0.5rem;
+  color: #ff5555;
+}
+
+/* Smooth scrollbar for code blocks */
+.mdx-content pre::-webkit-scrollbar {
+  height: 8px;
+}
+
+.mdx-content pre::-webkit-scrollbar-track {
+  background: #1a1a1a;
+  border: 2px solid #0a0a0a;
+}
+
+.mdx-content pre::-webkit-scrollbar-thumb {
+  background: #666666;
+  border: 2px solid #0a0a0a;
+}
+
+.mdx-content pre::-webkit-scrollbar-thumb:hover {
+  background: #00ff88;
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

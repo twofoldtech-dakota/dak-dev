@@ -1,0 +1,65 @@
+{
+  "version": "1.0.0",
+  "project_id": "proj_dakota_blog_2026",
+  "project_name": "Dakota Smith Personal Blog",
+  "original_goal": "Build high-performance personal blog for Dakota Smith (@daksmitty) with Next.js 16+ SSG, Neo-brutalist dark design, advanced code highlighting, accessibility-first approach, Lighthouse 98+ scores, and Vercel deployment",
+  "status": "planned",
+  "created_at": "2026-01-25T00:00:00Z",
+  "detected_domains": ["frontend", "web-performance", "accessibility", "content-management"],
+  "epic_order": [
+    "epic_001",
+    "epic_002",
+    "epic_003",
+    "epic_004",
+    "epic_005",
+    "epic_006"
+  ],
+  "metrics": {
+    "total_epics": 6,
+    "total_features": 18,
+    "total_stories": 47
+  },
+  "architectural_decisions": [
+    "Next.js 16+ with App Router and Turbopack for SSG and optimal performance",
+    "Tailwind CSS for styling with custom neo-brutalist theme",
+    "MDX for content authoring stored in /content/posts directory",
+    "Shiki for advanced syntax highlighting with custom themes",
+    "Framer Motion for animations with prefers-reduced-motion support",
+    "Giscus for comments loaded asynchronously with IntersectionObserver",
+    "Vercel Analytics for simple page view tracking (no cookies)",
+    "GitHub repository as single source of truth for content and backup",
+    "Schema.org JSON-LD, OpenGraph, and XML sitemaps for SEO",
+    "Space Grotesk font family (Google Fonts) for typography",
+    "Tree-shaken bundle optimization targeting Lighthouse 98+ scores",
+    "WCAG 2.1 AA compliance minimum for accessibility"
+  ],
+  "design_system": {
+    "colors": {
+      "background": "#0A0A0A",
+      "surface": "#333333",
+      "text": "#A9A9A9",
+      "accent": "TBD (high-contrast neon for neo-brutalist aesthetic)"
+    },
+    "typography": {
+      "primary_font": "Space Grotesk",
+      "font_source": "Google Fonts (self-hosted for performance)"
+    },
+    "style": "Neo-brutalist dark theme with accessibility-first principles"
+  },
+  "performance_targets": {
+    "lighthouse_performance": 98,
+    "lighthouse_accessibility": 100,
+    "lighthouse_best_practices": 100,
+    "lighthouse_seo": 100,
+    "first_contentful_paint": "< 1.0s",
+    "time_to_interactive": "< 2.0s",
+    "cumulative_layout_shift": "< 0.1"
+  },
+  "content_strategy": {
+    "author": "Dakota Smith (single author)",
+    "publish_frequency": "Weekly publish-when-ready",
+    "images_per_post": "2 (thumbnail + hero)",
+    "storage": "GitHub repository",
+    "format": "MDX"
+  }
+}

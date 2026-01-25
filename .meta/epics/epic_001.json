@@ -1,0 +1,135 @@
+{
+  "id": "epic_001",
+  "title": "Foundation & Project Setup",
+  "description": "Initialize Next.js 16+ project with TypeScript, configure build tooling, establish folder structure, and set up development environment with all core dependencies.",
+  "status": "pending",
+  "priority": 1,
+  "estimated_duration": "4-6 hours",
+  "features": [
+    {
+      "id": "feat_001",
+      "title": "Next.js Project Initialization",
+      "status": "pending",
+      "stories": [
+        {
+          "id": "story_001",
+          "title": "Bootstrap Next.js 16 with TypeScript and App Router",
+          "status": "pending",
+          "estimated_time": "45min",
+          "acceptance_criteria": [
+            "Next.js 16+ initialized with App Router enabled",
+            "TypeScript configured with strict mode",
+            "ESLint and Prettier configured with recommended rules",
+            "Basic folder structure created: /app, /components, /lib, /content, /public",
+            "Development server runs successfully on localhost:3000"
+          ],
+          "apl_goal": "Initialize Next.js 16+ project with TypeScript, App Router, ESLint, Prettier, and establish base folder structure following Next.js best practices",
+          "technical_notes": [
+            "Use create-next-app with TypeScript flag",
+            "Configure next.config.js for optimal production builds",
+            "Set up tsconfig.json with path aliases (@/components, @/lib, etc.)"
+          ]
+        },
+        {
+          "id": "story_002",
+          "title": "Install and configure Tailwind CSS",
+          "status": "pending",
+          "estimated_time": "30min",
+          "acceptance_criteria": [
+            "Tailwind CSS v3+ installed and configured",
+            "Custom theme variables defined for neo-brutalist palette (#0A0A0A, #333333, #A9A9A9)",
+            "Tailwind directives added to globals.css",
+            "JIT mode enabled for optimal bundle size",
+            "First test component renders with Tailwind classes successfully"
+          ],
+          "apl_goal": "Install and configure Tailwind CSS with custom neo-brutalist dark theme, enable JIT mode, and verify styling works with test component",
+          "technical_notes": [
+            "Configure tailwind.config.js with custom color palette",
+            "Enable tree-shaking for production builds",
+            "Add custom utilities for accessibility (focus-visible styles)"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "feat_002",
+      "title": "Typography & Font System",
+      "status": "pending",
+      "stories": [
+        {
+          "id": "story_003",
+          "title": "Integrate Space Grotesk font with optimization",
+          "status": "pending",
+          "estimated_time": "45min",
+          "acceptance_criteria": [
+            "Space Grotesk font family installed (self-hosted or next/font/google)",
+            "Font loading optimized with font-display: swap",
+            "Typography scale defined in Tailwind config (h1-h6, body, code)",
+            "FOIT/FOUT prevented with proper fallback fonts",
+            "Font files served with proper caching headers"
+          ],
+          "apl_goal": "Integrate Space Grotesk font using next/font/google for optimal loading, configure typography scale in Tailwind, and ensure no layout shift during font loading",
+          "technical_notes": [
+            "Use next/font/google for automatic optimization",
+            "Define font weights needed: 400 (regular), 600 (semibold), 700 (bold)",
+            "Set up fallback to system fonts (sans-serif stack)"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "feat_003",
+      "title": "MDX Content Pipeline",
+      "status": "pending",
+      "stories": [
+        {
+          "id": "story_004",
+          "title": "Configure MDX support with next-mdx-remote",
+          "status": "pending",
+          "estimated_time": "1h",
+          "acceptance_criteria": [
+            "next-mdx-remote or @next/mdx installed and configured",
+            "MDX files can be parsed from /content/posts directory",
+            "Frontmatter extraction working (title, date, excerpt, slug)",
+            "Custom MDX components can be injected (for enhanced markdown)",
+            "Test MDX file renders successfully"
+          ],
+          "apl_goal": "Set up MDX content pipeline with next-mdx-remote, configure frontmatter parsing with gray-matter, and create MDX components wrapper for custom rendering",
+          "technical_notes": [
+            "Use gray-matter for frontmatter parsing",
+            "Create content utility functions in /lib/mdx.ts",
+            "Support for reading-time calculation"
+          ]
+        },
+        {
+          "id": "story_005",
+          "title": "Create content directory structure and sample posts",
+          "status": "pending",
+          "estimated_time": "30min",
+          "acceptance_criteria": [
+            "/content/posts directory created with proper structure",
+            "Frontmatter schema documented (title, date, excerpt, slug, tags, thumbnail, hero)",
+            "2 sample MDX posts created for development",
+            "Image storage pattern established (/public/images/posts/[slug]/)",
+            "Content loading utilities tested with sample posts"
+          ],
+          "apl_goal": "Create /content/posts directory structure, define frontmatter schema, create 2 sample MDX posts with images, and verify content loading pipeline works end-to-end",
+          "technical_notes": [
+            "Frontmatter should include: title, date, excerpt, slug, tags[], thumbnail, hero, published (boolean)",
+            "Sample posts should demonstrate code blocks and images"
+          ]
+        }
+      ]
+    }
+  ],
+  "architectural_decisions": [
+    "Next.js App Router for file-based routing and RSC support",
+    "TypeScript strict mode for type safety",
+    "Tailwind CSS with JIT for minimal bundle size",
+    "next/font/google for automatic font optimization",
+    "MDX for content authoring with frontmatter metadata",
+    "File-system based content management (no CMS needed)"
+  ],
+  "dependencies": [],
+  "blocks_epics": ["epic_002", "epic_003", "epic_004", "epic_005", "epic_006"]
+}

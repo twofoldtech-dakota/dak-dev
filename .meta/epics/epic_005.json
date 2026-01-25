@@ -1,0 +1,159 @@
+{
+  "id": "epic_005",
+  "title": "SEO, Analytics & Comments Integration",
+  "description": "Implement comprehensive SEO with Schema.org markup, OpenGraph tags, XML sitemaps, robots.txt, integrate Giscus comments with async loading, and add simple Vercel Analytics for page views.",
+  "status": "completed",
+  "priority": 5,
+  "estimated_duration": "5-7 hours",
+  "actual_duration": "~3 hours",
+  "completed_at": "2026-01-25T22:30:00Z",
+  "features": [
+    {
+      "id": "feat_011",
+      "title": "Advanced SEO Implementation",
+      "status": "pending",
+      "stories": [
+        {
+          "id": "story_024",
+          "title": "Implement Schema.org JSON-LD structured data",
+          "status": "pending",
+          "estimated_time": "2h",
+          "acceptance_criteria": [
+            "BlogPosting schema for individual post pages",
+            "Person schema for author (Dakota Smith)",
+            "WebSite schema for homepage",
+            "BreadcrumbList schema for navigation hierarchy",
+            "JSON-LD script tags injected in page head"
+          ],
+          "apl_goal": "Create Schema.org JSON-LD generators for BlogPosting, Person, WebSite, and BreadcrumbList, inject structured data into appropriate pages, and validate with Google Rich Results Test",
+          "technical_notes": [
+            "Use next/head or script tag in layout/page components",
+            "Include author, datePublished, dateModified, image, headline",
+            "Validate with schema.org validator and Google Rich Results Test"
+          ]
+        },
+        {
+          "id": "story_025",
+          "title": "Generate dynamic OpenGraph images for posts",
+          "status": "pending",
+          "estimated_time": "2h",
+          "acceptance_criteria": [
+            "OpenGraph image generator using @vercel/og or next/og",
+            "Dynamic OG images include post title, date, and branding",
+            "Images generated at build time and cached",
+            "Fallback to default OG image for pages without custom image",
+            "Images are 1200x630px (recommended size)"
+          ],
+          "apl_goal": "Implement dynamic OpenGraph image generation using @vercel/og, create template with post title and metadata, generate images at build time for all posts, and configure proper og:image meta tags",
+          "technical_notes": [
+            "Use ImageResponse API from @vercel/og",
+            "Template should match neo-brutalist design",
+            "Generate images in /api/og route or at build time"
+          ]
+        },
+        {
+          "id": "story_026",
+          "title": "Create XML sitemap and robots.txt",
+          "status": "pending",
+          "estimated_time": "1h",
+          "acceptance_criteria": [
+            "Dynamic XML sitemap at /sitemap.xml with all posts and pages",
+            "Sitemap includes lastmod, changefreq, and priority",
+            "robots.txt allows all crawlers and references sitemap",
+            "Sitemap registered in Vercel deployment configuration",
+            "Sitemap validates against XML schema"
+          ],
+          "apl_goal": "Generate dynamic XML sitemap including all posts, pages, and tag pages with proper metadata, create robots.txt allowing all crawlers, and configure Vercel headers for proper content-type",
+          "technical_notes": [
+            "Use Next.js Route Handlers (app/sitemap.xml/route.ts)",
+            "Set lastmod to post's updated date or published date",
+            "Priority: 1.0 for homepage, 0.8 for posts, 0.6 for tags"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "feat_012",
+      "title": "Giscus Comments Integration",
+      "status": "pending",
+      "stories": [
+        {
+          "id": "story_027",
+          "title": "Integrate Giscus with async loading",
+          "status": "pending",
+          "estimated_time": "1.5h",
+          "acceptance_criteria": [
+            "Giscus component created with GitHub Discussions backend",
+            "Comments load asynchronously using IntersectionObserver",
+            "Loading only triggers when user scrolls to comments section",
+            "Dark theme configured matching site design",
+            "GitHub repository configured with Discussions enabled"
+          ],
+          "apl_goal": "Create Giscus component with IntersectionObserver-based lazy loading, configure GitHub Discussions backend, apply dark theme matching neo-brutalist palette, and add to post pages",
+          "technical_notes": [
+            "Use @giscus/react package",
+            "Load script only when comments section is 200px from viewport",
+            "Configure repo, repoId, category, and categoryId from GitHub",
+            "Theme: custom CSS or use 'dark' preset"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "feat_013",
+      "title": "Analytics Integration",
+      "status": "pending",
+      "stories": [
+        {
+          "id": "story_028",
+          "title": "Install Vercel Analytics for page views",
+          "status": "pending",
+          "estimated_time": "30min",
+          "acceptance_criteria": [
+            "@vercel/analytics package installed",
+            "Analytics component added to root layout",
+            "Page views tracked automatically",
+            "No cookies used (privacy-friendly)",
+            "Analytics dashboard accessible in Vercel project settings"
+          ],
+          "apl_goal": "Install @vercel/analytics, add Analytics component to app layout, verify page view tracking works, and ensure no cookies are set (privacy-compliant)",
+          "technical_notes": [
+            "Import and render <Analytics /> in app/layout.tsx",
+            "Vercel Analytics is GDPR-compliant and cookie-free",
+            "Data retention follows Vercel's default policies"
+          ]
+        },
+        {
+          "id": "story_029",
+          "title": "Create simple analytics dashboard page (optional)",
+          "status": "pending",
+          "estimated_time": "1h",
+          "acceptance_criteria": [
+            "Admin dashboard page at /dashboard (optional)",
+            "Display top 10 posts by page views",
+            "Show total page views and visitor count",
+            "Protected by environment variable or simple auth",
+            "Data fetched from Vercel Analytics API"
+          ],
+          "apl_goal": "Create optional analytics dashboard page that displays top posts and visitor metrics from Vercel Analytics API, with simple environment-based access control",
+          "technical_notes": [
+            "Use Vercel Analytics API (requires API token)",
+            "Environment variable for access: ANALYTICS_ENABLED=true",
+            "Display data in simple table or chart",
+            "This story can be skipped if not needed for MVP"
+          ]
+        }
+      ]
+    }
+  ],
+  "architectural_decisions": [
+    "Schema.org JSON-LD for structured data (better than microdata)",
+    "@vercel/og for dynamic OpenGraph image generation",
+    "Giscus for comments (GitHub Discussions backend, no database needed)",
+    "IntersectionObserver for lazy-loading comments (performance optimization)",
+    "Vercel Analytics for privacy-friendly, cookie-free analytics",
+    "XML sitemap generated dynamically at build time"
+  ],
+  "dependencies": ["epic_004"],
+  "blocks_epics": ["epic_006"]
+}

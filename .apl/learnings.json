@@ -1,0 +1,37 @@
+{
+  "version": "1.0.0",
+  "project_id": "proj_dakota_blog_2026",
+  "last_updated": "2026-01-25T00:00:00Z",
+  "success_patterns": [],
+  "anti_patterns": [],
+  "user_preferences": [
+    {
+      "id": "pref_001",
+      "category": "ui_workflow",
+      "preference": "Use Pencil.dev MCP for UI component design and verification",
+      "context": "All UI tasks in Epics 3 and 4 should reference Pencil canvas designs",
+      "learned_at": "2026-01-25T00:00:00Z"
+    },
+    {
+      "id": "pref_002",
+      "category": "design_system",
+      "preference": "Neo-brutalist styling with thick borders (2-4px), hard shadows, #0A0A0A background, #F5F5F5 text",
+      "context": "Apply consistently across all UI components",
+      "learned_at": "2026-01-25T00:00:00Z"
+    }
+  ],
+  "project_conventions": [
+    {
+      "id": "conv_001",
+      "category": "verification",
+      "convention": "UI tasks require Pencil MCP visual verification before completion",
+      "source": ".apl/config.json custom_checks",
+      "learned_at": "2026-01-25T00:00:00Z"
+    }
+  ],
+  "technique_stats": {
+    "total_sessions": 0,
+    "successful_patterns_applied": 0,
+    "anti_patterns_avoided": 0
+  }
+}
