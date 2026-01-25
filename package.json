@@ -14,7 +14,8 @@
     "validate:content:all": "npx tsx scripts/validate-posts.ts --all",
     "images:process": "npx tsx scripts/process-images.ts",
     "images:validate": "npx tsx scripts/process-images.ts --validate",
-    "images:check": "npx tsx scripts/process-images.ts --check"
+    "images:check": "npx tsx scripts/process-images.ts --check",
+    "images:placeholder": "npx tsx scripts/generate-placeholder-images.ts"
   },
   "repository": {
     "type": "git",
