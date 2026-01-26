@@ -38,5 +38,6 @@ Thumbs.db
 # TypeScript build cache
 tsconfig.tsbuildinfo
 
-# Claude Code
-.claude/
+# Claude Code (except commands which are version controlled)
+.claude/*
+!.claude/commands/
