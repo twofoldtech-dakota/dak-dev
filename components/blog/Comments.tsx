@@ -15,7 +15,11 @@ const Giscus = dynamic(() => import('@giscus/react'), {
   loading: () => <p className="text-muted">Loading comments...</p>,
 });
 
-export function Comments() {
+interface CommentsProps {
+  className?: string;
+}
+
+export function Comments({ className = '' }: CommentsProps) {
   const [isVisible, setIsVisible] = useState(false);
   const commentRef = useRef<HTMLDivElement>(null);
 
@@ -47,7 +51,7 @@ export function Comments() {
   return (
     <div
       ref={commentRef}
-      className="border-t-4 border-text pt-12 mt-16"
+      className={`border-t-4 border-text pt-12 ${className}`}
       id="comments"
     >
       <h2 className="text-3xl font-bold mb-8">Comments</h2>

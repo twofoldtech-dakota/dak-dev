@@ -1,10 +1,13 @@
 import { notFound } from 'next/navigation';
 import { MDXRemote } from 'next-mdx-remote/rsc';
-import { getPostBySlug, getAllSlugs } from '@/lib/posts';
+import { getPostBySlug, getAllSlugs, getRelatedPosts } from '@/lib/posts';
 import { extractTableOfContents } from '@/lib/toc';
 import { CodeBlockWrapper } from '@/components/blog/CodeBlockWrapper';
 import { TableOfContents } from '@/components/blog/TableOfContents';
 import { Comments } from '@/components/blog/Comments';
+import { RelatedPosts } from '@/components/blog/RelatedPosts';
+import { ReadingProgress } from '@/components/blog/ReadingProgress';
+import { ShareButtons } from '@/components/blog/ShareButtons';
 import { TagList } from '@/components/ui/Tag';
 import { mdxComponents } from '@/components/blog/MdxComponents';
 import { JsonLd } from '@/components/seo/JsonLd';
@@ -82,6 +85,17 @@ export default async function BlogPost({
   // Extract table of contents
   const toc = extractTableOfContents(post.content);
 
+  // Get related posts
+  const relatedPostsData = getRelatedPosts(slug, 3);
+  const relatedPosts = relatedPostsData.map((relatedPost) => ({
+    slug: relatedPost.frontmatter.slug,
+    title: relatedPost.frontmatter.title,
+    excerpt: relatedPost.frontmatter.excerpt,
+    thumbnail: relatedPost.frontmatter.thumbnail,
+    tags: relatedPost.frontmatter.tags,
+    date: relatedPost.frontmatter.date,
+  }));
+
   // Configure rehype-pretty-code with our custom theme
   const mdxOptions: any = {
     mdxOptions: {
@@ -115,8 +129,15 @@ export default async function BlogPost({
     { name: post.frontmatter.title },
   ]);
 
+  // Generate full URL for sharing
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://your-domain.vercel.app';
+  const fullUrl = `${baseUrl}/blog/${slug}`;
+
   return (
     <article className="min-h-screen pb-16">
+      {/* Reading Progress Indicator */}
+      <ReadingProgress />
+
       {/* Schema.org JSON-LD */}
       <JsonLd data={blogPostingSchema} />
       <JsonLd data={breadcrumbSchema} />
@@ -192,6 +213,12 @@ export default async function BlogPost({
                 </div>
               )}
 
+              {/* Share Buttons (Top) */}
+              <ShareButtons
+                title={post.frontmatter.title}
+                url={fullUrl}
+                excerpt={post.frontmatter.excerpt}
+              />
             </header>
 
             {/* Post Content */}
@@ -208,8 +235,22 @@ export default async function BlogPost({
               </CodeBlockWrapper>
             </div>
 
+            {/* Share Buttons */}
+            <div className="mt-16 pt-8 border-t-4 border-text">
+              <ShareButtons
+                title={post.frontmatter.title}
+                url={fullUrl}
+                excerpt={post.frontmatter.excerpt}
+              />
+            </div>
+
+            {/* Related Posts */}
+            {relatedPosts.length > 0 && (
+              <RelatedPosts posts={relatedPosts} className="mt-16" />
+            )}
+
             {/* Comments Section */}
-            <Comments />
+            <Comments className="mt-16" />
 
             {/* Back to Blog */}
             <div className="mt-16 pt-8 border-t-4 border-text">

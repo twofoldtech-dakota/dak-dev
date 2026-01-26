@@ -1,12 +1,57 @@
 @import "tailwindcss";
 
-@theme inline {
-  --color-background: #0a0a0a;
-  --color-surface: #333333;
-  --color-text: #f5f5f5;
-  --color-muted: #a9a9a9;
-  --color-accent: #00ff88;
+/*
+ * CSS Custom Properties - defined at :root for proper cascade inheritance
+ * These are the source of truth for colors that can be overridden by theme classes
+ */
+:root {
+  /* Dark mode colors (default) */
+  --color-background-dark: #0a0a0a;
+  --color-surface-dark: #333333;
+  --color-text-dark: #f5f5f5;
+  --color-muted-dark: #a9a9a9;
+  --color-accent-dark: #00ff88;
 
+  /* Light mode colors */
+  --color-background-light: #f5f5f5;
+  --color-surface-light: #e0e0e0;
+  --color-text-light: #0a0a0a;
+  --color-muted-light: #666666;
+  --color-accent-light: #00cc6a;
+
+  /* Active theme colors - default to dark */
+  --color-background: var(--color-background-dark);
+  --color-surface: var(--color-surface-dark);
+  --color-text: var(--color-text-dark);
+  --color-muted: var(--color-muted-dark);
+  --color-accent: var(--color-accent-dark);
+}
+
+/* Light mode override - applies when html has 'light' class */
+html.light {
+  --color-background: var(--color-background-light);
+  --color-surface: var(--color-surface-light);
+  --color-text: var(--color-text-light);
+  --color-muted: var(--color-muted-light);
+  --color-accent: var(--color-accent-light);
+}
+
+/* Dark mode explicit (default, but explicit for clarity) */
+html.dark {
+  --color-background: var(--color-background-dark);
+  --color-surface: var(--color-surface-dark);
+  --color-text: var(--color-text-dark);
+  --color-muted: var(--color-muted-dark);
+  --color-accent: var(--color-accent-dark);
+}
+
+/* Tailwind theme mapping - maps Tailwind utilities to CSS variables */
+@theme inline {
+  --color-background: var(--color-background);
+  --color-surface: var(--color-surface);
+  --color-text: var(--color-text);
+  --color-muted: var(--color-muted);
+  --color-accent: var(--color-accent);
   --font-sans: var(--font-space-grotesk), ui-sans-serif, system-ui, sans-serif;
 }
 
@@ -113,8 +158,53 @@ body {
   background: #00ff88;
 }
 
+/* Share buttons - Neo-brutalist styling */
+.share-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 44px;
+  min-height: 44px;
+  padding: 0.75rem;
+  background-color: var(--color-surface);
+  color: var(--color-text);
+  border: 3px solid var(--color-text);
+  box-shadow: 4px 4px 0 0 rgba(245, 245, 245, 0.3);
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.share-button:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: 6px 6px 0 0 rgba(245, 245, 245, 0.4);
+}
+
+.share-button:active {
+  transform: translate(2px, 2px);
+  box-shadow: 2px 2px 0 0 rgba(245, 245, 245, 0.2);
+}
+
+.share-button:focus {
+  outline: none;
+  box-shadow: 0 0 0 4px var(--color-accent);
+}
+
 /* Reduced motion support */
 @media (prefers-reduced-motion: reduce) {
+  .share-button {
+    transition: none;
+  }
+
+  .share-button:hover {
+    transform: none;
+    box-shadow: 4px 4px 0 0 rgba(245, 245, 245, 0.3);
+  }
+
+  .share-button:active {
+    transform: none;
+  }
+
   * {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;

@@ -4,6 +4,8 @@ import { useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
+import { Search } from '@/components/ui/Search';
+import { ThemeToggle } from '@/components/ui/ThemeToggle';
 
 const navigation = [
   { name: 'Home', href: '/' },
@@ -59,6 +61,12 @@ export function Header() {
                 )}
               </Link>
             ))}
+
+            {/* Search */}
+            <Search />
+
+            {/* Theme Toggle */}
+            <ThemeToggle />
 
             {/* Social Links */}
             <div className="flex items-center gap-3 ml-4 pl-4 border-l-2 border-muted">
@@ -152,6 +160,11 @@ export function Header() {
                     {item.name}
                   </Link>
                 ))}
+
+                {/* Mobile Theme Toggle */}
+                <div className="px-4 pt-2">
+                  <ThemeToggle />
+                </div>
 
                 {/* Mobile Social Links */}
                 <div className="flex items-center gap-4 px-4 pt-4 mt-4 border-t-2 border-text">

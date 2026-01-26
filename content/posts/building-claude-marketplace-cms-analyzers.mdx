@@ -43,7 +43,7 @@ claude-marketplace/
     └── performance-rules/    # Common performance patterns
 ```
 
-Each analyzer is a standalone Claude Code plugin. Teams install only what they need.
+Each analyzer is a standalone Claude Code plugin. Teams install only what they need. The plugin architecture enables specialized agents to operate autonomously, similar to [how APL uses multi-agent orchestration](/blog/building-apl-autonomous-coding-agent).
 
 ## Anatomy of an Analyzer Plugin
 
@@ -310,7 +310,7 @@ Building this marketplace taught me about plugin architecture:
 
 **Skills are underutilized**. Most Claude Code users don't realize they can generate project-specific skills. The `/enhance` command surfaces this capability.
 
-**Markdown is powerful**. The entire plugin—agents, commands, rules—is markdown and JSON. No build process, no compilation. Edit and reload.
+**Markdown is powerful**. The entire plugin—agents, commands, rules—is markdown and JSON. No build process, no compilation. Edit and reload. This simplicity enabled APL to [build complex projects entirely autonomously](/blog/how-apl-built-this-blog).
 
 ## Open Source
 

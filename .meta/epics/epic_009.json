@@ -1,0 +1,99 @@
+{
+  "epic_id": "epic_009",
+  "title": "Reading Experience Enhancements",
+  "description": "Add reading progress indicator and social sharing buttons to improve user engagement",
+  "priority": 3,
+  "estimated_hours": "5-6 hours",
+  "features": [
+    {
+      "feature_id": "feature_009_001",
+      "title": "Reading Progress Indicator",
+      "description": "Visual progress bar showing scroll depth through blog posts",
+      "stories": [
+        {
+          "story_id": "story_057",
+          "title": "Build scroll progress tracker",
+          "description": "Create hook and component to track reading progress through article",
+          "acceptance_criteria": [
+            "Progress bar fixed at top of viewport during scroll",
+            "Bar width represents percentage of article read (0-100%)",
+            "Smooth animation as user scrolls (requestAnimationFrame or CSS transform)",
+            "Only appears on blog post pages, not other pages",
+            "Hides when user scrolls up past article start",
+            "Respects prefers-reduced-motion for smooth scrolling",
+            "Performance optimized (no layout thrashing)"
+          ],
+          "technical_notes": "Use IntersectionObserver to detect article bounds, useScroll from framer-motion or custom hook with addEventListener('scroll')",
+          "dependencies": [],
+          "estimated_hours": "2-3 hours"
+        },
+        {
+          "story_id": "story_058",
+          "title": "Style progress bar with neo-brutalist design",
+          "description": "Apply brand styling to reading progress indicator",
+          "acceptance_criteria": [
+            "Progress bar uses accent color with thick height (4-6px)",
+            "Hard edges, no rounded corners or gradients",
+            "High contrast against background",
+            "Visible but non-intrusive (doesn't block content)",
+            "Z-index ensures it appears above content but below modals",
+            "Optional: add percentage text for accessibility"
+          ],
+          "technical_notes": "Fixed position, top: 0, transform: scaleX() for width animation",
+          "dependencies": ["story_057"],
+          "estimated_hours": "1 hour"
+        }
+      ]
+    },
+    {
+      "feature_id": "feature_009_002",
+      "title": "Social Sharing Buttons",
+      "description": "Add share buttons for Twitter/X, LinkedIn, and native sharing",
+      "stories": [
+        {
+          "story_id": "story_059",
+          "title": "Create ShareButtons component",
+          "description": "Build component with share buttons for social platforms",
+          "acceptance_criteria": [
+            "Component shows share buttons for Twitter/X, LinkedIn, and native Web Share API",
+            "Twitter/X share includes post title and URL with handle @daksmitty",
+            "LinkedIn share includes post title, excerpt, and URL",
+            "Native share button uses navigator.share() when available (mobile/modern browsers)",
+            "Fallback to manual links when Web Share API unavailable",
+            "Copy link button with success feedback (checkmark or toast)",
+            "Buttons grouped in horizontal layout with consistent spacing",
+            "Each button has descriptive ARIA label"
+          ],
+          "technical_notes": "Client component with feature detection for navigator.share, use share URLs: twitter.com/intent/tweet, linkedin.com/sharing/share-offsite",
+          "dependencies": [],
+          "estimated_hours": "2-3 hours"
+        },
+        {
+          "story_id": "story_060",
+          "title": "Integrate ShareButtons into blog post layout",
+          "description": "Add share buttons to blog post page in logical location",
+          "acceptance_criteria": [
+            "Share buttons appear at end of post content (before comments)",
+            "Alternative: sticky floating share bar on desktop (left/right of content)",
+            "Neo-brutalist button styling with thick borders",
+            "Hover states with transform animation (respects reduced motion)",
+            "Mobile-friendly with appropriate touch target sizes (min 44x44px)",
+            "Positioned to not interfere with reading flow"
+          ],
+          "technical_notes": "Add to app/blog/[slug]/page.tsx, consider position (inline vs sticky sidebar)",
+          "dependencies": ["story_059"],
+          "estimated_hours": "1 hour"
+        }
+      ]
+    }
+  ],
+  "success_criteria": [
+    "Reading progress bar appears smoothly on blog posts",
+    "Share buttons work on all major platforms and browsers",
+    "Native sharing works on mobile devices",
+    "All features maintain 60fps scroll performance",
+    "Accessibility maintained (keyboard nav, screen readers)"
+  ],
+  "blockers": [],
+  "notes": "Reading progress and share buttons should enhance without disrupting reading experience"
+}

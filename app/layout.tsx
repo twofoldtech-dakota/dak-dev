@@ -5,6 +5,7 @@ import { Analytics } from '@vercel/analytics/react';
 import { SpeedInsights } from '@vercel/speed-insights/next';
 import { Header } from '@/components/layout/Header';
 import { Footer } from '@/components/layout/Footer';
+import { ThemeProvider } from '@/contexts/ThemeContext';
 import './globals.css';
 
 const spaceGrotesk = Space_Grotesk({
@@ -80,13 +81,45 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={spaceGrotesk.variable}>
+    <html lang="en" className={`${spaceGrotesk.variable} dark`} suppressHydrationWarning>
+      <head>
+        {/* FOUC prevention: Apply theme class before CSS loads */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+(function() {
+  try {
+    var theme = localStorage.getItem('theme-preference') || 'dark';
+    var resolved = theme;
+
+    if (theme === 'system') {
+      var isDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      resolved = isDark ? 'dark' : 'light';
+    }
+
+    document.documentElement.classList.add(resolved);
+  } catch (e) {
+    document.documentElement.classList.add('dark');
+  }
+})();
+            `.trim(),
+          }}
+        />
+        <link
+          rel="alternate"
+          type="application/rss+xml"
+          title="Dakota Smith Blog RSS Feed"
+          href="/feed.xml"
+        />
+      </head>
       <body className="antialiased font-sans min-h-screen flex flex-col">
-        <MotionConfig reducedMotion="user">
-          <Header />
-          <main className="flex-grow">{children}</main>
-          <Footer />
-        </MotionConfig>
+        <ThemeProvider>
+          <MotionConfig reducedMotion="user">
+            <Header />
+            <main className="flex-grow">{children}</main>
+            <Footer />
+          </MotionConfig>
+        </ThemeProvider>
         <Analytics />
         <SpeedInsights />
       </body>

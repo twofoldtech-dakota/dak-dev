@@ -1,0 +1,111 @@
+{
+  "epic_id": "epic_007",
+  "title": "Search & Discovery Features",
+  "description": "Implement client-side search functionality and related posts recommendations to improve content discoverability",
+  "priority": 1,
+  "estimated_hours": "6-8 hours",
+  "features": [
+    {
+      "feature_id": "feature_007_001",
+      "title": "Client-Side Search",
+      "description": "Fast, accessible search across all blog posts without backend",
+      "stories": [
+        {
+          "story_id": "story_048",
+          "title": "Create search index generation script",
+          "description": "Build a script that generates a searchable JSON index from all published posts at build time, including title, excerpt, content, tags, and keywords",
+          "acceptance_criteria": [
+            "Script runs during build process and generates search-index.json",
+            "Index includes all published posts with title, excerpt, content preview, tags, keywords, slug, and date",
+            "Index is optimized for size (< 50KB gzipped)",
+            "Script excludes draft posts and unpublished content"
+          ],
+          "technical_notes": "Use existing getAllPosts() function and strip HTML/MDX tags from content",
+          "dependencies": [],
+          "estimated_hours": "1-2 hours"
+        },
+        {
+          "story_id": "story_049",
+          "title": "Build search UI component",
+          "description": "Create accessible search input component with live results dropdown",
+          "acceptance_criteria": [
+            "Search component appears in header with keyboard shortcut (Cmd/Ctrl+K)",
+            "Live search results appear as user types with debouncing (300ms)",
+            "Results show post title, excerpt preview, and matching tags",
+            "Keyboard navigation works (arrow keys, enter to navigate, escape to close)",
+            "ARIA labels and roles for screen reader accessibility",
+            "Empty state message when no results found",
+            "Neo-brutalist styling matches existing design system"
+          ],
+          "technical_notes": "Use client component with useState for search query, implement simple string matching (can upgrade to FlexSearch later if needed)",
+          "dependencies": ["story_048"],
+          "estimated_hours": "2-3 hours"
+        },
+        {
+          "story_id": "story_050",
+          "title": "Add search results page",
+          "description": "Create dedicated /search page for displaying search results with URL parameter support",
+          "acceptance_criteria": [
+            "Search page accessible at /search with query parameter (?q=term)",
+            "Shows search results in grid layout similar to blog listing page",
+            "Displays result count and search term",
+            "SEO meta tags with noindex to prevent duplicate content issues",
+            "Back button returns to previous page",
+            "Mobile responsive layout"
+          ],
+          "technical_notes": "Use searchParams in Next.js 13+ App Router, reuse BlogCard component",
+          "dependencies": ["story_049"],
+          "estimated_hours": "1-2 hours"
+        }
+      ]
+    },
+    {
+      "feature_id": "feature_007_002",
+      "title": "Related Posts Recommendations",
+      "description": "Show 'You might also like' section at end of blog posts",
+      "stories": [
+        {
+          "story_id": "story_051",
+          "title": "Build related posts algorithm",
+          "description": "Create function to find related posts based on tag similarity and recency",
+          "acceptance_criteria": [
+            "Function takes current post slug and returns 3 related posts",
+            "Algorithm prioritizes posts with matching tags (weighted scoring)",
+            "Excludes current post from results",
+            "Falls back to most recent posts if no tag matches",
+            "Returns empty array if fewer than 3 other posts exist",
+            "Performance optimized for build-time execution"
+          ],
+          "technical_notes": "Add getRelatedPosts() function to lib/posts.ts using tag intersection scoring",
+          "dependencies": [],
+          "estimated_hours": "1-2 hours"
+        },
+        {
+          "story_id": "story_052",
+          "title": "Create RelatedPosts UI component",
+          "description": "Build visual component to display related posts at end of blog post",
+          "acceptance_criteria": [
+            "Component displays 3 related posts in horizontal grid (responsive to 1 column on mobile)",
+            "Each post shows thumbnail, title, excerpt, and tags",
+            "Neo-brutalist card design with thick borders and hard shadows",
+            "Hover state with subtle transform animation (respects prefers-reduced-motion)",
+            "Semantic HTML with proper heading hierarchy",
+            "Links to related posts with focus indicators"
+          ],
+          "technical_notes": "Reuse existing BlogCard component or create simplified variant",
+          "dependencies": ["story_051"],
+          "estimated_hours": "1-2 hours"
+        }
+      ]
+    }
+  ],
+  "success_criteria": [
+    "Search functionality accessible from header with keyboard shortcut",
+    "Search results appear within 300ms of typing",
+    "Related posts section appears on all blog post pages",
+    "All features maintain WCAG 2.1 AA compliance",
+    "No performance regression (Lighthouse Performance >= 98)"
+  ],
+  "blockers": [],
+  "notes": "Search can start with simple string matching; advanced fuzzy search (FlexSearch) can be added later if needed"
+}

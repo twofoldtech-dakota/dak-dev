@@ -1,0 +1,249 @@
+---
+title: "My 2026 Dev Setup: From Vanilla Claude Code to Autonomous Workflows"
+date: "2026-01-25"
+excerpt: "See my full developer setup for 2026: triple-monitor workflow, Cursor across machines, MCP servers, and the custom Claude Code skills powering APL."
+slug: "my-2026-dev-setup"
+tags: ["productivity", "claude-code", "tools", "setup"]
+thumbnail: "/images/posts/my-2026-dev-setup/thumbnail.jpg"
+thumbnailBlur: "data:image/jpeg;base64,/9j/2wBDABALDA4MChAODQ4SERATGCgaGBYWGDEjJR0oOjM9PDkzODdASFxOQERXRTc4UG1RV19iZ2hnPk1xeXBkeFxlZ2P/2wBDARESEhgVGC8aGi9jQjhCY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2P/wAARCAAKAAoDASIAAhEBAxEB/8QAFgABAQEAAAAAAAAAAAAAAAAABgMF/8QAIBAAAQIFBQAAAAAAAAAAAAAAAQACAwQREjEFExUhQf/EABQBAQAAAAAAAAAAAAAAAAAAAAD/xAAUEQEAAAAAAAAAAAAAAAAAAAAA/9oADAMBAAIRAxEAPwBLMzbIMF7icAo3zQPdSp6g9+3HFzqXH1YgwEH/2Q=="
+hero: "/images/posts/my-2026-dev-setup/hero.jpg"
+heroBlur: "data:image/jpeg;base64,/9j/2wBDABALDA4MChAODQ4SERATGCgaGBYWGDEjJR0oOjM9PDkzODdASFxOQERXRTc4UG1RV19iZ2hnPk1xeXBkeFxlZ2P/2wBDARESEhgVGC8aGi9jQjhCY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2P/wAARCAAKAAoDASIAAhEBAxEB/8QAFgABAQEAAAAAAAAAAAAAAAAABgMF/8QAIBAAAQIFBQAAAAAAAAAAAAAAAQACAwQREjEFExUhQf/EABQBAQAAAAAAAAAAAAAAAAAAAAD/xAAUEQEAAAAAAAAAAAAAAAAAAAAA/9oADAMBAAIRAxEAPwBLMzbIMF7icAo3zQPdSp6g9+3HFxpcfVhjAQf/2Q=="
+published: true
+author: "Dakota Smith"
+keywords: ["developer setup 2026", "claude code setup", "dev environment", "MCP servers", "autonomous coding"]
+---
+
+Boris Cherny, the creator of Claude Code, describes his setup as "surprisingly vanilla." Mine is the opposite. This is my developer setup for 2026—a multi-machine workflow with heavily customized Claude Code at the center. After building [APL (Autonomous Phased Looper)](/blog/building-apl-autonomous-coding-agent), I've turned Claude Code into something that handles entire features while I review the output.
+
+## The Multi-Machine Setup
+
+I work across three machines depending on context:
+
+**Desktop PC (Primary Workstation)**
+- Triple monitor setup for maximum context
+- Main machine for focused development sessions
+- Where the heavy lifting happens
+
+**Work Laptop + VM**
+- Remote into this setup when needed
+- Runs its own Cursor instance
+- Useful for environment isolation
+
+**M1 MacBook Pro (Mobile)**
+- Away-from-desk development
+- Coffee shop coding sessions
+- Same tools, different location
+
+The common thread: **Cursor runs on all three**. Having a consistent editor across machines reduces friction when switching contexts. The AI integration in Cursor pairs well with Claude Code—Cursor handles inline completions while Claude Code tackles larger tasks.
+
+### The Sync Problem (and My Non-Solution)
+
+I don't use a dotfiles repo. Settings sync is manual and ad-hoc. Copy what I need, when I need it.
+
+Is this optimal? No. Does it work? Yes. The friction of maintaining sync scripts outweighs the occasional manual copy. Your mileage may vary—if you switch machines hourly, invest in proper dotfiles. I switch machines daily at most.
+
+## Terminal and Shell
+
+**iTerm2 + Zsh + Oh My Zsh**
+
+Nothing exotic here. The setup:
+
+```bash
+# Key Oh My Zsh plugins
+plugins=(
+  git
+  zsh-autosuggestions
+  zsh-syntax-highlighting
+)
+```
+
+The autosuggestions plugin alone saves hours per week. Type a few characters, hit right arrow, command complete. Syntax highlighting catches typos before execution.
+
+I haven't switched to Warp, Ghostty, or other modern terminals. iTerm2 handles everything I need: split panes, search, profiles per project. New tools need to offer substantial improvement to justify switching costs.
+
+## Editor: Why Cursor
+
+Cursor started as a VS Code fork with AI features. It's matured into something more—an editor designed around AI-assisted development.
+
+Key advantages over vanilla VS Code:
+
+- **Tab completion that understands context**: Cursor's completions consider your entire codebase, not isolated files
+- **Inline edits with Cmd+K**: Describe a change, see the diff, accept or reject
+- **Composer for multi-file changes**: When a task touches several files, Composer handles the coordination
+
+I run Cursor alongside Claude Code. They complement rather than compete:
+
+| Task | Tool |
+|------|------|
+| Line-level completions | Cursor |
+| Small refactors (single file) | Cursor Cmd+K |
+| Multi-file features | Claude Code |
+| Autonomous development | APL via Claude Code |
+
+The boundary isn't rigid. Sometimes Claude Code handles a small task. Sometimes Cursor's Composer tackles a multi-file change. Match the tool to the task.
+
+## Claude Code Configuration
+
+Here's where the setup diverges from vanilla.
+
+### MCP Servers
+
+MCP (Model Context Protocol) servers extend Claude Code's capabilities. My essential MCPs:
+
+**GitHub MCP**
+- Pull requests, issues, repo management
+- `gh` CLI commands without leaving Claude Code
+
+**Filesystem/Memory MCPs**
+- Persistent context between sessions
+- Project-specific memory that survives restarts
+
+**Database MCPs**
+- Query databases directly during development
+- Schema introspection for accurate code generation
+
+**Context7**
+- Enhanced context management
+- Better handling of large codebases
+
+**Pencil.dev**
+- Design-to-code workflow
+- Visual verification of UI implementations
+- Component design before writing code
+
+### Custom Skills, Hooks, and Workflows
+
+Beyond MCPs, I've built custom:
+
+**Skills (Slash Commands)**
+- `/meta` - APL orchestrator, my most-used command
+- `/write-post` - Blog content creation with brand validation
+- `/review-post` - Content quality checks
+- `/content-strategist` - SEO and content planning
+
+**Hooks**
+- Session end hooks that trigger learning extraction
+- Pre-commit validation
+- Automated context gathering
+
+**Workflows**
+- Phased development (Plan → Execute → Review)
+- Content creation pipeline
+- Multi-agent coordination
+
+The `/meta` command alone transformed my workflow. Instead of manually orchestrating Claude Code through subtasks, I describe the goal and watch the phases unfold.
+
+```bash
+# Before APL
+> "Create the user model"
+> "Now add the authentication middleware"
+> "Now write tests for the auth flow"
+> "Now fix that import error"
+> ...repeat 20 times...
+
+# After APL
+> /meta Add user authentication with JWT tokens
+
+# APL handles: planning, coding, testing, review, learning
+```
+
+## The APL Workflow in Practice
+
+[APL (Autonomous Phased Looper)](/blog/building-apl-autonomous-coding-agent) is the centerpiece of my Claude Code customization. Here's how it fits into daily work:
+
+**Morning**: Review overnight changes, check APL session logs
+**Feature work**: `/meta` with goal description, monitor progress
+**Code review**: APL's reviewer catches issues before I see the PR
+**Learning**: Insights persist to `.apl/` for future sessions
+
+The workflow isn't "fire and forget." I monitor active sessions, answer escalation questions, and review significant decisions. But the mechanical work—writing boilerplate, running tests, fixing lint errors—happens autonomously.
+
+### When to Use APL vs. Vanilla
+
+| Scenario | Approach |
+|----------|----------|
+| Quick bug fix | Vanilla Claude Code |
+| Single function | Cursor inline edit |
+| New feature with multiple files | APL |
+| Refactoring across codebase | APL |
+| Exploring unfamiliar code | Vanilla with questions |
+| Production deployment | Manual (never autonomous) |
+
+APL excels at structured work with clear success criteria. Exploratory work still benefits from interactive Claude Code sessions.
+
+## Design Workflow with Pencil.dev
+
+Pencil.dev deserves its own section. It's an AI-native design tool that integrates with Claude Code via MCP.
+
+My workflow:
+
+1. **Design first**: Create the component in Pencil's canvas
+2. **Generate code**: Claude Code reads the design, generates React/Tailwind
+3. **Verify visually**: Compare implementation to design in Pencil
+
+This closes the design-to-code loop. No more "it looks different than the mockup" conversations. The mockup and the code stay synchronized.
+
+For this blog, Pencil handles:
+- Component design before implementation
+- Visual regression checking
+- Design system consistency
+
+## Hardware: The Unglamorous Details
+
+**Keyboard**: Corsair mechanical gaming keyboard. Nothing fancy—it has switches, it clicks, it works. The keyboard enthusiast community would be disappointed, but my fingers are happy.
+
+**Monitors**: Triple setup on the desktop. Primary for code, secondary for browser/docs, tertiary for terminals and logs. Vertical monitor orientation works well for code if you try it.
+
+**No standing desk**: Sitting works fine. Move around during breaks instead of optimizing your stationary position.
+
+## What I Removed
+
+The setup evolved through subtraction:
+
+**Removed**: Complex terminal prompt (Starship, Powerlevel10k)
+- Why: Distracting. A simple prompt with git status suffices.
+
+**Removed**: Multiple browser profiles
+- Why: One profile, use containers for isolation.
+
+**Removed**: Elaborate git aliases
+- Why: `gh` CLI handles most workflows better.
+
+**Removed**: Docker Desktop
+- Why: CLI docker commands work. The GUI adds overhead.
+
+**Removed**: Note-taking apps for dev notes
+- Why: Code comments and markdown files in the repo.
+
+Each removal reduced cognitive load. The best tools are invisible—they don't demand attention.
+
+## The Unconventional Take
+
+If you take one thing from this post: **customize Claude Code aggressively**.
+
+The "vanilla is fine" approach works for basic tasks. But Claude Code's plugin system—skills, hooks, agents, MCPs—enables workflows that weren't possible before. APL transforms how I approach feature development. Custom content skills streamline this blog's creation.
+
+The upfront investment pays dividends:
+
+- Build a custom skill: 30 minutes
+- Time saved per use: 5-10 minutes
+- Uses per week: 10+
+- ROI timeline: 1 week
+
+Most developers under-customize their tools. They accept defaults and work around friction. The developers who thrive with AI tooling are the ones reshaping it to match their workflows.
+
+## Conclusion
+
+My setup isn't about the hardware or the specific tools. It's about the system: how the pieces connect to enable autonomous development.
+
+**Key Takeaways:**
+
+- Multi-machine setups work without elaborate sync—match the tool to the task
+- Cursor and Claude Code complement each other; use both
+- MCP servers extend Claude Code's capabilities significantly
+- Custom skills and hooks transform workflow efficiency
+- APL-style autonomous development handles structured work while you focus on architecture
+
+The trend is clear: AI tooling rewards customization. Build the workflow that matches how you think, not the workflow the defaults provide.
+
+What's in your Claude Code setup? I'm curious what custom skills and MCPs others are building.

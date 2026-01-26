@@ -126,6 +126,30 @@ export default function AboutPage() {
               <p className="text-2xl font-semibold text-text">Dakota Smith</p>
               <p className="text-lg text-muted">Kansas City, MO</p>
             </div>
+            <div>
+              <a
+                href="/dakota-smith-resume.pdf"
+                download="Dakota-Smith-Resume.pdf"
+                className="inline-flex items-center gap-2 px-6 py-3 bg-text text-background font-bold border-4 border-text hover:bg-background hover:text-text transition-colors focus:outline-none focus:ring-4 focus:ring-text focus:ring-offset-4 focus:ring-offset-background"
+                aria-label="Download Dakota Smith's resume as PDF"
+              >
+                <svg
+                  className="w-5 h-5"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                  aria-hidden="true"
+                >
+                  <path
+                    strokeLinecap="square"
+                    strokeLinejoin="miter"
+                    strokeWidth={2}
+                    d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
+                  />
+                </svg>
+                Download Resume
+              </a>
+            </div>
           </div>
         </header>
 
@@ -211,14 +235,20 @@ export default function AboutPage() {
                 </ul>
               </div>
               <div className="border-4 border-text bg-surface p-6">
-                <h3 className="text-xl font-bold text-accent mb-2">&quot;Continuum&quot; SaaS Platform</h3>
-                <p className="text-sm text-muted mb-1">Architect</p>
+                <h3 className="text-xl font-bold text-accent mb-2">APL (Autonomous Phased Looper)</h3>
+                <p className="text-sm text-muted mb-1">Creator & Architect</p>
                 <ul className="space-y-2 mt-4">
                   <li className="text-muted leading-relaxed pl-4 border-l-2 border-muted">
-                    Designed a fullstack Real Estate CE tracking application using NextJS, ReactJS, and TailwindCSS.
+                    Engineered an autonomous coding agent framework that orchestrates multi-phase workflows: Plan → Execute → Review → Learn.
                   </li>
                   <li className="text-muted leading-relaxed pl-4 border-l-2 border-muted">
-                    Implemented complex data management using Postgres with Prisma and automated web scrapers for regulatory data.
+                    Implements advanced AI patterns including ReAct (Reason → Act → Observe), Chain-of-Verification, and Reflexion for self-improving code generation.
+                  </li>
+                  <li className="text-muted leading-relaxed pl-4 border-l-2 border-muted">
+                    Features parallel task execution, graduated retry logic, and persistent learning that extracts insights from completed sessions.
+                  </li>
+                  <li className="text-muted leading-relaxed pl-4 border-l-2 border-muted">
+                    Built this entire blog autonomously using APL, demonstrating end-to-end project delivery from planning to deployment.
                   </li>
                 </ul>
               </div>
