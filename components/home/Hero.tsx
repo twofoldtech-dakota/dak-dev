@@ -26,10 +26,8 @@ export function Hero() {
 
           {/* Bio */}
           <p className="text-xl md:text-2xl text-muted mb-8 leading-relaxed max-w-3xl">
-            Building high-performance web applications and writing about
-            engineering, software architecture, and modern development
-            practices. Focused on accessibility, performance, and great user
-            experiences.
+            I build things that build things. Agentic systems, AI tooling, and
+            enterprise digital solutions.
           </p>
 
           {/* Social Links */}

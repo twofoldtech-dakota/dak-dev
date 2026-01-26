@@ -126,6 +126,26 @@ export default function AboutPage() {
               <p className="text-2xl font-semibold text-text">Dakota Smith</p>
               <p className="text-lg text-muted">Kansas City, MO</p>
             </div>
+            <button
+              disabled
+              className="inline-flex items-center gap-2 border-4 border-muted bg-muted text-background px-6 py-3 font-bold cursor-not-allowed opacity-60"
+            >
+              <svg
+                className="w-5 h-5"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+                aria-hidden="true"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
+                />
+              </svg>
+              Download Resume
+            </button>
           </div>
         </header>
 
@@ -211,7 +231,7 @@ export default function AboutPage() {
                 </ul>
               </div>
               <div className="border-4 border-text bg-surface p-6">
-                <h3 className="text-xl font-bold text-accent mb-2">&quot;Continuum&quot; SaaS Platform</h3>
+                <h3 className="text-xl font-bold text-accent mb-2">&quot;APL&quot; SaaS Platform</h3>
                 <p className="text-sm text-muted mb-1">Architect</p>
                 <ul className="space-y-2 mt-4">
                   <li className="text-muted leading-relaxed pl-4 border-l-2 border-muted">
