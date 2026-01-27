@@ -258,7 +258,7 @@ export default async function BlogPost({
 
           {/* Sidebar */}
           <aside className="hidden lg:block">
-            <div className="sticky top-8">
+            <div className="sticky top-24">
               <TableOfContents items={toc} />
             </div>
           </aside>
