@@ -1,0 +1,25 @@
+PLACEHOLDER: Resume PDF Generation Required
+
+To complete Story 055, you need to generate a PDF resume file.
+
+Two options:
+
+Option 1: Manual Generation (Quick MVP)
+1. Visit http://localhost:3000/resume-pdf in your browser
+2. Use Cmd+P (Mac) or Ctrl+P (Windows)
+3. Select "Save as PDF"
+4. Save as "dakota-smith-resume.pdf" in the /public directory
+5. Delete this placeholder file
+
+Option 2: Automated Generation
+Run the following after implementing PDF generation:
+npm run generate:resume-pdf
+
+The PDF should include:
+- All content from the About page
+- Professional formatting
+- File size < 500KB
+- PDF metadata (author: Dakota Smith, title: Dakota Smith - Resume)
+
+Content source: /public/RESUME_CONTENT.md
+Print-friendly page: /app/resume-pdf/page.tsx
