@@ -3,7 +3,7 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
 import { useRouter } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
-import { searchPosts, SearchIndexItem } from '@/lib/search-client';
+import { searchPosts, SearchIndexItem } from '@/lib/search';
 
 interface SearchProps {
   className?: string;

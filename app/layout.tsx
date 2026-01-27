@@ -8,6 +8,8 @@ import { Footer } from '@/components/layout/Footer';
 import { ThemeProvider } from '@/contexts/ThemeContext';
 import './globals.css';
 
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://your-domain.vercel.app';
+
 const spaceGrotesk = Space_Grotesk({
   subsets: ['latin'],
   weight: ['400', '600', '700'],
@@ -16,7 +18,7 @@ const spaceGrotesk = Space_Grotesk({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://your-domain.vercel.app'),
+  metadataBase: new URL(siteUrl),
   title: {
     default: 'Dakota Smith - Software Engineer & Tech Writer',
     template: '%s | Dakota Smith',
@@ -38,7 +40,7 @@ export const metadata: Metadata = {
   openGraph: {
     type: 'website',
     locale: 'en_US',
-    url: 'https://your-domain.vercel.app',
+    url: siteUrl,
     siteName: 'Dakota Smith Blog',
     title: 'Dakota Smith - Software Engineer & Tech Writer',
     description:
@@ -113,10 +115,17 @@ export default function RootLayout({
         />
       </head>
       <body className="antialiased font-sans min-h-screen flex flex-col">
+        {/* Skip to main content link for keyboard users */}
+        <a
+          href="#main-content"
+          className="sr-only focus:not-sr-only focus:absolute focus:z-[100] focus:top-4 focus:left-4 focus:px-4 focus:py-2 focus:bg-accent focus:text-background focus:font-bold focus:border-4 focus:border-text"
+        >
+          Skip to main content
+        </a>
         <ThemeProvider>
           <MotionConfig reducedMotion="user">
             <Header />
-            <main className="flex-grow">{children}</main>
+            <main id="main-content" className="flex-grow">{children}</main>
             <Footer />
           </MotionConfig>
         </ThemeProvider>

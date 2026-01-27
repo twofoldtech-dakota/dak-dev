@@ -3,7 +3,7 @@
 import { useSearchParams } from 'next/navigation';
 import { useEffect, useState, Suspense } from 'react';
 import Link from 'next/link';
-import { searchPosts, SearchIndexItem } from '@/lib/search-client';
+import { searchPosts, SearchIndexItem } from '@/lib/search';
 import { Card } from '@/components/ui/Card';
 
 function SearchResults() {
