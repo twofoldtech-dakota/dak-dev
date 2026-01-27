@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 interface ShareButtonsProps {
   /**
@@ -266,11 +266,6 @@ export function ShareButtons({
   // Inline variant (default)
   return (
     <div className={`flex flex-wrap items-center gap-3 ${className}`}>
-      {/* Share label */}
-      <span className="text-sm font-semibold text-muted uppercase tracking-wide">
-        Share:
-      </span>
-
       {/* Twitter/X */}
       <a
         href={twitterUrl}
