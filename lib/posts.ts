@@ -66,7 +66,10 @@ export function getPostBySlug(slug: string): Post | null {
       content,
       readingTime: stats.text,
     };
-  } catch {
+  } catch (error) {
+    if (process.env.NODE_ENV === 'development') {
+      console.error(`[posts] Failed to load post: ${slug}`, error);
+    }
     return null;
   }
 }

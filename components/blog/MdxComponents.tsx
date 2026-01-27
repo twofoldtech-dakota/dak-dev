@@ -1,6 +1,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import React, { ReactNode } from 'react';
+import { slugify } from '@/lib/utils';
 
 /**
  * Custom MDX components with neo-brutalist styling
@@ -10,12 +11,7 @@ import React, { ReactNode } from 'react';
 // Headings with auto-generated IDs for anchor links
 function H1({ children }: { children?: ReactNode }) {
   const text = typeof children === 'string' ? children : '';
-  const id = text
-    .toLowerCase()
-    .replace(/[^a-z0-9\s-]/g, '')
-    .replace(/\s+/g, '-')
-    .replace(/-+/g, '-')
-    .trim();
+  const id = slugify(text);
 
   return (
     <h1
@@ -29,12 +25,7 @@ function H1({ children }: { children?: ReactNode }) {
 
 function H2({ children }: { children?: ReactNode }) {
   const text = typeof children === 'string' ? children : '';
-  const id = text
-    .toLowerCase()
-    .replace(/[^a-z0-9\s-]/g, '')
-    .replace(/\s+/g, '-')
-    .replace(/-+/g, '-')
-    .trim();
+  const id = slugify(text);
 
   return (
     <h2
@@ -48,12 +39,7 @@ function H2({ children }: { children?: ReactNode }) {
 
 function H3({ children }: { children?: ReactNode }) {
   const text = typeof children === 'string' ? children : '';
-  const id = text
-    .toLowerCase()
-    .replace(/[^a-z0-9\s-]/g, '')
-    .replace(/\s+/g, '-')
-    .replace(/-+/g, '-')
-    .trim();
+  const id = slugify(text);
 
   return (
     <h3 id={id} className="text-2xl md:text-3xl font-bold mb-3 mt-8 scroll-mt-20">
