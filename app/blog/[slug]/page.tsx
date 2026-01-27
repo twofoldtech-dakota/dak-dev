@@ -141,85 +141,96 @@ export default async function BlogPost({
       {/* Schema.org JSON-LD */}
       <JsonLd data={blogPostingSchema} />
       <JsonLd data={breadcrumbSchema} />
-      {/* Hero Image */}
-      {post.frontmatter.hero && (
-        <div className="relative w-full aspect-[16/9] border-b-4 border-text">
-          <Image
-            src={post.frontmatter.hero}
-            alt={post.frontmatter.title}
-            fill
-            priority
-            className="object-cover object-center"
-            sizes="100vw"
-            placeholder="blur"
-            blurDataURL="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 225'%3E%3Cfilter id='b' color-interpolation-filters='sRGB'%3E%3CfeGaussianBlur stdDeviation='20'/%3E%3CfeColorMatrix values='1 0 0 0 0 0 1 0 0 0 0 0 1 0 0 0 0 0 100 -1' result='s'/%3E%3CfeFlood x='0' y='0' width='100%25' height='100%25'/%3E%3CfeComposite operator='out' in='s'/%3E%3CfeComposite in2='SourceGraphic'/%3E%3CfeGaussianBlur stdDeviation='20'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' fill='%230a0a0a'/%3E%3C/svg%3E"
-          />
-        </div>
-      )}
 
-      {/* Main Content */}
+      {/* Full-Width Header Section */}
+      <header className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pt-12 pb-8">
+        {/* Breadcrumb */}
+        <nav className="mb-6" aria-label="Breadcrumb">
+          <ol className="flex items-center gap-2 text-sm text-muted">
+            <li>
+              <Link
+                href="/blog"
+                className="hover:text-text hover:underline underline-offset-2 focus:outline-none focus:ring-2 focus:ring-text focus:ring-offset-2 focus:ring-offset-background"
+              >
+                Blog
+              </Link>
+            </li>
+            <li aria-hidden="true">/</li>
+            <li aria-current="page">
+              <span className="text-text font-semibold line-clamp-1">
+                {post.frontmatter.title}
+              </span>
+            </li>
+          </ol>
+        </nav>
+
+        {/* Title */}
+        <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight">
+          {post.frontmatter.title}
+        </h1>
+
+        {/* Excerpt/Summary */}
+        {post.frontmatter.excerpt && (
+          <p className="text-xl md:text-2xl text-muted mb-6 leading-relaxed max-w-4xl">
+            {post.frontmatter.excerpt}
+          </p>
+        )}
+
+        {/* Metadata */}
+        <div className="flex flex-wrap items-center gap-4 text-sm text-muted mb-6">
+          <time dateTime={post.frontmatter.date} className="font-semibold">
+            {formattedDate}
+          </time>
+          <span aria-hidden="true">•</span>
+          <span>{post.readingTime}</span>
+          {post.frontmatter.author && (
+            <>
+              <span aria-hidden="true">•</span>
+              <span>By {post.frontmatter.author}</span>
+            </>
+          )}
+        </div>
+
+        {/* Tags */}
+        {post.frontmatter.tags && post.frontmatter.tags.length > 0 && (
+          <div className="mb-6">
+            <TagList tags={post.frontmatter.tags} interactive={true} />
+          </div>
+        )}
+
+        {/* Share Buttons */}
+        <ShareButtons
+          title={post.frontmatter.title}
+          url={fullUrl}
+          excerpt={post.frontmatter.excerpt}
+        />
+      </header>
+
+      {/* Divider */}
+      <div className="border-b-4 border-text" />
+
+      {/* Two-Column Grid */}
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-12">
         <div className="grid lg:grid-cols-[1fr_300px] gap-12">
-          {/* Article Content */}
+          {/* Main Content */}
           <div className="min-w-0">
-            {/* Breadcrumb */}
-            <nav className="mb-6" aria-label="Breadcrumb">
-              <ol className="flex items-center gap-2 text-sm text-muted">
-                <li>
-                  <Link
-                    href="/blog"
-                    className="hover:text-text hover:underline underline-offset-2 focus:outline-none focus:ring-2 focus:ring-text focus:ring-offset-2 focus:ring-offset-background"
-                  >
-                    Blog
-                  </Link>
-                </li>
-                <li aria-hidden="true">/</li>
-                <li aria-current="page">
-                  <span className="text-text font-semibold line-clamp-1">
-                    {post.frontmatter.title}
-                  </span>
-                </li>
-              </ol>
-            </nav>
-
-            {/* Post Header */}
-            <header className="mb-12 border-b-4 border-text pb-8">
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight">
-                {post.frontmatter.title}
-              </h1>
-
-              {/* Metadata */}
-              <div className="flex flex-wrap items-center gap-4 text-sm text-muted mb-6">
-                <time
-                  dateTime={post.frontmatter.date}
-                  className="font-semibold"
-                >
-                  {formattedDate}
-                </time>
-                <span aria-hidden="true">•</span>
-                <span>{post.readingTime}</span>
-                {post.frontmatter.author && (
-                  <>
-                    <span aria-hidden="true">•</span>
-                    <span>By {post.frontmatter.author}</span>
-                  </>
-                )}
-              </div>
-
-              {/* Tags */}
-              {post.frontmatter.tags && post.frontmatter.tags.length > 0 && (
-                <div className="mb-6">
-                  <TagList tags={post.frontmatter.tags} interactive={true} />
+            {/* Hero Image */}
+            {post.frontmatter.hero && (
+              <figure className="mb-12">
+                <div className="relative aspect-[16/9] border-4 border-text overflow-hidden">
+                  <Image
+                    src={post.frontmatter.hero}
+                    alt={`Cover image for ${post.frontmatter.title}`}
+                    fill
+                    priority
+                    className="object-cover object-center"
+                    sizes="(max-width: 1024px) 100vw, 65vw"
+                    placeholder="blur"
+                    blurDataURL="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 225'%3E%3Cfilter id='b' color-interpolation-filters='sRGB'%3E%3CfeGaussianBlur stdDeviation='20'/%3E%3CfeColorMatrix values='1 0 0 0 0 0 1 0 0 0 0 0 1 0 0 0 0 0 100 -1' result='s'/%3E%3CfeFlood x='0' y='0' width='100%25' height='100%25'/%3E%3CfeComposite operator='out' in='s'/%3E%3CfeComposite in2='SourceGraphic'/%3E%3CfeGaussianBlur stdDeviation='20'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' fill='%230a0a0a'/%3E%3C/svg%3E"
+                  />
                 </div>
-              )}
-
-              {/* Share Buttons (Top) */}
-              <ShareButtons
-                title={post.frontmatter.title}
-                url={fullUrl}
-                excerpt={post.frontmatter.excerpt}
-              />
-            </header>
+              </figure>
+            )}
 
             {/* Post Content */}
             <div
@@ -243,38 +254,6 @@ export default async function BlogPost({
                 excerpt={post.frontmatter.excerpt}
               />
             </div>
-
-            {/* Related Posts */}
-            {relatedPosts.length > 0 && (
-              <RelatedPosts posts={relatedPosts} className="mt-16" />
-            )}
-
-            {/* Comments Section */}
-            <Comments className="mt-16" />
-
-            {/* Back to Blog */}
-            <div className="mt-16 pt-8 border-t-4 border-text">
-              <Link
-                href="/blog"
-                className="inline-flex items-center gap-2 text-text font-semibold hover:underline underline-offset-4 decoration-4 focus:outline-none focus:ring-4 focus:ring-text focus:ring-offset-4 focus:ring-offset-background"
-              >
-                <svg
-                  className="w-5 h-5"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                  aria-hidden="true"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M15 19l-7-7 7-7"
-                  />
-                </svg>
-                Back to All Posts
-              </Link>
-            </div>
           </div>
 
           {/* Sidebar */}
@@ -283,6 +262,38 @@ export default async function BlogPost({
               <TableOfContents items={toc} />
             </div>
           </aside>
+        </div>
+
+        {/* Related Posts */}
+        {relatedPosts.length > 0 && (
+          <RelatedPosts posts={relatedPosts} className="mt-16" />
+        )}
+
+        {/* Comments Section */}
+        <Comments className="mt-16" />
+
+        {/* Back to Blog */}
+        <div className="mt-16 pt-8 border-t-4 border-text">
+          <Link
+            href="/blog"
+            className="inline-flex items-center gap-2 text-text font-semibold hover:underline underline-offset-4 decoration-4 focus:outline-none focus:ring-4 focus:ring-text focus:ring-offset-4 focus:ring-offset-background"
+          >
+            <svg
+              className="w-5 h-5"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+              aria-hidden="true"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M15 19l-7-7 7-7"
+              />
+            </svg>
+            Back to All Posts
+          </Link>
         </div>
       </div>
     </article>

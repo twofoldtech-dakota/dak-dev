@@ -94,7 +94,7 @@ export default async function TagPage({
           </div>
 
           <h1 className="text-4xl md:text-5xl font-bold mb-4">
-            Posts tagged with "{tagName}"
+            Posts tagged with "<span className="text-green-400">{tagName}</span>"
           </h1>
 
           <p className="text-lg text-muted">
