@@ -144,66 +144,72 @@ export default async function BlogPost({
 
       {/* Full-Width Header Section */}
       <header className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pt-12 pb-8">
-        {/* Breadcrumb */}
-        <nav className="mb-6" aria-label="Breadcrumb">
-          <ol className="flex items-center gap-2 text-sm text-muted">
-            <li>
-              <Link
-                href="/blog"
-                className="hover:text-text hover:underline underline-offset-2 focus:outline-none focus:ring-2 focus:ring-text focus:ring-offset-2 focus:ring-offset-background"
-              >
-                Blog
-              </Link>
-            </li>
-            <li aria-hidden="true">/</li>
-            <li aria-current="page">
-              <span className="text-text font-semibold line-clamp-1">
-                {post.frontmatter.title}
-              </span>
-            </li>
-          </ol>
-        </nav>
+        <div className="flex gap-6 lg:gap-12">
+          {/* Main Header Content */}
+          <div className="flex-1 min-w-0">
+            {/* Breadcrumb */}
+            <nav className="mb-6" aria-label="Breadcrumb">
+              <ol className="flex items-center gap-2 text-sm text-muted">
+                <li>
+                  <Link
+                    href="/blog"
+                    className="hover:text-text hover:underline underline-offset-2 focus:outline-none focus:ring-2 focus:ring-text focus:ring-offset-2 focus:ring-offset-background"
+                  >
+                    Blog
+                  </Link>
+                </li>
+                <li aria-hidden="true">/</li>
+                <li aria-current="page">
+                  <span className="text-text font-semibold line-clamp-1">
+                    {post.frontmatter.title}
+                  </span>
+                </li>
+              </ol>
+            </nav>
 
-        {/* Title */}
-        <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight">
-          {post.frontmatter.title}
-        </h1>
+            {/* Title */}
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight">
+              {post.frontmatter.title}
+            </h1>
 
-        {/* Excerpt/Summary */}
-        {post.frontmatter.excerpt && (
-          <p className="text-xl md:text-2xl text-muted mb-6 leading-relaxed max-w-4xl">
-            {post.frontmatter.excerpt}
-          </p>
-        )}
+            {/* Excerpt/Summary */}
+            {post.frontmatter.excerpt && (
+              <p className="text-xl md:text-2xl text-muted mb-6 leading-relaxed max-w-4xl">
+                {post.frontmatter.excerpt}
+              </p>
+            )}
 
-        {/* Metadata */}
-        <div className="flex flex-wrap items-center gap-4 text-sm text-muted mb-6">
-          <time dateTime={post.frontmatter.date} className="font-semibold">
-            {formattedDate}
-          </time>
-          <span aria-hidden="true">•</span>
-          <span>{post.readingTime}</span>
-          {post.frontmatter.author && (
-            <>
+            {/* Metadata */}
+            <div className="flex flex-wrap items-center gap-4 text-sm text-muted mb-6">
+              <time dateTime={post.frontmatter.date} className="font-semibold">
+                {formattedDate}
+              </time>
               <span aria-hidden="true">•</span>
-              <span>By {post.frontmatter.author}</span>
-            </>
-          )}
-        </div>
+              <span>{post.readingTime}</span>
+              {post.frontmatter.author && (
+                <>
+                  <span aria-hidden="true">•</span>
+                  <span>By {post.frontmatter.author}</span>
+                </>
+              )}
+            </div>
 
-        {/* Tags */}
-        {post.frontmatter.tags && post.frontmatter.tags.length > 0 && (
-          <div className="mb-6">
-            <TagList tags={post.frontmatter.tags} interactive={true} />
+            {/* Tags */}
+            {post.frontmatter.tags && post.frontmatter.tags.length > 0 && (
+              <TagList tags={post.frontmatter.tags} interactive={true} />
+            )}
           </div>
-        )}
 
-        {/* Share Buttons */}
-        <ShareButtons
-          title={post.frontmatter.title}
-          url={fullUrl}
-          excerpt={post.frontmatter.excerpt}
-        />
+          {/* Share Button - Right Side */}
+          <div className="flex-shrink-0 pt-8">
+            <ShareButtons
+              title={post.frontmatter.title}
+              url={fullUrl}
+              excerpt={post.frontmatter.excerpt}
+              variant="dropdown"
+            />
+          </div>
+        </div>
       </header>
 
       {/* Divider */}
