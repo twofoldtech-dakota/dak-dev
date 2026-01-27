@@ -115,13 +115,13 @@ export function ShareButtons({
         onMouseEnter={() => setIsOpen(true)}
         onMouseLeave={() => setIsOpen(false)}
       >
-        {/* Large green share icon button */}
+        {/* Share icon button - black background with green icon */}
         <button
           onClick={() => setIsOpen(!isOpen)}
           aria-label="Share this post"
           aria-expanded={isOpen}
           aria-haspopup="true"
-          className="flex items-center justify-center w-14 h-14 bg-accent text-background border-4 border-text hover:bg-accent/90 transition-colors focus:outline-none focus:ring-4 focus:ring-text focus:ring-offset-2 focus:ring-offset-background"
+          className="flex items-center justify-center w-14 h-14 bg-background text-accent border-4 border-text shadow-[4px_4px_0px_0px_rgba(245,245,245,1)] hover:bg-surface transition-colors focus:outline-none focus:ring-4 focus:ring-text focus:ring-offset-2 focus:ring-offset-background"
         >
           <svg
             className="w-7 h-7"

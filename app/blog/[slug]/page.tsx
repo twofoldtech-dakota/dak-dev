@@ -252,20 +252,26 @@ export default async function BlogPost({
               </CodeBlockWrapper>
             </div>
 
-            {/* Share Buttons */}
-            <div className="mt-16 pt-8 border-t-4 border-text">
-              <ShareButtons
-                title={post.frontmatter.title}
-                url={fullUrl}
-                excerpt={post.frontmatter.excerpt}
-              />
-            </div>
           </div>
 
           {/* Sidebar */}
           <aside className="hidden lg:block">
             <div className="sticky top-24">
               <TableOfContents items={toc} />
+
+              {/* Share Buttons */}
+              <div className="mt-6">
+                <div className="border-4 border-text bg-surface p-6">
+                  <h2 className="text-lg font-bold mb-4 uppercase tracking-wider">
+                    Share
+                  </h2>
+                  <ShareButtons
+                    title={post.frontmatter.title}
+                    url={fullUrl}
+                    excerpt={post.frontmatter.excerpt}
+                  />
+                </div>
+              </div>
             </div>
           </aside>
         </div>
