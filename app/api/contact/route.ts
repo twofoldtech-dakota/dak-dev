@@ -1,4 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { Resend } from 'resend';
+
+const resend = new Resend(process.env.RESEND_API_KEY);
 
 // Minimum time (in ms) a human would need to fill out the form
 const MIN_SUBMISSION_TIME = 3000; // 3 seconds
@@ -56,31 +59,26 @@ export async function POST(request: NextRequest) {
       message: message.trim().slice(0, 5000),
     };
 
-    // Log the contact submission (in production, you'd send an email here)
-    // You can integrate with services like:
-    // - Resend (https://resend.com)
-    // - SendGrid
-    // - AWS SES
-    // - Or forward to a webhook
-    console.log('[Contact] New message received:', {
-      name: sanitizedData.name,
-      email: sanitizedData.email,
-      messageLength: sanitizedData.message.length,
-      timestamp: new Date().toISOString(),
+    // Send email via Resend
+    const { error } = await resend.emails.send({
+      from: process.env.RESEND_FROM_EMAIL || 'onboarding@resend.dev',
+      to: 'dakota@twofold.tech',
+      replyTo: sanitizedData.email,
+      subject: `Contact form: ${sanitizedData.name}`,
+      text: `From: ${sanitizedData.name} (${sanitizedData.email})\n\n${sanitizedData.message}`,
     });
 
-    // TODO: Add email sending here
-    // Example with Resend:
-    // await resend.emails.send({
-    //   from: 'contact@yourdomain.com',
-    //   to: 'dakota@twofold.tech',
-    //   subject: `Contact form: ${sanitizedData.name}`,
-    //   text: `From: ${sanitizedData.name} (${sanitizedData.email})\n\n${sanitizedData.message}`,
-    // });
+    if (error) {
+      console.error('[Contact] Resend error:', error);
+      return NextResponse.json(
+        { error: 'Failed to send message. Please try again.' },
+        { status: 500 }
+      );
+    }
 
     return NextResponse.json({
       success: true,
-      message: 'Message received successfully.',
+      message: 'Message sent successfully.',
     });
   } catch (error) {
     console.error('[Contact] Error processing form:', error);

@@ -43,6 +43,7 @@
     "react-dom": "^19.2.3",
     "reading-time": "^1.5.0",
     "rehype-pretty-code": "^0.14.1",
+    "resend": "^6.9.1",
     "sharp": "^0.34.5",
     "shiki": "^3.21.0"
   },
