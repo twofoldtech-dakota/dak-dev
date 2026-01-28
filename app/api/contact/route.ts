@@ -69,9 +69,9 @@ export async function POST(request: NextRequest) {
     });
 
     if (error) {
-      console.error('[Contact] Resend error:', error);
+      console.error('[Contact] Resend error:', JSON.stringify(error, null, 2));
       return NextResponse.json(
-        { error: 'Failed to send message. Please try again.' },
+        { error: `Failed to send message: ${error.message}` },
         { status: 500 }
       );
     }
