@@ -20,7 +20,7 @@ const spaceGrotesk = Space_Grotesk({
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-    default: 'Dakota Smith - Software Engineer & Fullstack Architect',
+    default: 'Dakota Smith - Fullstack Solutions Architect',
     template: '%s | Dakota Smith',
   },
   description:
@@ -42,12 +42,12 @@ export const metadata: Metadata = {
     locale: 'en_US',
     url: siteUrl,
     siteName: 'Dakota Smith Blog',
-    title: 'Dakota Smith - Software Engineer & Fullstack Architect',
+    title: 'Dakota Smith - Fullstack Solutions Architect',
     description:
       'High-performance personal blog featuring engineering projects, web development insights, and technical tutorials.',
     images: [
       {
-        url: '/api/og?title=Dakota%20Smith%20-%20Software%20Engineer%20%26%20Fullstack%20Architect',
+        url: '/api/og?title=Dakota%20Smith%20-%20Fullstack%20Solutions%20Architect',
         width: 1200,
         height: 630,
         alt: 'Dakota Smith Blog',
@@ -56,11 +56,11 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Dakota Smith - Software Engineer & Fullstack Architect',
+    title: 'Dakota Smith - Fullstack Solutions Architect',
     description:
       'High-performance personal blog featuring engineering projects and web development insights.',
     images: [
-      '/api/og?title=Dakota%20Smith%20-%20Software%20Engineer%20%26%20Fullstack%20Architect',
+      '/api/og?title=Dakota%20Smith%20-%20Fullstack%20Solutions%20Architect',
     ],
   },
   robots: {

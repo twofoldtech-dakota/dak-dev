@@ -7,7 +7,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 
 export const metadata = {
-  title: 'Dakota Smith | Software Engineer & Fullstack Architect',
+  title: 'Dakota Smith | Fullstack Solutions Architect',
   description:
     'High-performance personal blog featuring tech articles and engineering insights. Building great software with Next.js, TypeScript, and modern web technologies.',
 };
