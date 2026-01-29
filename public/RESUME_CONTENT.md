@@ -21,7 +21,7 @@ Strategic Technical Leader & Fullstack Architect with 14 years of enterprise exp
 
 ### Architecture & Innovation
 - **Fullstack Mastery**: Expert-level proficiency in NextJS, ReactJS, .NET, and C#.
-- **Enterprise CMS**: 11+ years architecting Sitecore (XM Cloud), Optimizely, and Umbraco solutions.
+- **Enterprise CMS**: 14+ years architecting Sitecore (XM Cloud), Optimizely, and Umbraco solutions.
 
 ### Operational Excellence
 - **RAID Management**: Expert at mitigating Risks, Assumptions, Issues, and Dependencies.

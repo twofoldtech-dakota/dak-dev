@@ -86,7 +86,7 @@ const competencies = [
     title: 'Architecture & Innovation',
     items: [
       { name: 'Fullstack Mastery', description: 'Expert-level proficiency in NextJS, ReactJS, .NET, and C#.' },
-      { name: 'Enterprise CMS', description: '11+ years architecting Sitecore (XM Cloud), Optimizely, and Umbraco solutions.' },
+      { name: 'Enterprise CMS', description: '14+ years architecting Sitecore (XM Cloud), Optimizely, and Umbraco solutions.' },
     ],
   },
   {
