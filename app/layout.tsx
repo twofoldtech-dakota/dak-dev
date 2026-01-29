@@ -60,7 +60,7 @@ export const metadata: Metadata = {
     description:
       'High-performance personal blog featuring engineering projects and web development insights.',
     images: [
-      '/api/og?title=Dakota%20Smith%20-%20Software%20Engineer%20%26%20Tech%20Writer',
+      '/api/og?title=Dakota%20Smith%20-%20Software%20Engineer%20%26%20Fullstack%20Architect',
     ],
   },
   robots: {
