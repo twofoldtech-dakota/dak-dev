@@ -33,7 +33,7 @@ const resumeData = {
       title: 'Architecture & Innovation',
       items: [
         { name: 'Fullstack Mastery', desc: 'Expert-level proficiency in NextJS, ReactJS, .NET, and C#.' },
-        { name: 'Enterprise CMS', desc: '11+ years architecting Sitecore (XM Cloud), Optimizely, and Umbraco solutions.' },
+        { name: 'Enterprise CMS', desc: '14+ years architecting Sitecore (XM Cloud), Optimizely, and Umbraco solutions.' },
       ],
     },
     {
