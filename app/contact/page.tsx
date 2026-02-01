@@ -2,7 +2,6 @@ import { Metadata } from 'next';
 import { PageTransition } from '@/components/ui/PageTransition';
 import { JsonLd } from '@/components/seo/JsonLd';
 import { generateBreadcrumbSchema } from '@/lib/schema';
-import { ContactForm } from '@/components/ui/ContactForm';
 import Link from 'next/link';
 
 export const metadata: Metadata = {
@@ -29,20 +28,32 @@ export default function ContactPage() {
           </p>
         </header>
 
-        {/* Contact Form */}
-        <ContactForm />
-
-        {/* Alternative Contact */}
-        <div className="mt-12 text-center">
-          <p className="text-muted mb-4">
-            Prefer email? Reach me directly at{' '}
+        {/* Email CTA */}
+        <div className="flex flex-col items-center justify-center py-12">
+          <div className="bg-surface border-[3px] border-text p-8 md:p-12 shadow-[4px_4px_0_0_var(--color-text)] text-center max-w-xl w-full">
+<h2 className="text-2xl font-bold mb-4">Let&apos;s Talk</h2>
+            <p className="text-muted mb-8">
+              Whether it&apos;s a project idea, a question, or you want to chat about AI and development—my inbox is open.
+            </p>
             <a
               href="mailto:dakota@twofold.tech"
-              className="text-accent font-semibold hover:underline underline-offset-4 decoration-2 focus:outline-none focus:ring-4 focus:ring-accent"
+              className="
+                inline-block px-8 py-4
+                bg-text text-background
+                border-[3px] border-text
+                font-bold text-lg
+                shadow-[4px_4px_0_0_var(--color-accent)]
+                transition-all duration-150
+                hover:transform hover:-translate-x-1 hover:-translate-y-1
+                hover:shadow-[6px_6px_0_0_var(--color-accent)]
+                active:transform active:translate-x-1 active:translate-y-1
+                active:shadow-[2px_2px_0_0_var(--color-accent)]
+                focus:outline-none focus:ring-4 focus:ring-accent
+              "
             >
               dakota@twofold.tech
             </a>
-          </p>
+          </div>
         </div>
 
         {/* Back Link */}
