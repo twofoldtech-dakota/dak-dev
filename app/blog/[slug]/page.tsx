@@ -130,7 +130,7 @@ export default async function BlogPost({
   ]);
 
   // Generate full URL for sharing
-  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://your-domain.vercel.app';
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://dak-dev.vercel.app';
   const fullUrl = `${baseUrl}/blog/${slug}`;
 
   return (

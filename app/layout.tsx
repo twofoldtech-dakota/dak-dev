@@ -8,7 +8,7 @@ import { Footer } from '@/components/layout/Footer';
 import { ThemeProvider } from '@/contexts/ThemeContext';
 import './globals.css';
 
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://your-domain.vercel.app';
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://dak-dev.vercel.app';
 
 const spaceGrotesk = Space_Grotesk({
   subsets: ['latin'],
