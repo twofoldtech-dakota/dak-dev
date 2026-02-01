@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "updated_at": "2026-01-25",
+  "updated_at": "2026-02-01",
   "workflow_stages": ["idea", "outlined", "drafting", "review", "ready", "published"],
   "topics": [
     {
@@ -58,6 +58,20 @@
       "notes": "Developer setup post inspired by Boris Cherny's vanilla setup. Angle: heavy Claude Code customization with APL. Links to APL post.",
       "created_at": "2026-01-25",
       "updated_at": "2026-01-25"
+    },
+    {
+      "id": "topic_005",
+      "title": "The Supervisor in the Machine: Why I Built STUDIO",
+      "slug": "supervisor-in-the-machine-why-i-built-studio",
+      "type": "project",
+      "status": "published",
+      "published_date": "2026-02-01",
+      "priority": "high",
+      "target_date": "2026-02-01",
+      "tags": ["ai", "architecture", "automation", "claude-code", "open-source"],
+      "notes": "Evolution story from APL to STUDIO. Covers ORC and ALLOY generations. Key theme: supervision beats scale. Part of AI Dev Tools cluster.",
+      "created_at": "2026-02-01",
+      "updated_at": "2026-02-01"
     }
   ],
   "ideas_backlog": [
