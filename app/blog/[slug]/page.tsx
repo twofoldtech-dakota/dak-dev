@@ -39,8 +39,11 @@ export async function generateMetadata({
     };
   }
 
-  // Generate dynamic OG image URL
-  const ogImageUrl = `/api/og?title=${encodeURIComponent(post.frontmatter.title)}&date=${encodeURIComponent(post.frontmatter.date)}`;
+  // Use the article's hero image for OG (absolute URL required)
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://dak-dev.vercel.app';
+  const ogImageUrl = post.frontmatter.hero
+    ? `${baseUrl}${post.frontmatter.hero}`
+    : `${baseUrl}/api/og?title=${encodeURIComponent(post.frontmatter.title)}&date=${encodeURIComponent(post.frontmatter.date)}`;
 
   return {
     title: `${post.frontmatter.title} | Dakota Smith`,
@@ -55,8 +58,8 @@ export async function generateMetadata({
       images: [
         {
           url: ogImageUrl,
-          width: 1200,
-          height: 630,
+          width: 1600,
+          height: 900,
           alt: post.frontmatter.title,
         },
       ],
