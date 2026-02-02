@@ -15,59 +15,60 @@ export const metadata = {
 const experiences = [
   {
     company: 'RBA Consulting',
-    title: 'Senior Fullstack Engineer',
+    title: 'Senior Fullstack Architect',
     location: 'Remote',
-    period: 'Dec 2023 - Present',
+    period: 'Dec 2023 – Present',
     highlights: [
-      'Lead Architect for global web solutions, ensuring adherence to international accessibility (ADA) and performance standards.',
-      'Strategist: Shifted team focus from tactical execution to strategic resource allocation and workflow optimization.',
+      'Technical Strategy: Shifted team focus from tactical execution to strategic resource forecasting and workflow optimization.',
+      'Global Delivery: Lead Architect for international web solutions, maintaining strict adherence to ADA accessibility and enterprise performance benchmarks.',
     ],
   },
   {
-    company: 'TwofoldTech',
-    title: 'Founder & Tech Lead',
+    company: 'Twofold Tech',
+    title: 'Founder & Principal Architect',
     location: 'Remote',
-    period: 'Mar 2020 - Present',
+    period: 'Mar 2020 – Present',
     highlights: [
-      'Executive Leadership: Define technical strategy and manage cross-functional teams for 29+ enterprise client projects.',
-      'Fullstack Implementation: Deliver bespoke e-commerce and SaaS solutions using modern tech stacks and agile methodologies.',
+      'Product Incubation: Architecting STUDIO, ALLOY, HandoffKit, RelayOps and Founder Engine, focusing on autonomous agentic systems.',
+      'Executive Leadership: Define technical strategy and manage cross-functional delivery for multiple enterprise client projects.',
+      'Consulting: Deliver bespoke e-commerce and SaaS solutions using high-integrity "anti-slop" design principles.',
     ],
   },
   {
     company: 'XCentium',
     title: 'Senior Fullstack Engineer',
     location: 'Remote',
-    period: 'Apr 2019 - Mar 2020',
+    period: 'Apr 2019 – Mar 2020',
     highlights: [
-      'International Implementation: Pioneered the first Sitecore instance hosted behind China\'s firewall, navigating complex regulatory landscapes.',
-      'Platform Extension: Optimized content management by extending Sitecore pipelines and building reusable components.',
+      'Global Implementation: Pioneered the first Sitecore instance hosted behind China\'s firewall, navigating complex regulatory and infrastructure landscapes.',
+      'Platform Engineering: Optimized content management efficiency by extending Sitecore pipelines and building reusable enterprise component libraries.',
     ],
   },
   {
     company: 'Aware',
     title: 'Senior Software Engineer',
     location: 'Remote',
-    period: 'Sep 2016 - Mar 2019',
+    period: 'Sep 2016 – Mar 2019',
     highlights: [
-      'Architected and supported complex CMS migrations (Sitecore to Episerver) and custom data warehouses.',
+      'Enterprise Migration: Architected complex CMS migrations (Sitecore to Optimizely) and custom data warehouse integrations for Fortune 500-scale clients.',
     ],
   },
   {
     company: 'AJi Software',
     title: 'Solutions Architect',
     location: 'Kansas City, MO',
-    period: 'Aug 2014 - Sep 2016',
+    period: 'Aug 2014 – Sep 2016',
     highlights: [
-      'Architecture: Designed multi-site Sitecore systems and custom payment service integrations for clients like VFW and Medical News Network.',
+      'Systems Design: Architected multi-site Sitecore environments and secure payment integrations for high-compliance healthcare and non-profit sectors.',
     ],
   },
   {
     company: 'Roundedcube',
     title: 'Lead Software Engineer',
     location: 'St. Louis, MO',
-    period: 'Jan 2012 - Aug 2014',
+    period: 'Jan 2012 – Aug 2014',
     highlights: [
-      'Structural Design: Architected secure, multi-tier .NET systems and optimized multi-site Sitecore instances for high-traffic brands like SeaWorld.',
+      'High-Traffic Architecture: Designed secure, multi-tier .NET systems and optimized multi-site Sitecore instances for global entertainment brands.',
     ],
   },
 ];
@@ -80,11 +81,10 @@ export default function ResumePDFPage() {
       {/* Header */}
       <header className="mb-8 border-b-2 border-black pb-4">
         <h1 className="text-4xl font-bold mb-2">Dakota Smith</h1>
-        <p className="text-xl mb-2">Strategic Technical Leader & Fullstack Architect</p>
+        <p className="text-xl mb-2">Principal Architect | Enterprise DXP & Agentic Orchestration</p>
         <div className="text-sm">
-          <p>Kansas City, MO</p>
-          <p>dakota@twofold.tech</p>
-          <p>github.com/twofoldtech-dakota</p>
+          <p>Kansas City, MO | dakota@twofold.tech</p>
+          <p>github.com/twofoldtech-dakota | twofold.tech</p>
         </div>
       </header>
 
@@ -92,38 +92,36 @@ export default function ResumePDFPage() {
       <section className="mb-6">
         <h2 className="text-2xl font-bold mb-3 border-b border-black">Executive Summary</h2>
         <p className="text-sm leading-relaxed">
-          Strategic Technical Leader & Fullstack Architect with 14 years of enterprise experience
-          and a track record of shipping 30+ production-ready projects. I specialize in bridging
-          the gap between high-level business vision and deep technical execution, possessing an
-          &quot;M-shaped&quot; skill set that encompasses multiple technical domains, leadership, and project
-          management. I am a &quot;Big Picture Thinker&quot; who excels at translating business requirements
-          into scalable, secure, and maintainable architectural blueprints.
+          Systems Architect with <strong>15 years</strong> in enterprise software, specializing in the
+          stabilization and modernization of complex Sitecore and .NET ecosystems. I bridge the gap
+          between generative AI speed and enterprise-grade rigor through <strong>Deterministic
+          Orchestration</strong>—ensuring agentic intelligence follows strict architectural logic
+          rather than &quot;Prompt-and-Pray&quot; patterns.
+        </p>
+        <p className="text-sm leading-relaxed mt-2">
+          Proven track record of shipping <strong>30+ production-ready projects</strong> with a focus
+          on <strong>Industrial Clarity</strong>: eliminating technical slop to build resilient,
+          sub-second performance systems.
         </p>
       </section>
 
       {/* Core Competencies */}
       <section className="mb-6">
         <h2 className="text-2xl font-bold mb-3 border-b border-black">Core Competencies</h2>
-        <div className="grid grid-cols-3 gap-4 text-sm">
+        <div className="grid grid-cols-2 gap-4 text-sm">
           <div>
-            <h3 className="font-bold mb-1">Technical Strategy & Leadership</h3>
+            <h3 className="font-bold mb-1">Systems Architecture & Innovation</h3>
             <ul className="list-disc list-inside space-y-1">
-              <li>Vision & Strategy</li>
-              <li>Mentorship</li>
-            </ul>
-          </div>
-          <div>
-            <h3 className="font-bold mb-1">Architecture & Innovation</h3>
-            <ul className="list-disc list-inside space-y-1">
+              <li>Agentic Orchestration</li>
+              <li>Enterprise CMS/DXP (15 years)</li>
               <li>Fullstack Mastery</li>
-              <li>Enterprise CMS</li>
             </ul>
           </div>
           <div>
-            <h3 className="font-bold mb-1">Operational Excellence</h3>
+            <h3 className="font-bold mb-1">Technical Strategy & Operational Excellence</h3>
             <ul className="list-disc list-inside space-y-1">
-              <li>RAID Management</li>
-              <li>Agile Orchestration</li>
+              <li>Vision & ROI</li>
+              <li>Agile Leadership (9+ years)</li>
             </ul>
           </div>
         </div>
@@ -134,20 +132,20 @@ export default function ResumePDFPage() {
         <h2 className="text-2xl font-bold mb-3 border-b border-black">Technical Toolkit</h2>
         <div className="grid grid-cols-2 gap-4 text-sm">
           <div>
-            <h3 className="font-bold mb-1">Frontend Mastery</h3>
-            <p>NextJS, ReactJS, TypeScript, TailwindCSS, JavaScript, jQuery, SASS, Bootstrap</p>
+            <h3 className="font-bold mb-1">Architectural Paradigms</h3>
+            <p>Agentic State Machines, Deterministic AI Orchestration, Helix/Modular Design</p>
+          </div>
+          <div>
+            <h3 className="font-bold mb-1">Platforms</h3>
+            <p>Sitecore (XM Cloud/XP), Optimizely, Umbraco, Azure DevOps, Vercel, Docker</p>
           </div>
           <div>
             <h3 className="font-bold mb-1">Backend & Data</h3>
-            <p>.NET Core, C#, GraphQL, SQL Server, MongoDB, Postgres, Prisma, Solr, Fabric</p>
+            <p>.NET Core, C#, GraphQL, SQL Server, MongoDB, Postgres, Prisma, Solr</p>
           </div>
           <div>
-            <h3 className="font-bold mb-1">Platform & DevOps</h3>
-            <p>Sitecore XM Cloud, Umbraco, Optimizely, Shopify, GitHub Actions, Azure DevOps, Vercel, Docker</p>
-          </div>
-          <div>
-            <h3 className="font-bold mb-1">AI & Innovation</h3>
-            <p>AI-powered CMS analyzers, Automated security scanning, Performance scanning agents</p>
+            <h3 className="font-bold mb-1">Frontend</h3>
+            <p>Next.js, React, TypeScript, TailwindCSS, SASS</p>
           </div>
         </div>
       </section>
@@ -173,6 +171,25 @@ export default function ResumePDFPage() {
         </div>
       </section>
 
+      {/* Key Innovations */}
+      <section className="mb-6">
+        <h2 className="text-2xl font-bold mb-3 border-b border-black">Key Innovations</h2>
+        <div className="text-sm space-y-3">
+          <div>
+            <h3 className="font-bold">Claude CMS Marketplace (Creator)</h3>
+            <p>AI-powered plugins for analyzing architectural debt, security vulnerabilities, and performance bottlenecks across Sitecore and XM Cloud. CI/CD-ready agents for PR pipelines.</p>
+          </div>
+          <div>
+            <h3 className="font-bold">STUDIO (Architect)</h3>
+            <p>High-performance orchestration layer built for &quot;Industrial Clarity&quot; and engineering precision in AI-assisted development.</p>
+          </div>
+          <div>
+            <h3 className="font-bold">HandoffKit (Creator)</h3>
+            <p>AI-powered project handoff documentation for consulting agencies and freelancers.</p>
+          </div>
+        </div>
+      </section>
+
       {/* Certifications */}
       <section className="mb-6">
         <h2 className="text-2xl font-bold mb-3 border-b border-black">Certifications & Education</h2>
@@ -180,11 +197,11 @@ export default function ResumePDFPage() {
           <div>
             <h3 className="font-bold mb-2">Certifications</h3>
             <ul className="list-disc list-inside space-y-1">
-              <li>Sitecore XM Cloud Certified Developer</li>
-              <li>Sitecore 9 Certified Developer</li>
-              <li>Microsoft Certified Technology Specialist (MCTS)</li>
-              <li>Microsoft Certified Professional (MCP)</li>
-              <li>Shopify Developer Certification (In Progress)</li>
+              <li>Sitecore: XM Cloud Certified Developer</li>
+              <li>Sitecore 9: Certified Developer</li>
+              <li>Microsoft: Certified Technology Specialist (MCTS)</li>
+              <li>Microsoft: Certified Professional (MCP)</li>
+              <li>Shopify: Developer Certification (In Progress)</li>
             </ul>
           </div>
           <div>

@@ -1,5 +1,21 @@
 [
   {
+    "id": "studio",
+    "name": "STUDIO",
+    "description": "A high-performance orchestration layer built to give \"Industrial Clarity\" and engineering precision to AI-assisted development.",
+    "url": "https://github.com/twofoldtech-dakota/studio",
+    "icon": "tool",
+    "featured": true
+  },
+  {
+    "id": "handoffkit",
+    "name": "HandoffKit",
+    "description": "AI-powered project handoff documentation for consulting agencies and freelancers. Connect your repo, generate comprehensive docs, and ship with confidence.",
+    "url": "https://handoffkit.ai/",
+    "icon": "app",
+    "featured": true
+  },
+  {
     "id": "claude-marketplace",
     "name": "CMS Analyzers Marketplace",
     "description": "Claude Code plugins that analyze enterprise CMS codebases, deliver actionable reports with severity ratings, and generate custom AI enhancements.",

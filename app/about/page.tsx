@@ -11,99 +11,94 @@ import Link from 'next/link';
 export const metadata = {
   title: 'About | Dakota Smith',
   description:
-    'Strategic Technical Leader & Fullstack Architect with 14 years of enterprise experience. Building high-performance web applications.',
+    'Principal Architect with 15 years in enterprise software, specializing in Sitecore/.NET modernization and Deterministic AI Orchestration.',
 };
 
 const experiences = [
   {
     company: 'RBA Consulting',
-    title: 'Senior Fullstack Engineer',
+    title: 'Senior Fullstack Architect',
     location: 'Remote',
-    period: 'Dec 2023 - Present',
+    period: 'Dec 2023 – Present',
     highlights: [
-      'Lead Architect for global web solutions, ensuring adherence to international accessibility (ADA) and performance standards.',
-      'Strategist: Shifted team focus from tactical execution to strategic resource allocation and workflow optimization.',
+      'Technical Strategy: Shifted team focus from tactical execution to strategic resource forecasting and workflow optimization.',
+      'Global Delivery: Lead Architect for international web solutions, maintaining strict adherence to ADA accessibility and enterprise performance benchmarks.',
     ],
   },
   {
-    company: 'TwofoldTech',
-    title: 'Founder & Tech Lead',
+    company: 'Twofold Tech',
+    title: 'Founder & Principal Architect',
     location: 'Remote',
-    period: 'Mar 2020 - Present',
+    period: 'Mar 2020 – Present',
     highlights: [
-      'Executive Leadership: Define technical strategy and manage cross-functional teams for 29+ enterprise client projects.',
-      'Fullstack Implementation: Deliver bespoke e-commerce and SaaS solutions using modern tech stacks and agile methodologies.',
+      'Product Incubation: Architecting STUDIO, ALLOY, HandoffKit, RelayOps and Founder Engine, focusing on autonomous agentic systems.',
+      'Executive Leadership: Define technical strategy and manage cross-functional delivery for multiple enterprise client projects.',
+      'Consulting: Deliver bespoke e-commerce and SaaS solutions using high-integrity "anti-slop" design principles.',
     ],
   },
   {
     company: 'XCentium',
     title: 'Senior Fullstack Engineer',
     location: 'Remote',
-    period: 'Apr 2019 - Mar 2020',
+    period: 'Apr 2019 – Mar 2020',
     highlights: [
-      'International Implementation: Pioneered the first Sitecore instance hosted behind China\'s firewall, navigating complex regulatory landscapes.',
-      'Platform Extension: Optimized content management by extending Sitecore pipelines and building reusable components.',
+      'Global Implementation: Pioneered the first Sitecore instance hosted behind China\'s firewall, navigating complex regulatory and infrastructure landscapes.',
+      'Platform Engineering: Optimized content management efficiency by extending Sitecore pipelines and building reusable enterprise component libraries.',
     ],
   },
   {
     company: 'Aware',
     title: 'Senior Software Engineer',
     location: 'Remote',
-    period: 'Sep 2016 - Mar 2019',
+    period: 'Sep 2016 – Mar 2019',
     highlights: [
-      'Architected and supported complex CMS migrations (Sitecore to Episerver) and custom data warehouses.',
+      'Enterprise Migration: Architected complex CMS migrations (Sitecore to Optimizely) and custom data warehouse integrations for Fortune 500-scale clients.',
     ],
   },
   {
     company: 'AJi Software',
     title: 'Solutions Architect',
     location: 'Kansas City, MO',
-    period: 'Aug 2014 - Sep 2016',
+    period: 'Aug 2014 – Sep 2016',
     highlights: [
-      'Architecture: Designed multi-site Sitecore systems and custom payment service integrations for clients like VFW and Medical News Network.',
+      'Systems Design: Architected multi-site Sitecore environments and secure payment integrations for high-compliance healthcare and non-profit sectors.',
     ],
   },
   {
     company: 'Roundedcube',
     title: 'Lead Software Engineer',
     location: 'St. Louis, MO',
-    period: 'Jan 2012 - Aug 2014',
+    period: 'Jan 2012 – Aug 2014',
     highlights: [
-      'Structural Design: Architected secure, multi-tier .NET systems and optimized multi-site Sitecore instances for high-traffic brands like SeaWorld.',
+      'High-Traffic Architecture: Designed secure, multi-tier .NET systems and optimized multi-site Sitecore instances for global entertainment brands.',
     ],
   },
 ];
 
 const competencies = [
   {
-    title: 'Technical Strategy & Leadership',
+    title: 'Systems Architecture & Innovation',
     items: [
-      { name: 'Vision & Strategy', description: 'Defining long-term technical roadmaps aligned with business ROI.' },
-      { name: 'Mentorship', description: 'Cultivating talent through high-level code reviews and "player-coach" leadership.' },
+      { name: 'Agentic Orchestration', description: 'Engineering autonomous development loops and multi-agent state machines to automate the SDLC.' },
+      { name: 'Enterprise CMS/DXP', description: '15 years architecting Sitecore (XM Cloud), Optimizely, and Umbraco solutions for global brands.' },
+      { name: 'Fullstack Mastery', description: 'Expert-level proficiency in the .NET ecosystem, Next.js, React, and high-concurrency tooling.' },
     ],
   },
   {
-    title: 'Architecture & Innovation',
+    title: 'Technical Strategy & Operational Excellence',
     items: [
-      { name: 'Fullstack Mastery', description: 'Expert-level proficiency in NextJS, ReactJS, .NET, and C#.' },
-      { name: 'Enterprise CMS', description: '14+ years architecting Sitecore (XM Cloud), Optimizely, and Umbraco solutions.' },
-    ],
-  },
-  {
-    title: 'Operational Excellence',
-    items: [
-      { name: 'RAID Management', description: 'Expert at mitigating Risks, Assumptions, Issues, and Dependencies.' },
-      { name: 'Agile Orchestration', description: '9+ years leading Scrum teams to deliver under tight deadlines.' },
+      { name: 'Vision & ROI', description: 'Aligning long-term technical roadmaps with business growth and resource optimization.' },
+      { name: 'Agile Leadership', description: '9+ years leading Scrum teams, specializing in precise feature estimation and resource allocation.' },
     ],
   },
 ];
 
 const certifications = [
-  'Sitecore XM Cloud Certified Developer',
-  'Sitecore 9 Certified Developer',
-  'Microsoft Certified Technology Specialist (MCTS)',
-  'Microsoft Certified Professional (MCP)',
-  'Shopify Developer Certification (In Progress)',
+  'Sitecore: XM Cloud Certified Developer',
+  'Sitecore 9: Certified Developer',
+  'Microsoft: Certified Technology Specialist (MCTS)',
+  'Microsoft: Certified Professional (MCP)',
+  'Shopify: Developer Certification (In Progress)',
 ];
 
 export default function AboutPage() {
@@ -159,21 +154,25 @@ export default function AboutPage() {
           <section className="border-4 border-text bg-surface p-8">
             <h2 className="text-3xl font-bold mb-6">Executive Summary</h2>
             <p className="text-lg text-muted leading-relaxed">
-              Strategic Technical Leader & Fullstack Architect with 14 years of enterprise experience
-              and a track record of shipping 30+ production-ready projects. I specialize in bridging
-              the gap between high-level business vision and deep technical execution, possessing an
-              &quot;M-shaped&quot; skill set that encompasses multiple technical domains, leadership, and project
-              management. I am a &quot;Big Picture Thinker&quot; who excels at translating business requirements
-              into scalable, secure, and maintainable architectural blueprints.
+              Systems Architect with <strong>15 years</strong> in enterprise software, specializing in the
+              stabilization and modernization of complex Sitecore and .NET ecosystems. I bridge the gap
+              between generative AI speed and enterprise-grade rigor through <strong>Deterministic
+              Orchestration</strong>—ensuring agentic intelligence follows strict architectural logic
+              rather than &quot;Prompt-and-Pray&quot; patterns.
+            </p>
+            <p className="text-lg text-muted leading-relaxed mt-4">
+              Proven track record of shipping <strong>30+ production-ready projects</strong> with a focus
+              on <strong>Industrial Clarity</strong>: eliminating technical slop to build resilient,
+              sub-second performance systems.
             </p>
           </section>
 
           {/* Core Competencies */}
           <section>
             <h2 className="text-3xl font-bold mb-6 border-l-4 border-text pl-6">
-              Core Competencies: The &quot;M-Shaped&quot; Profile
+              Core Competencies
             </h2>
-            <div className="grid md:grid-cols-3 gap-6">
+            <div className="grid md:grid-cols-2 gap-6">
               {competencies.map((category) => (
                 <div key={category.title} className="border-4 border-text bg-surface p-6">
                   <h3 className="text-xl font-bold mb-4 text-accent">{category.title}</h3>
@@ -195,20 +194,20 @@ export default function AboutPage() {
             <h2 className="text-3xl font-bold mb-6">Technical Toolkit</h2>
             <div className="grid md:grid-cols-2 gap-8">
               <SkillCategory
-                title="Frontend Mastery"
-                skills={['NextJS', 'ReactJS', 'TypeScript', 'TailwindCSS', 'JavaScript', 'jQuery', 'SASS', 'Bootstrap']}
+                title="Architectural Paradigms"
+                skills={['Agentic State Machines', 'Deterministic AI Orchestration', 'Helix/Modular Design']}
+              />
+              <SkillCategory
+                title="Platforms"
+                skills={['Sitecore (XM Cloud/XP)', 'Optimizely', 'Umbraco', 'Azure DevOps', 'Vercel', 'Docker']}
               />
               <SkillCategory
                 title="Backend & Data"
-                skills={['.NET Core', 'C#', 'GraphQL', 'SQL Server', 'MongoDB', 'Postgres', 'Prisma', 'Solr', 'Fabric']}
+                skills={['.NET Core', 'C#', 'GraphQL', 'SQL Server', 'MongoDB', 'Postgres', 'Prisma', 'Solr']}
               />
               <SkillCategory
-                title="Platform & DevOps"
-                skills={['Sitecore XM Cloud', 'Umbraco', 'Optimizely', 'Shopify', 'GitHub Actions', 'Azure DevOps', 'Vercel', 'Docker']}
-              />
-              <SkillCategory
-                title="AI & Innovation"
-                skills={['AI-powered CMS analyzers', 'Automated security scanning', 'Performance scanning agents']}
+                title="Frontend"
+                skills={['Next.js', 'React', 'TypeScript', 'TailwindCSS', 'SASS']}
               />
             </div>
           </section>
@@ -216,7 +215,7 @@ export default function AboutPage() {
           {/* Key Innovations */}
           <section>
             <h2 className="text-3xl font-bold mb-6 border-l-4 border-text pl-6">
-              Key Innovations & Projects
+              Key Innovations
             </h2>
             <div className="grid gap-6">
               <div className="border-4 border-text bg-surface p-6">
@@ -224,31 +223,28 @@ export default function AboutPage() {
                 <p className="text-sm text-muted mb-1">Creator</p>
                 <ul className="space-y-2 mt-4">
                   <li className="text-muted leading-relaxed pl-4 border-l-2 border-muted">
-                    Architected a suite of AI-powered plugins for analyzing enterprise CMS platforms (Sitecore, XM Cloud, Umbraco, Optimizely).
+                    Architected a suite of AI-powered plugins for analyzing architectural debt (Helix compliance), security vulnerabilities, and performance bottlenecks across Sitecore and XM Cloud.
                   </li>
                   <li className="text-muted leading-relaxed pl-4 border-l-2 border-muted">
-                    Developed automated agents that detect architectural debt (Helix compliance), security vulnerabilities, and performance bottlenecks.
-                  </li>
-                  <li className="text-muted leading-relaxed pl-4 border-l-2 border-muted">
-                    Integrated CI/CD ready exit codes for PR pipelines to ensure critical issues are caught before code merges.
+                    Integrated CI/CD-ready agents into PR pipelines to enforce senior-level standards automatically.
                   </li>
                 </ul>
               </div>
               <div className="border-4 border-text bg-surface p-6">
-                <h3 className="text-xl font-bold text-accent mb-2">APL (Autonomous Phased Looper)</h3>
-                <p className="text-sm text-muted mb-1">Creator & Architect</p>
+                <h3 className="text-xl font-bold text-accent mb-2">STUDIO</h3>
+                <p className="text-sm text-muted mb-1">Architect</p>
                 <ul className="space-y-2 mt-4">
                   <li className="text-muted leading-relaxed pl-4 border-l-2 border-muted">
-                    Engineered an autonomous coding agent framework that orchestrates multi-phase workflows: Plan → Execute → Review → Learn.
+                    Architected high-performance orchestration layer built to give &quot;Industrial Clarity&quot; and engineering precision to AI-assisted development.
                   </li>
+                </ul>
+              </div>
+              <div className="border-4 border-text bg-surface p-6">
+                <h3 className="text-xl font-bold text-accent mb-2">HandoffKit</h3>
+                <p className="text-sm text-muted mb-1">Creator</p>
+                <ul className="space-y-2 mt-4">
                   <li className="text-muted leading-relaxed pl-4 border-l-2 border-muted">
-                    Implements advanced AI patterns including ReAct (Reason → Act → Observe), Chain-of-Verification, and Reflexion for self-improving code generation.
-                  </li>
-                  <li className="text-muted leading-relaxed pl-4 border-l-2 border-muted">
-                    Features parallel task execution, graduated retry logic, and persistent learning that extracts insights from completed sessions.
-                  </li>
-                  <li className="text-muted leading-relaxed pl-4 border-l-2 border-muted">
-                    Built this entire blog autonomously using APL, demonstrating end-to-end project delivery from planning to deployment.
+                    AI-powered project handoff documentation for consulting agencies and freelancers. Connect your repo, generate comprehensive docs, and ship with confidence.
                   </li>
                 </ul>
               </div>

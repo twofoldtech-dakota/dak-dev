@@ -165,9 +165,9 @@ export function generateResumeSchema(): ProfilePageSchema {
     mainEntity: {
       '@type': 'Person',
       name: AUTHOR_NAME,
-      jobTitle: 'Strategic Technical Leader & Fullstack Architect',
+      jobTitle: 'Principal Architect | Enterprise DXP & Agentic Orchestration',
       description:
-        'Software engineer with 14+ years of enterprise experience and 30+ production-ready projects. Specializing in bridging business vision and technical execution.',
+        'Systems Architect with 15 years in enterprise software, specializing in Sitecore/.NET modernization and Deterministic AI Orchestration. 30+ production-ready projects.',
       url: `${SITE_URL}/resume`,
       address: {
         '@type': 'PostalAddress',
