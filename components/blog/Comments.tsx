@@ -60,10 +60,10 @@ export function Comments({ className = '' }: CommentsProps) {
         <div className="border-4 border-text bg-surface p-6">
           <Giscus
             id="comments"
-            repo="twofoldtech-dakota/my-site"
-            repoId="R_kgDONxWbPw"
-            category="General"
-            categoryId="DIC_kwDONxWbP84Cmgsy"
+            repo={process.env.NEXT_PUBLIC_GISCUS_REPO as `${string}/${string}`}
+            repoId={process.env.NEXT_PUBLIC_GISCUS_REPO_ID!}
+            category={process.env.NEXT_PUBLIC_GISCUS_CATEGORY!}
+            categoryId={process.env.NEXT_PUBLIC_GISCUS_CATEGORY_ID!}
             mapping="pathname"
             strict="0"
             reactionsEnabled="1"
