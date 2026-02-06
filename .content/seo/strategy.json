@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "updated_at": "2026-01-25",
+  "updated_at": "2026-02-05",
   "domain_authority_estimate": "new",
   "target_keywords": {
     "primary": [
@@ -21,6 +21,12 @@
         "intent": "informational",
         "difficulty": "low",
         "posts": ["how-apl-built-this-blog"]
+      },
+      {
+        "keyword": "claude skills",
+        "intent": "informational",
+        "difficulty": "medium",
+        "posts": ["ai-isnt-just-for-coders-claude-skills"]
       }
     ],
     "secondary": [
@@ -63,6 +69,26 @@
         "keyword": "claude code project",
         "parent_primary": "automated blog development",
         "posts": ["how-apl-built-this-blog"]
+      },
+      {
+        "keyword": "AI for business users",
+        "parent_primary": "claude skills",
+        "posts": ["ai-isnt-just-for-coders-claude-skills"]
+      },
+      {
+        "keyword": "AI adoption workplace",
+        "parent_primary": "claude skills",
+        "posts": ["ai-isnt-just-for-coders-claude-skills"]
+      },
+      {
+        "keyword": "AI productivity non-technical",
+        "parent_primary": "claude skills",
+        "posts": ["ai-isnt-just-for-coders-claude-skills"]
+      },
+      {
+        "keyword": "claude custom instructions",
+        "parent_primary": "claude skills",
+        "posts": ["ai-isnt-just-for-coders-claude-skills"]
       }
     ],
     "long_tail": [
@@ -80,6 +106,11 @@
         "keyword": "build blog with autonomous AI agent",
         "parent_primary": "automated blog development",
         "posts": ["how-apl-built-this-blog"]
+      },
+      {
+        "keyword": "AI reluctance workplace how to fix",
+        "parent_primary": "claude skills",
+        "posts": ["ai-isnt-just-for-coders-claude-skills"]
       }
     ]
   },
@@ -101,6 +132,24 @@
         "how-apl-built-this-blog"
       ],
       "created_at": "2026-01-25"
+    },
+    {
+      "id": "cluster_002",
+      "name": "Claude Skills for Every Role",
+      "description": "Content cluster establishing authority in Claude Skills adoption, targeting business users through developers. Three-part series from accessible to technical.",
+      "pillar_post": null,
+      "pillar_post_planned": {
+        "title": "The Complete Guide to Claude Skills",
+        "slug": "complete-guide-claude-skills",
+        "status": "future"
+      },
+      "cluster_posts": [],
+      "planned_posts": [
+        "ai-isnt-just-for-coders-claude-skills",
+        "claude-skills-power-user-guide",
+        "claude-code-skills-agent-skills-standard"
+      ],
+      "created_at": "2026-02-05"
     }
   ],
   "content_gaps": [

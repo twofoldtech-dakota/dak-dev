@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "updated_at": "2026-02-01",
+  "updated_at": "2026-02-05",
   "workflow_stages": ["idea", "outlined", "drafting", "review", "ready", "published"],
   "topics": [
     {
@@ -72,6 +72,46 @@
       "notes": "Evolution story from APL to STUDIO. Covers ORC and ALLOY generations. Key theme: supervision beats scale. Part of AI Dev Tools cluster.",
       "created_at": "2026-02-01",
       "updated_at": "2026-02-01"
+    },
+    {
+      "id": "topic_006",
+      "title": "AI Isn't Just for Coders: How Claude Skills Bridge the Gap",
+      "slug": "ai-isnt-just-for-coders-claude-skills",
+      "type": "general",
+      "status": "published",
+      "published_date": "2026-02-05",
+      "priority": "high",
+      "target_date": "2026-02-05",
+      "tags": ["ai-tools", "productivity", "claude", "skills"],
+      "notes": "Part 1 of Claude Skills series. Targets non-technical business users. Primary keyword: claude skills. Addresses AI adoption resistance with Skills as the solution. Series: Part 2 = power users, Part 3 = developers.",
+      "created_at": "2026-02-05",
+      "updated_at": "2026-02-05"
+    },
+    {
+      "id": "topic_007",
+      "title": "Claude Skills Power User Guide",
+      "slug": "claude-skills-power-user-guide",
+      "type": "tutorial",
+      "status": "idea",
+      "priority": "high",
+      "target_date": null,
+      "tags": ["ai-tools", "productivity", "claude", "skills", "tutorial"],
+      "notes": "Part 2 of Claude Skills series. Targets power users and AI-curious professionals. Advanced Skill creation, templates, supporting files, real workflow examples.",
+      "created_at": "2026-02-05",
+      "updated_at": "2026-02-05"
+    },
+    {
+      "id": "topic_008",
+      "title": "Claude Code Skills and the Agent Skills Standard",
+      "slug": "claude-code-skills-agent-skills-standard",
+      "type": "tutorial",
+      "status": "idea",
+      "priority": "high",
+      "target_date": null,
+      "tags": ["ai-tools", "claude-code", "skills", "developer-tools"],
+      "notes": "Part 3 of Claude Skills series. Targets developers. Claude Code Skills, SKILL.md deep dive, Agent Skills open standard, cross-platform portability, advanced patterns with hooks and subagents.",
+      "created_at": "2026-02-05",
+      "updated_at": "2026-02-05"
     }
   ],
   "ideas_backlog": [
