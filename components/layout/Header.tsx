@@ -34,7 +34,7 @@ export function Header() {
               href="/"
               className="text-xl font-bold text-text hover:opacity-80 transition-opacity focus:outline-none focus:ring-2 focus:ring-text focus:ring-offset-2 focus:ring-offset-background"
             >
-              DAKOTA<span className="text-muted">.DEV</span>
+              DAK<span className="text-muted">.DEV</span>
             </Link>
           </div>
 
