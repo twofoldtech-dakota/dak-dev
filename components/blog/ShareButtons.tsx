@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 
 interface ShareButtonsProps {
   /**
@@ -121,7 +122,7 @@ export function ShareButtons({
           aria-label="Share this post"
           aria-expanded={isOpen}
           aria-haspopup="true"
-          className="flex items-center justify-center w-14 h-14 bg-background text-accent border-4 border-text shadow-[4px_4px_0px_0px_rgba(245,245,245,1)] hover:bg-surface transition-colors focus:outline-none focus:ring-4 focus:ring-text focus:ring-offset-2 focus:ring-offset-background"
+          className="flex items-center justify-center w-14 h-14 bg-background text-accent border-4 border-text shadow-[4px_4px_0px_0px_var(--color-text)] hover:bg-surface transition-colors focus:outline-none focus:ring-4 focus:ring-text focus:ring-offset-2 focus:ring-offset-background"
         >
           <svg
             className="w-7 h-7"
@@ -141,7 +142,7 @@ export function ShareButtons({
 
         {/* Dropdown menu */}
         <div
-          className={`absolute right-0 top-full mt-2 bg-surface border-4 border-text shadow-[4px_4px_0px_0px_rgba(245,245,245,1)] z-50 transition-all duration-150 ${
+          className={`absolute right-0 top-full mt-2 bg-surface border-4 border-text shadow-[4px_4px_0px_0px_var(--color-text)] z-50 transition-all duration-150 ${
             isOpen
               ? 'opacity-100 visible translate-y-0'
               : 'opacity-0 invisible -translate-y-2'
@@ -330,51 +331,73 @@ export function ShareButtons({
       )}
 
       {/* Copy Link */}
-      <button
+      <motion.button
         onClick={handleCopyLink}
         aria-label={copied ? 'Link copied!' : 'Copy link to clipboard'}
         className="share-button relative"
+        animate={copied ? { scale: [1, 1.15, 1] } : {}}
+        transition={{ duration: 0.2 }}
       >
-        {copied ? (
-          <svg
-            className="w-5 h-5 text-accent"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-            aria-hidden="true"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M5 13l4 4L19 7"
-            />
-          </svg>
-        ) : (
-          <svg
-            className="w-5 h-5"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-            aria-hidden="true"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"
-            />
-          </svg>
-        )}
+        <AnimatePresence mode="wait" initial={false}>
+          {copied ? (
+            <motion.svg
+              key="check"
+              className="w-5 h-5 text-accent"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+              aria-hidden="true"
+              initial={{ scale: 0, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0, opacity: 0 }}
+              transition={{ duration: 0.15 }}
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M5 13l4 4L19 7"
+              />
+            </motion.svg>
+          ) : (
+            <motion.svg
+              key="copy"
+              className="w-5 h-5"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+              aria-hidden="true"
+              initial={{ scale: 0, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0, opacity: 0 }}
+              transition={{ duration: 0.15 }}
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"
+              />
+            </motion.svg>
+          )}
+        </AnimatePresence>
         <span className="sr-only">{copied ? 'Copied' : 'Copy link'}</span>
-      </button>
+      </motion.button>
 
       {/* Visual feedback for copy */}
-      {copied && (
-        <span className="text-xs text-accent font-semibold animate-pulse">
-          Copied!
-        </span>
-      )}
+      <AnimatePresence>
+        {copied && (
+          <motion.span
+            className="text-xs text-accent font-semibold"
+            initial={{ opacity: 0, x: -5 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: -5 }}
+            transition={{ duration: 0.15 }}
+          >
+            Copied!
+          </motion.span>
+        )}
+      </AnimatePresence>
     </div>
   );
 }

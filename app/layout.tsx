@@ -5,6 +5,7 @@ import { Analytics } from '@vercel/analytics/next';
 import { SpeedInsights } from '@vercel/speed-insights/next';
 import { Header } from '@/components/layout/Header';
 import { Footer } from '@/components/layout/Footer';
+import { ScrollToTop } from '@/components/ui/ScrollToTop';
 import { ThemeProvider } from '@/contexts/ThemeContext';
 import './globals.css';
 
@@ -127,6 +128,7 @@ export default function RootLayout({
             <Header />
             <main id="main-content" className="flex-grow">{children}</main>
             <Footer />
+            <ScrollToTop />
           </MotionConfig>
         </ThemeProvider>
         <Analytics />

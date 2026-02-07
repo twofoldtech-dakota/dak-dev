@@ -18,6 +18,7 @@ import { validateStructure } from './structure';
 import { validateBrandVoice } from './voice';
 import { validateSEO } from './seo';
 import { validateImages } from './images';
+import { validateLinks } from './links';
 
 // Re-export types
 export type { ValidationResult, ValidationIssue, BrandGuidelines } from './types';
@@ -28,7 +29,10 @@ export { validateStructure } from './structure';
 export { validateBrandVoice } from './voice';
 export { validateSEO } from './seo';
 export { validateImages } from './images';
+export { validateLinks } from './links';
 export { loadGuidelines, clearGuidelinesCache } from './guidelines';
+export { injectBlurPlaceholders } from './blur-inject';
+export { syncCalendarStatus } from './calendar-sync';
 
 /**
  * Main validation function - validates all aspects of a post
@@ -61,6 +65,7 @@ export async function validatePost(
   const voiceResult = validateBrandVoice(post.content);
   const seoResult = validateSEO(post.frontmatter, post.content);
   const imagesResult = await validateImages(post.frontmatter);
+  const linksResult = validateLinks(slug, post.content);
 
   // Combine results
   const allIssues = [
@@ -69,6 +74,7 @@ export async function validatePost(
     ...voiceResult.issues,
     ...seoResult.issues,
     ...imagesResult.issues,
+    ...linksResult.issues,
   ];
 
   const allWarnings = [
@@ -77,6 +83,7 @@ export async function validatePost(
     ...voiceResult.warnings,
     ...seoResult.warnings,
     ...imagesResult.warnings,
+    ...linksResult.warnings,
   ];
 
   // Calculate overall score (weighted average)
@@ -111,6 +118,7 @@ export async function validatePost(
       voice: voiceResult,
       seo: seoResult,
       images: imagesResult,
+      links: linksResult,
     },
   };
 }

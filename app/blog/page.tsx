@@ -1,6 +1,8 @@
 import { getAllPosts } from '@/lib/posts';
 import { getPaginatedPosts } from '@/lib/pagination';
+import { getAllTags } from '@/lib/tags';
 import { Card } from '@/components/ui/Card';
+import { TagList } from '@/components/ui/Tag';
 import { Pagination } from '@/components/blog/Pagination';
 import { PageTransition } from '@/components/ui/PageTransition';
 
@@ -12,6 +14,7 @@ export const metadata = {
 export default async function BlogPage() {
   const allPosts = await getAllPosts();
   const paginationData = getPaginatedPosts(allPosts, 1); // Page 1
+  const tags = getAllTags(allPosts);
 
   return (
     <PageTransition className="min-h-screen py-16">
@@ -29,6 +32,14 @@ export default async function BlogPage() {
             </p>
           )}
         </header>
+
+        {/* Tag Filter Bar */}
+        {tags.length > 0 && (
+          <nav aria-label="Filter by tag" className="mb-12 border-b-4 border-surface bg-surface/20 p-6">
+            <p className="text-sm font-semibold text-muted mb-3">Filter by tag</p>
+            <TagList tags={tags} interactive />
+          </nav>
+        )}
 
         {/* Posts Grid */}
         {paginationData.posts.length > 0 ? (

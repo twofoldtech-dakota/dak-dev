@@ -3,6 +3,7 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import { motion } from 'framer-motion';
+import { staggerContainerVariants, staggerItemVariants } from '@/lib/animations';
 import { TagList } from '@/components/ui/Tag';
 
 interface RelatedPost {
@@ -43,8 +44,14 @@ export function RelatedPosts({ posts, className = '' }: RelatedPostsProps) {
       </div>
 
       {/* Posts Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-        {posts.map((post, index) => {
+      <motion.div
+        variants={staggerContainerVariants}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, margin: '-50px' }}
+        className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
+      >
+        {posts.map((post) => {
           const formattedDate = new Date(post.date).toLocaleDateString('en-US', {
             year: 'numeric',
             month: 'long',
@@ -54,19 +61,12 @@ export function RelatedPosts({ posts, className = '' }: RelatedPostsProps) {
           return (
             <motion.article
               key={post.slug}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: '-50px' }}
-              transition={{
-                duration: 0.4,
-                delay: index * 0.1,
-                ease: 'easeOut',
-              }}
+              variants={staggerItemVariants}
               className="group"
             >
               <Link
                 href={`/blog/${post.slug}`}
-                className="block bg-surface border-4 border-text shadow-[8px_8px_0_0_#f5f5f5] hover:shadow-[12px_12px_0_0_#00ff88] hover:border-accent transition-all duration-300 hover:-translate-y-1 focus:outline-none focus:ring-4 focus:ring-accent focus:ring-offset-4 focus:ring-offset-background"
+                className="block bg-surface border-4 border-text shadow-[8px_8px_0_0_var(--color-text)] hover:shadow-[12px_12px_0_0_var(--color-accent)] hover:border-accent transition-all duration-300 hover:-translate-y-1 focus:outline-none focus:ring-4 focus:ring-accent focus:ring-offset-4 focus:ring-offset-background"
               >
                 {/* Thumbnail */}
                 <div className="relative aspect-video overflow-hidden border-b-4 border-text">
@@ -112,7 +112,7 @@ export function RelatedPosts({ posts, className = '' }: RelatedPostsProps) {
             </motion.article>
           );
         })}
-      </div>
+      </motion.div>
     </section>
   );
 }

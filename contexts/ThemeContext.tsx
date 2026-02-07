@@ -52,11 +52,19 @@ function applyTheme(theme: ResolvedTheme) {
 
   const html = document.documentElement;
 
+  // Add transition class for smooth theme switching
+  html.classList.add('theme-transitioning');
+
   // Remove both classes first
   html.classList.remove('light', 'dark');
 
   // Add the current theme class
   html.classList.add(theme);
+
+  // Remove transition class after animation completes
+  setTimeout(() => {
+    html.classList.remove('theme-transitioning');
+  }, 300);
 }
 
 export function ThemeProvider({ children }: { children: ReactNode }) {

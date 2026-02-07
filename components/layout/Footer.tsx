@@ -63,7 +63,7 @@ export function Footer() {
                 href={item.href}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-muted hover:text-accent transition-colors focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2 focus:ring-offset-background p-2 border-2 border-transparent hover:border-accent"
+                className="text-muted hover:text-accent hover:rotate-12 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2 focus:ring-offset-background p-2 border-2 border-transparent hover:border-accent"
                 aria-label={`Visit Dakota Smith on ${item.name}`}
               >
                 {item.icon}

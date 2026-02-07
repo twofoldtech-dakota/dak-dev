@@ -1,7 +1,9 @@
 import { notFound } from 'next/navigation';
 import { getAllPosts } from '@/lib/posts';
 import { getPaginatedPosts, POSTS_PER_PAGE } from '@/lib/pagination';
+import { getAllTags } from '@/lib/tags';
 import { Card } from '@/components/ui/Card';
+import { TagList } from '@/components/ui/Tag';
 import { Pagination } from '@/components/blog/Pagination';
 import { PageTransition } from '@/components/ui/PageTransition';
 
@@ -45,6 +47,7 @@ export default async function BlogPageRoute({
 
   const allPosts = await getAllPosts();
   const paginationData = getPaginatedPosts(allPosts, pageNum);
+  const tags = getAllTags(allPosts);
 
   // If page number is out of range, show 404
   if (paginationData.posts.length === 0 && pageNum > 1) {
@@ -67,6 +70,14 @@ export default async function BlogPageRoute({
             </p>
           )}
         </header>
+
+        {/* Tag Filter Bar */}
+        {tags.length > 0 && (
+          <nav aria-label="Filter by tag" className="mb-12 border-b-4 border-surface bg-surface/20 p-6">
+            <p className="text-sm font-semibold text-muted mb-3">Filter by tag</p>
+            <TagList tags={tags} interactive />
+          </nav>
+        )}
 
         {/* Posts Grid */}
         {paginationData.posts.length > 0 ? (

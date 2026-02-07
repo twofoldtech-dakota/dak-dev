@@ -104,7 +104,7 @@ export function Pagination({
                 inline-flex items-center justify-center min-w-[44px] px-4 py-2 font-semibold transition-colors focus:outline-none focus:ring-4 focus:ring-accent focus:ring-offset-4 focus:ring-offset-background
                 ${
                   isCurrentPage
-                    ? 'bg-text text-background border-4 border-accent shadow-[4px_4px_0_0_#00ff88] pointer-events-none'
+                    ? 'bg-text text-background border-4 border-accent shadow-[4px_4px_0_0_var(--color-accent)] pointer-events-none'
                     : 'border-2 border-text hover:bg-text hover:text-background'
                 }
               `}

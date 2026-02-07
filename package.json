@@ -17,7 +17,10 @@
     "images:check": "npx tsx scripts/process-images.ts --check",
     "images:placeholder": "npx tsx scripts/generate-placeholder-images.ts",
     "resume:generate": "npx tsx scripts/generate-resume-pdf.ts",
-    "rss:test": "npx tsx scripts/test-rss-feed.ts"
+    "rss:test": "npx tsx scripts/test-rss-feed.ts",
+    "publish:prepare": "npx tsx scripts/publish-prepare.ts",
+    "publish:prepare:fix": "npx tsx scripts/publish-prepare.ts --fix",
+    "publish:prepare:all": "npx tsx scripts/publish-prepare.ts --all"
   },
   "repository": {
     "type": "git",
@@ -32,6 +35,7 @@
   "homepage": "https://github.com/twofoldtech-dakota/my-site#readme",
   "dependencies": {
     "@giscus/react": "^3.1.0",
+    "@trigger.dev/sdk": "^4.3.3",
     "@vercel/analytics": "^1.6.1",
     "@vercel/og": "^0.8.6",
     "@vercel/speed-insights": "^1.3.1",

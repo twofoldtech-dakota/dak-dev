@@ -16,10 +16,10 @@ const buttonStyles = {
   base: 'inline-flex items-center justify-center font-semibold transition-all duration-200 focus:outline-none focus:ring-4 focus:ring-offset-4 focus:ring-offset-background disabled:opacity-50 disabled:cursor-not-allowed',
 
   variants: {
-    primary: 'bg-text text-background border-4 border-text hover:bg-background hover:text-text shadow-[4px_4px_0_0_#f5f5f5] hover:shadow-[6px_6px_0_0_#00ff88] focus:ring-accent',
-    secondary: 'bg-surface text-text border-4 border-text hover:bg-text hover:text-background shadow-[4px_4px_0_0_#f5f5f5] hover:shadow-[6px_6px_0_0_#00ff88] focus:ring-accent',
+    primary: 'bg-text text-background border-4 border-text hover:bg-background hover:text-text shadow-[4px_4px_0_0_var(--color-text)] hover:shadow-[6px_6px_0_0_var(--color-accent)] focus:ring-accent',
+    secondary: 'bg-surface text-text border-4 border-text hover:bg-text hover:text-background shadow-[4px_4px_0_0_var(--color-text)] hover:shadow-[6px_6px_0_0_var(--color-accent)] focus:ring-accent',
     ghost: 'bg-transparent text-text border-2 border-text hover:bg-text hover:text-background focus:ring-accent',
-    accent: 'bg-transparent text-accent border-4 border-accent hover:bg-accent hover:text-background shadow-[4px_4px_0_0_#00ff88] hover:shadow-[6px_6px_0_0_#00ff88] focus:ring-accent',
+    accent: 'bg-transparent text-accent border-4 border-accent hover:bg-accent hover:text-background shadow-[4px_4px_0_0_var(--color-accent)] hover:shadow-[6px_6px_0_0_var(--color-accent)] focus:ring-accent',
   },
 
   sizes: {

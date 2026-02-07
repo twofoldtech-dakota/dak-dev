@@ -9,6 +9,11 @@ const nextConfig: NextConfig = {
   // Enable React strict mode for better development experience
   reactStrictMode: true,
 
+  // Enable View Transitions API for smooth page navigation
+  experimental: {
+    viewTransition: true,
+  },
+
   // Image optimization configuration
   images: {
     formats: ['image/avif', 'image/webp'],

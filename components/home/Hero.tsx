@@ -1,37 +1,54 @@
 'use client';
 
+import { motion } from 'framer-motion';
+import { staggerContainerVariants, slideUpVariants, drawLineVariants } from '@/lib/animations';
 import { Button } from '@/components/ui/Button';
+import { TextDecode } from '@/components/ui/TextDecode';
 import Link from 'next/link';
 
 /**
  * Hero section for the homepage
  * Client component to support interactive Button with Framer Motion
+ * Staggered entrance animation for first impression
  */
 export function Hero() {
   return (
     <section className="min-h-[60vh] flex items-center border-b-4 border-text">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-16 md:py-24">
-        <div className="max-w-4xl">
+        <motion.div
+          className="max-w-4xl"
+          variants={staggerContainerVariants}
+          initial="hidden"
+          animate="visible"
+        >
           {/* Greeting */}
-          <div className="mb-6 inline-block border-4 border-accent bg-surface px-6 py-2">
+          <motion.div variants={slideUpVariants} className="mb-6 inline-block border-4 border-accent bg-surface px-6 py-2">
             <p className="text-sm font-bold uppercase tracking-wider text-accent">
               Software Engineer
             </p>
-          </div>
+          </motion.div>
 
           {/* Main Heading */}
-          <h1 className="text-5xl md:text-7xl font-bold mb-6 leading-tight">
-            Dakota Smith
-          </h1>
+          <motion.h1 variants={slideUpVariants} className="text-5xl md:text-7xl font-bold mb-6 leading-tight">
+            <TextDecode text="Dakota Smith" delay={400} />
+          </motion.h1>
+
+          {/* Decorative accent line */}
+          <motion.div
+            className="h-1 bg-accent mb-8 origin-left"
+            style={{ maxWidth: '200px' }}
+            aria-hidden="true"
+            variants={drawLineVariants}
+          />
 
           {/* Bio */}
-          <p className="text-xl md:text-2xl text-muted mb-8 leading-relaxed max-w-3xl">
+          <motion.p variants={slideUpVariants} className="text-xl md:text-2xl text-muted mb-8 leading-relaxed max-w-3xl">
             I build things that build things. Agentic systems, AI tooling, and
             enterprise digital solutions.
-          </p>
+          </motion.p>
 
           {/* Social Links */}
-          <div className="flex flex-wrap gap-4 mb-8">
+          <motion.div variants={slideUpVariants} className="flex flex-wrap gap-4 mb-8">
             <a
               href="https://github.com/twofoldtech-dakota"
               target="_blank"
@@ -52,29 +69,31 @@ export function Hero() {
               </svg>
               GitHub
             </a>
-          </div>
+          </motion.div>
 
           {/* CTA Button */}
-          <Link href="/blog">
-            <Button size="lg" variant="accent">
-              Read My Articles
-              <svg
-                className="w-5 h-5"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-                aria-hidden="true"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M13 7l5 5m0 0l-5 5m5-5H6"
-                />
-              </svg>
-            </Button>
-          </Link>
-        </div>
+          <motion.div variants={slideUpVariants}>
+            <Link href="/blog">
+              <Button size="lg" variant="accent">
+                Read My Articles
+                <svg
+                  className="w-5 h-5"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                  aria-hidden="true"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M13 7l5 5m0 0l-5 5m5-5H6"
+                  />
+                </svg>
+              </Button>
+            </Link>
+          </motion.div>
+        </motion.div>
       </div>
     </section>
   );

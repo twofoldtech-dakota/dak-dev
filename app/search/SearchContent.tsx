@@ -121,7 +121,7 @@ function SearchResults() {
               </p>
               <Link
                 href="/blog"
-                className="inline-flex items-center gap-2 px-6 py-3 bg-surface border-4 border-text text-text font-bold hover:bg-text hover:text-background shadow-[4px_4px_0_0_#f5f5f5] hover:shadow-[8px_8px_0_0_#00ff88] hover:-translate-y-1 transition-all focus:outline-none focus:ring-4 focus:ring-accent focus:ring-offset-4 focus:ring-offset-background"
+                className="inline-flex items-center gap-2 px-6 py-3 bg-surface border-4 border-text text-text font-bold hover:bg-text hover:text-background shadow-[4px_4px_0_0_var(--color-text)] hover:shadow-[8px_8px_0_0_var(--color-accent)] hover:-translate-y-1 transition-all focus:outline-none focus:ring-4 focus:ring-accent focus:ring-offset-4 focus:ring-offset-background"
               >
                 Browse All Posts
               </Link>
@@ -154,7 +154,7 @@ function SearchResults() {
               </p>
               <Link
                 href="/blog"
-                className="inline-flex items-center gap-2 px-6 py-3 bg-surface border-4 border-text text-text font-bold hover:bg-text hover:text-background shadow-[4px_4px_0_0_#f5f5f5] hover:shadow-[8px_8px_0_0_#00ff88] hover:-translate-y-1 transition-all focus:outline-none focus:ring-4 focus:ring-accent focus:ring-offset-4 focus:ring-offset-background"
+                className="inline-flex items-center gap-2 px-6 py-3 bg-surface border-4 border-text text-text font-bold hover:bg-text hover:text-background shadow-[4px_4px_0_0_var(--color-text)] hover:shadow-[8px_8px_0_0_var(--color-accent)] hover:-translate-y-1 transition-all focus:outline-none focus:ring-4 focus:ring-accent focus:ring-offset-4 focus:ring-offset-background"
               >
                 Browse All Posts
               </Link>

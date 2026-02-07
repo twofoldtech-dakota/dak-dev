@@ -181,7 +181,7 @@ export function Search({ className = '' }: SearchProps) {
               aria-modal="true"
               aria-label="Search posts"
             >
-              <div className="bg-surface border-4 border-text shadow-[12px_12px_0_0_#f5f5f5]">
+              <div className="bg-surface border-4 border-text shadow-[12px_12px_0_0_var(--color-text)]">
                 {/* Search Input */}
                 <div className="flex items-center gap-3 px-4 py-4 border-b-4 border-text">
                   <svg

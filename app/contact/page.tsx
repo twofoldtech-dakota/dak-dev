@@ -24,7 +24,7 @@ export default function ContactPage() {
         <header className="mb-12 border-b-4 border-text pb-8">
           <h1 className="text-5xl md:text-6xl font-bold mb-4">Contact</h1>
           <p className="text-lg text-muted">
-            Have a question or want to work together? I&apos;d love to hear from you.
+            Have a question? I&apos;d love to hear from you.
           </p>
         </header>
 

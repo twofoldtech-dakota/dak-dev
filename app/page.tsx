@@ -37,8 +37,10 @@ export default async function Home() {
       {/* Hero Section */}
       <Hero />
 
-      {/* Products & Tools Section */}
-      <ProductsShowcase />
+      {/* Section Divider */}
+      <div className="flex justify-center py-8">
+        <div className="w-20 h-1 bg-accent" aria-hidden="true" />
+      </div>
 
       {/* Featured Post Section */}
       <section className="py-16 md:py-24">
@@ -79,11 +81,11 @@ export default async function Home() {
           {featuredPost ? (
             <Link
               href={`/blog/${featuredPost.frontmatter.slug}`}
-              className="group block relative border-4 border-text bg-surface p-6 md:p-8 shadow-[8px_8px_0_0_#f5f5f5] hover:border-green-400 hover:shadow-[12px_12px_0_0_#4ade80] transition-all duration-200 focus:outline-none focus:ring-4 focus:ring-green-400 focus:ring-offset-4 focus:ring-offset-background"
+              className="group block relative border-4 border-text bg-surface p-6 md:p-8 shadow-[8px_8px_0_0_var(--color-text)] hover:border-accent hover:shadow-[12px_12px_0_0_var(--color-accent)] transition-all duration-200 focus:outline-none focus:ring-4 focus:ring-accent focus:ring-offset-4 focus:ring-offset-background"
             >
               <article>
                 {/* Featured Badge */}
-                <div className="absolute -top-4 left-6 bg-surface text-green-400 px-4 py-1 border-4 border-text">
+                <div className="absolute -top-4 left-6 bg-surface text-accent px-4 py-1 border-4 border-text">
                   <span className="text-sm font-bold uppercase tracking-wider">Featured</span>
                 </div>
 
@@ -179,13 +181,16 @@ export default async function Home() {
           {/* Mobile "View All" Button */}
           <div className="mt-12 sm:hidden flex justify-center">
             <Link href="/blog">
-              <button className="inline-flex items-center justify-center font-semibold px-6 py-3 text-base gap-2 bg-surface text-text border-4 border-text hover:bg-text hover:text-background shadow-[4px_4px_0_0_#f5f5f5] hover:shadow-[6px_6px_0_0_#f5f5f5] transition-all duration-200 focus:outline-none focus:ring-4 focus:ring-text focus:ring-offset-4 focus:ring-offset-background">
+              <button className="inline-flex items-center justify-center font-semibold px-6 py-3 text-base gap-2 bg-surface text-text border-4 border-text hover:bg-text hover:text-background shadow-[4px_4px_0_0_var(--color-text)] hover:shadow-[6px_6px_0_0_var(--color-text)] transition-all duration-200 focus:outline-none focus:ring-4 focus:ring-text focus:ring-offset-4 focus:ring-offset-background">
                 View All Posts
               </button>
             </Link>
           </div>
         </div>
       </section>
+
+      {/* Products & Tools Section - hidden for now */}
+      {/* <ProductsShowcase /> */}
     </>
   );
 }

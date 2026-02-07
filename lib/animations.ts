@@ -119,6 +119,18 @@ export const pageTransitionVariants: Variants = {
 };
 
 /**
+ * Draw line effect — scales from left using origin-left class
+ */
+export const drawLineVariants: Variants = {
+  hidden: { scaleX: 0, opacity: 0 },
+  visible: {
+    scaleX: 1,
+    opacity: 1,
+    transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] },
+  },
+};
+
+/**
  * Glitch effect for brutalist design
  * Subtle transform for hover states
  */

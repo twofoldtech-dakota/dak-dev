@@ -61,6 +61,12 @@ html.dark {
   }
 }
 
+/* Smooth theme transition */
+.theme-transitioning,
+.theme-transitioning * {
+  transition: background-color 0.3s, color 0.3s, border-color 0.3s, box-shadow 0.3s !important;
+}
+
 body {
   background-color: var(--color-background);
   color: var(--color-text);
@@ -70,8 +76,8 @@ body {
 .mdx-content pre {
   margin: 1.5rem 0;
   padding: 0;
-  background-color: #0a0a0a !important;
-  border: 2px solid #f5f5f5;
+  background-color: var(--color-background) !important;
+  border: 2px solid var(--color-text);
   overflow-x: auto;
 }
 
@@ -97,7 +103,7 @@ body {
   width: 1.5rem;
   margin-right: 1.5rem;
   text-align: right;
-  color: #666666;
+  color: var(--color-muted);
   user-select: none;
 }
 
@@ -145,17 +151,17 @@ body {
 }
 
 .mdx-content pre::-webkit-scrollbar-track {
-  background: #1a1a1a;
-  border: 2px solid #0a0a0a;
+  background: var(--color-surface);
+  border: 2px solid var(--color-background);
 }
 
 .mdx-content pre::-webkit-scrollbar-thumb {
-  background: #666666;
-  border: 2px solid #0a0a0a;
+  background: var(--color-muted);
+  border: 2px solid var(--color-background);
 }
 
 .mdx-content pre::-webkit-scrollbar-thumb:hover {
-  background: #00ff88;
+  background: var(--color-accent);
 }
 
 /* Share buttons - Neo-brutalist styling */
@@ -169,7 +175,7 @@ body {
   background-color: var(--color-surface);
   color: var(--color-text);
   border: 3px solid var(--color-text);
-  box-shadow: 4px 4px 0 0 rgba(245, 245, 245, 0.3);
+  box-shadow: 4px 4px 0 0 var(--color-text);
   transition: transform 0.15s ease, box-shadow 0.15s ease;
   cursor: pointer;
   text-decoration: none;
@@ -177,12 +183,12 @@ body {
 
 .share-button:hover {
   transform: translate(-2px, -2px);
-  box-shadow: 6px 6px 0 0 rgba(245, 245, 245, 0.4);
+  box-shadow: 6px 6px 0 0 var(--color-accent);
 }
 
 .share-button:active {
   transform: translate(2px, 2px);
-  box-shadow: 2px 2px 0 0 rgba(245, 245, 245, 0.2);
+  box-shadow: 2px 2px 0 0 var(--color-text);
 }
 
 .share-button:focus {
@@ -190,15 +196,36 @@ body {
   box-shadow: 0 0 0 4px var(--color-accent);
 }
 
+/* View Transitions — subtle cross-dissolve between pages */
+::view-transition-old(root) {
+  animation: vt-fade-out 0.2s ease-in forwards;
+}
+::view-transition-new(root) {
+  animation: vt-fade-in 0.3s ease-out;
+}
+@keyframes vt-fade-out {
+  from { opacity: 1; }
+  to { opacity: 0; }
+}
+@keyframes vt-fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
 /* Reduced motion support */
 @media (prefers-reduced-motion: reduce) {
+  ::view-transition-old(root),
+  ::view-transition-new(root) {
+    animation: none !important;
+  }
+
   .share-button {
     transition: none;
   }
 
   .share-button:hover {
     transform: none;
-    box-shadow: 4px 4px 0 0 rgba(245, 245, 245, 0.3);
+    box-shadow: 4px 4px 0 0 var(--color-text);
   }
 
   .share-button:active {

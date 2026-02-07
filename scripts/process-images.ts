@@ -55,12 +55,13 @@ Examples:
 `);
 }
 
-function parseArgs(): { command: Command; args: Partial<ProcessArgs> } {
+function parseArgs(): { command: Command; args: Partial<ProcessArgs>; ci: boolean } {
   const argv = process.argv.slice(2);
 
   // Determine command from npm script name, environment variable, or first arg
   let command: Command = 'process';
   const npmEvent = process.env.npm_lifecycle_event || '';
+  const ci = argv.includes('--ci');
 
   if (npmEvent.includes('validate') || argv.includes('--validate') || argv.includes('validate')) {
     command = 'validate';
@@ -85,7 +86,7 @@ function parseArgs(): { command: Command; args: Partial<ProcessArgs> } {
     }
   }
 
-  return { command, args };
+  return { command, args, ci };
 }
 
 async function processCommand(args: ProcessArgs) {
@@ -143,7 +144,7 @@ function displayImageResult(type: string, image: ProcessedImage) {
   console.log(`   Blur: ${image.blurDataURL.substring(0, 50)}...`);
 }
 
-async function validateCommand() {
+async function validateCommand(ci: boolean = false) {
   console.log('\n🔍 Image Validation Report');
   console.log('═'.repeat(50));
   console.log(`Date: ${new Date().toISOString().split('T')[0]}`);
@@ -216,6 +217,9 @@ async function validateCommand() {
     console.log('\n✅ All images pass validation!\n');
   } else {
     console.log('\n💡 Run `npm run images:process` to fix image issues.\n');
+    if (ci && totalIssues > 0) {
+      process.exit(1);
+    }
   }
 }
 
@@ -260,7 +264,7 @@ async function checkCommand() {
 }
 
 async function main() {
-  const { command, args } = parseArgs();
+  const { command, args, ci } = parseArgs();
 
   switch (command) {
     case 'process':
@@ -273,7 +277,7 @@ async function main() {
       break;
 
     case 'validate':
-      await validateCommand();
+      await validateCommand(ci);
       break;
 
     case 'check':

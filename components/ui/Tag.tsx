@@ -14,8 +14,8 @@ interface TagProps {
  * Can be interactive (link) or static (display only)
  */
 export function Tag({ tag, interactive = true, className = '' }: TagProps) {
-  const baseStyles = 'inline-block px-3 py-1 text-sm font-semibold border-2 border-text transition-colors duration-200';
-  const interactiveStyles = 'hover:bg-text hover:text-background hover:border-accent focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2 focus:ring-offset-background';
+  const baseStyles = 'inline-block px-3 py-1 text-sm font-semibold border-2 border-text transition-all duration-200';
+  const interactiveStyles = 'hover:bg-text hover:text-background hover:border-accent hover:shadow-[0_0_12px_var(--color-accent)] focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2 focus:ring-offset-background';
   const staticStyles = 'bg-transparent text-text';
 
   const classNames = [

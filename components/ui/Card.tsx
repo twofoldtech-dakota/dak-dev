@@ -3,6 +3,7 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import { motion } from 'framer-motion';
+import { staggerContainerVariants, staggerItemVariants } from '@/lib/animations';
 import { TagList } from './Tag';
 
 interface CardProps {
@@ -38,15 +39,12 @@ export function Card({
 
   return (
     <motion.article
-      initial={{ opacity: 0, y: 20 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: '-50px' }}
-      transition={{ duration: 0.4, ease: 'easeOut' }}
+      variants={staggerItemVariants}
       className={`group ${className}`}
     >
       <Link
         href={`/blog/${slug}`}
-        className="block bg-surface border-4 border-text shadow-[8px_8px_0_0_#f5f5f5] hover:shadow-[12px_12px_0_0_#00ff88] hover:border-accent transition-all duration-300 hover:-translate-y-1 focus:outline-none focus:ring-4 focus:ring-accent focus:ring-offset-4 focus:ring-offset-background"
+        className="block bg-surface border-4 border-text shadow-[8px_8px_0_0_var(--color-text)] hover:shadow-[12px_12px_0_0_var(--color-accent)] hover:border-accent transition-all duration-300 hover:-translate-y-1 focus:outline-none focus:ring-4 focus:ring-accent focus:ring-offset-4 focus:ring-offset-background"
       >
         {/* Thumbnail */}
         <div className="relative aspect-video overflow-hidden border-b-4 border-text">
@@ -118,12 +116,16 @@ interface CardListProps {
  */
 export function CardList({ posts, className = '' }: CardListProps) {
   return (
-    <div
+    <motion.div
+      variants={staggerContainerVariants}
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: true, margin: '-50px' }}
       className={`grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 ${className}`}
     >
       {posts.map((post) => (
         <Card key={post.slug} {...post} />
       ))}
-    </div>
+    </motion.div>
   );
 }

@@ -6,6 +6,7 @@ import {
 } from '@/lib/schema';
 import { ExperienceCard } from '@/components/resume/ExperienceCard';
 import { SkillCategory } from '@/components/resume/SkillCategory';
+import { ScrollReveal, ScrollRevealItem } from '@/components/ui/ScrollReveal';
 import Link from 'next/link';
 
 export const metadata = {
@@ -121,134 +122,123 @@ export default function AboutPage() {
               <p className="text-2xl font-semibold text-text">Dakota Smith</p>
               <p className="text-lg text-muted">Kansas City, MO</p>
             </div>
-            <div>
-              <a
-                href="/dakota-smith-resume.pdf"
-                download="Dakota-Smith-Resume.pdf"
-                className="inline-flex items-center gap-2 px-6 py-3 bg-text text-background font-bold border-4 border-text hover:bg-background hover:text-text transition-colors focus:outline-none focus:ring-4 focus:ring-text focus:ring-offset-4 focus:ring-offset-background"
-                aria-label="Download Dakota Smith's resume as PDF"
-              >
-                <svg
-                  className="w-5 h-5"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                  aria-hidden="true"
-                >
-                  <path
-                    strokeLinecap="square"
-                    strokeLinejoin="miter"
-                    strokeWidth={2}
-                    d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
-                  />
-                </svg>
-                Download Resume
-              </a>
-            </div>
+            {/* Resume download button - hidden for now */}
           </div>
         </header>
 
         {/* Main Content */}
         <div className="space-y-12">
           {/* Executive Summary */}
-          <section className="border-4 border-text bg-surface p-8">
-            <h2 className="text-3xl font-bold mb-6">Executive Summary</h2>
-            <p className="text-lg text-muted leading-relaxed">
-              Systems Architect with <strong>15 years</strong> in enterprise software, specializing in the
-              stabilization and modernization of complex Sitecore and .NET ecosystems. I bridge the gap
-              between generative AI speed and enterprise-grade rigor through <strong>Deterministic
-              Orchestration</strong>—ensuring agentic intelligence follows strict architectural logic
-              rather than &quot;Prompt-and-Pray&quot; patterns.
-            </p>
-            <p className="text-lg text-muted leading-relaxed mt-4">
-              Proven track record of shipping <strong>30+ production-ready projects</strong> with a focus
-              on <strong>Industrial Clarity</strong>: eliminating technical slop to build resilient,
-              sub-second performance systems.
-            </p>
-          </section>
+          <ScrollReveal>
+            <section className="border-4 border-text bg-surface p-8">
+              <h2 className="text-3xl font-bold mb-6">Executive Summary</h2>
+              <p className="text-lg text-muted leading-relaxed">
+                Systems Architect with <strong>15 years</strong> in enterprise software, specializing in the
+                stabilization and modernization of complex Sitecore and .NET ecosystems. I bridge the gap
+                between generative AI speed and enterprise-grade rigor through <strong>Deterministic
+                Orchestration</strong>—ensuring agentic intelligence follows strict architectural logic
+                rather than &quot;Prompt-and-Pray&quot; patterns.
+              </p>
+              <p className="text-lg text-muted leading-relaxed mt-4">
+                Proven track record of shipping <strong>30+ production-ready projects</strong> with a focus
+                on <strong>Industrial Clarity</strong>: eliminating technical slop to build resilient,
+                sub-second performance systems.
+              </p>
+            </section>
+          </ScrollReveal>
 
           {/* Core Competencies */}
           <section>
             <h2 className="text-3xl font-bold mb-6 border-l-4 border-text pl-6">
               Core Competencies
             </h2>
-            <div className="grid md:grid-cols-2 gap-6">
+            <ScrollReveal stagger className="grid md:grid-cols-2 gap-6">
               {competencies.map((category) => (
-                <div key={category.title} className="border-4 border-text bg-surface p-6">
-                  <h3 className="text-xl font-bold mb-4 text-accent">{category.title}</h3>
-                  <div className="space-y-4">
-                    {category.items.map((item) => (
-                      <div key={item.name}>
-                        <h4 className="font-bold text-text">{item.name}</h4>
-                        <p className="text-sm text-muted">{item.description}</p>
-                      </div>
-                    ))}
+                <ScrollRevealItem key={category.title}>
+                  <div className="border-4 border-text bg-surface p-6">
+                    <h3 className="text-xl font-bold mb-4 text-accent">{category.title}</h3>
+                    <div className="space-y-4">
+                      {category.items.map((item) => (
+                        <div key={item.name}>
+                          <h4 className="font-bold text-text">{item.name}</h4>
+                          <p className="text-sm text-muted">{item.description}</p>
+                        </div>
+                      ))}
+                    </div>
                   </div>
-                </div>
+                </ScrollRevealItem>
               ))}
-            </div>
+            </ScrollReveal>
           </section>
 
           {/* Technical Toolkit */}
-          <section className="border-4 border-text bg-surface p-8">
-            <h2 className="text-3xl font-bold mb-6">Technical Toolkit</h2>
-            <div className="grid md:grid-cols-2 gap-8">
-              <SkillCategory
-                title="Architectural Paradigms"
-                skills={['Agentic State Machines', 'Deterministic AI Orchestration', 'Helix/Modular Design']}
-              />
-              <SkillCategory
-                title="Platforms"
-                skills={['Sitecore (XM Cloud/XP)', 'Optimizely', 'Umbraco', 'Azure DevOps', 'Vercel', 'Docker']}
-              />
-              <SkillCategory
-                title="Backend & Data"
-                skills={['.NET Core', 'C#', 'GraphQL', 'SQL Server', 'MongoDB', 'Postgres', 'Prisma', 'Solr']}
-              />
-              <SkillCategory
-                title="Frontend"
-                skills={['Next.js', 'React', 'TypeScript', 'TailwindCSS', 'SASS']}
-              />
-            </div>
-          </section>
+          <ScrollReveal>
+            <section className="border-4 border-text bg-surface p-8">
+              <h2 className="text-3xl font-bold mb-6">Technical Toolkit</h2>
+              <div className="grid md:grid-cols-2 gap-8">
+                <SkillCategory
+                  title="Architectural Paradigms"
+                  skills={['Agentic State Machines', 'Deterministic AI Orchestration', 'Helix/Modular Design']}
+                />
+                <SkillCategory
+                  title="Platforms"
+                  skills={['Sitecore (XM Cloud/XP)', 'Optimizely', 'Umbraco', 'Azure DevOps', 'Vercel', 'Docker']}
+                />
+                <SkillCategory
+                  title="Backend & Data"
+                  skills={['.NET Core', 'C#', 'GraphQL', 'SQL Server', 'MongoDB', 'Postgres', 'Prisma', 'Solr']}
+                />
+                <SkillCategory
+                  title="Frontend"
+                  skills={['Next.js', 'React', 'TypeScript', 'TailwindCSS', 'SASS']}
+                />
+              </div>
+            </section>
+          </ScrollReveal>
 
           {/* Key Innovations */}
           <section>
             <h2 className="text-3xl font-bold mb-6 border-l-4 border-text pl-6">
               Key Innovations
             </h2>
-            <div className="grid gap-6">
-              <div className="border-4 border-text bg-surface p-6">
-                <h3 className="text-xl font-bold text-accent mb-2">Claude CMS Marketplace</h3>
-                <p className="text-sm text-muted mb-1">Creator</p>
-                <ul className="space-y-2 mt-4">
-                  <li className="text-muted leading-relaxed pl-4 border-l-2 border-muted">
-                    Architected a suite of AI-powered plugins for analyzing architectural debt (Helix compliance), security vulnerabilities, and performance bottlenecks across Sitecore and XM Cloud.
-                  </li>
-                  <li className="text-muted leading-relaxed pl-4 border-l-2 border-muted">
-                    Integrated CI/CD-ready agents into PR pipelines to enforce senior-level standards automatically.
-                  </li>
-                </ul>
-              </div>
-              <div className="border-4 border-text bg-surface p-6">
-                <h3 className="text-xl font-bold text-accent mb-2">STUDIO</h3>
-                <p className="text-sm text-muted mb-1">Architect</p>
-                <ul className="space-y-2 mt-4">
-                  <li className="text-muted leading-relaxed pl-4 border-l-2 border-muted">
-                    Architected high-performance orchestration layer built to give &quot;Industrial Clarity&quot; and engineering precision to AI-assisted development.
-                  </li>
-                </ul>
-              </div>
-              <div className="border-4 border-text bg-surface p-6">
-                <h3 className="text-xl font-bold text-accent mb-2">HandoffKit</h3>
-                <p className="text-sm text-muted mb-1">Creator</p>
-                <ul className="space-y-2 mt-4">
-                  <li className="text-muted leading-relaxed pl-4 border-l-2 border-muted">
-                    AI-powered project handoff documentation for consulting agencies and freelancers. Connect your repo, generate comprehensive docs, and ship with confidence.
-                  </li>
-                </ul>
-              </div>
-            </div>
+            <ScrollReveal stagger className="grid gap-6">
+              <ScrollRevealItem>
+                <div className="border-4 border-text bg-surface p-6">
+                  <h3 className="text-xl font-bold text-accent mb-2">Claude CMS Marketplace</h3>
+                  <p className="text-sm text-muted mb-1">Creator</p>
+                  <ul className="space-y-2 mt-4">
+                    <li className="text-muted leading-relaxed pl-4 border-l-2 border-muted">
+                      Architected a suite of AI-powered plugins for analyzing architectural debt (Helix compliance), security vulnerabilities, and performance bottlenecks across Sitecore and XM Cloud.
+                    </li>
+                    <li className="text-muted leading-relaxed pl-4 border-l-2 border-muted">
+                      Integrated CI/CD-ready agents into PR pipelines to enforce senior-level standards automatically.
+                    </li>
+                  </ul>
+                </div>
+              </ScrollRevealItem>
+              <ScrollRevealItem>
+                <div className="border-4 border-text bg-surface p-6">
+                  <h3 className="text-xl font-bold text-accent mb-2">STUDIO</h3>
+                  <p className="text-sm text-muted mb-1">Architect</p>
+                  <ul className="space-y-2 mt-4">
+                    <li className="text-muted leading-relaxed pl-4 border-l-2 border-muted">
+                      Architected high-performance orchestration layer built to give &quot;Industrial Clarity&quot; and engineering precision to AI-assisted development.
+                    </li>
+                  </ul>
+                </div>
+              </ScrollRevealItem>
+              <ScrollRevealItem>
+                <div className="border-4 border-text bg-surface p-6">
+                  <h3 className="text-xl font-bold text-accent mb-2">HandoffKit</h3>
+                  <p className="text-sm text-muted mb-1">Creator</p>
+                  <ul className="space-y-2 mt-4">
+                    <li className="text-muted leading-relaxed pl-4 border-l-2 border-muted">
+                      AI-powered project handoff documentation for consulting agencies and freelancers. Connect your repo, generate comprehensive docs, and ship with confidence.
+                    </li>
+                  </ul>
+                </div>
+              </ScrollRevealItem>
+            </ScrollReveal>
           </section>
 
           {/* Professional Experience */}
@@ -256,14 +246,15 @@ export default function AboutPage() {
             <h2 className="text-3xl font-bold mb-6 border-l-4 border-text pl-6">
               Professional Experience
             </h2>
-            <div className="space-y-6">
+            <ScrollReveal stagger className="space-y-6">
               {experiences.map((exp) => (
                 <ExperienceCard key={`${exp.company}-${exp.period}`} {...exp} />
               ))}
-            </div>
+            </ScrollReveal>
           </section>
 
           {/* Certifications & Education */}
+          <ScrollReveal>
           <section className="border-4 border-text bg-surface p-8">
             <h2 className="text-3xl font-bold mb-6">Certifications & Education</h2>
             <div className="grid md:grid-cols-2 gap-8">
@@ -295,6 +286,7 @@ export default function AboutPage() {
               </div>
             </div>
           </section>
+          </ScrollReveal>
 
           {/* Back to Blog */}
           <div className="text-center pt-8">

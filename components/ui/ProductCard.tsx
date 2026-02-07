@@ -1,6 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
+import { staggerContainerVariants, staggerItemVariants } from '@/lib/animations';
 import type { Product } from '@/lib/products';
 
 const icons = {
@@ -49,17 +50,14 @@ interface ProductCardProps {
 export function ProductCard({ product, className = '' }: ProductCardProps) {
   return (
     <motion.article
-      initial={{ opacity: 0, y: 20 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: '-50px' }}
-      transition={{ duration: 0.4, ease: 'easeOut' }}
+      variants={staggerItemVariants}
       className={`group ${className}`}
     >
       <a
         href={product.url}
         target="_blank"
         rel="noopener noreferrer"
-        className="block h-full bg-surface border-4 border-text shadow-[8px_8px_0_0_#f5f5f5] hover:shadow-[12px_12px_0_0_#00ff88] hover:border-accent transition-all duration-300 hover:-translate-y-1 focus:outline-none focus:ring-4 focus:ring-accent focus:ring-offset-4 focus:ring-offset-background"
+        className="block h-full bg-surface border-4 border-text shadow-[8px_8px_0_0_var(--color-text)] hover:shadow-[12px_12px_0_0_var(--color-accent)] hover:border-accent transition-all duration-300 hover:-translate-y-1 focus:outline-none focus:ring-4 focus:ring-accent focus:ring-offset-4 focus:ring-offset-background"
       >
         <div className="p-6">
           {/* Icon */}
@@ -111,12 +109,16 @@ interface ProductCardListProps {
  */
 export function ProductCardList({ products, className = '' }: ProductCardListProps) {
   return (
-    <div
+    <motion.div
+      variants={staggerContainerVariants}
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: true, margin: '-50px' }}
       className={`grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 ${className}`}
     >
       {products.map((product) => (
         <ProductCard key={product.id} product={product} />
       ))}
-    </div>
+    </motion.div>
   );
 }

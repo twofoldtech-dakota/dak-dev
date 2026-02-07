@@ -4,6 +4,7 @@ import { useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
+import { glitchHoverVariants } from '@/lib/animations';
 import { Search } from '@/components/ui/Search';
 
 const navigation = [
@@ -51,7 +52,14 @@ export function Header() {
                 }`}
                 aria-current={isActive(item.href) ? 'page' : undefined}
               >
-                {item.name}
+                <motion.span
+                  variants={glitchHoverVariants}
+                  initial="rest"
+                  whileHover={isActive(item.href) ? undefined : 'hover'}
+                  className="inline-block"
+                >
+                  {item.name}
+                </motion.span>
                 {isActive(item.href) && (
                   <motion.div
                     layoutId="activeNav"
@@ -71,7 +79,7 @@ export function Header() {
                 href="https://linkedin.com/in/dakota-smith-a855b230"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center justify-center w-8 h-8 text-muted hover:text-accent transition-colors focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2 focus:ring-offset-background"
+                className="inline-flex items-center justify-center w-8 h-8 text-muted hover:text-accent hover:rotate-12 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2 focus:ring-offset-background"
                 aria-label="LinkedIn Profile"
               >
                 <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
@@ -82,7 +90,7 @@ export function Header() {
                 href="https://github.com/twofoldtech-dakota"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center justify-center w-8 h-8 text-muted hover:text-accent transition-colors focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2 focus:ring-offset-background"
+                className="inline-flex items-center justify-center w-8 h-8 text-muted hover:text-accent hover:rotate-12 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2 focus:ring-offset-background"
                 aria-label="GitHub Profile"
               >
                 <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">

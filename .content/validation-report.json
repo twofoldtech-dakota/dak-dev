@@ -1,44 +1,21 @@
 {
-  "generated_at": "2026-01-26T02:49:41.263Z",
+  "generated_at": "2026-02-07T20:52:36.057Z",
+  "pipeline": "publish-prepare",
+  "fix_mode": true,
   "summary": {
-    "total": 4,
-    "passed": 1,
-    "failed": 3,
-    "warnings": 23,
-    "average_score": 91
+    "total": 1,
+    "passed": 0,
+    "failed": 1,
+    "average_score": 92
   },
   "results": [
     {
       "slug": "building-apl-autonomous-coding-agent",
       "title": "How I Built APL: Turning Claude Code into an Autonomous Dev Team",
       "passed": false,
-      "score": 90,
-      "issueCount": 1,
-      "warningCount": 7
-    },
-    {
-      "slug": "building-claude-marketplace-cms-analyzers",
-      "title": "Building a Claude Code Plugin Marketplace for CMS Analysis",
-      "passed": false,
-      "score": 90,
-      "issueCount": 1,
-      "warningCount": 5
-    },
-    {
-      "slug": "how-apl-built-this-blog",
-      "title": "How APL Built This Entire Blog While I Watched",
-      "passed": false,
-      "score": 90,
-      "issueCount": 1,
-      "warningCount": 7
-    },
-    {
-      "slug": "my-2026-dev-setup",
-      "title": "My 2026 Dev Setup: From Vanilla Claude Code to Autonomous Workflows",
-      "passed": true,
-      "score": 95,
-      "issueCount": 0,
-      "warningCount": 4
+      "score": 92,
+      "issues": 1,
+      "warnings": 7
     }
   ]
 }

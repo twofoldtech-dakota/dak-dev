@@ -4,7 +4,7 @@
 
 export interface ValidationIssue {
   type: 'error' | 'warning';
-  category: 'frontmatter' | 'structure' | 'seo' | 'voice' | 'images';
+  category: 'frontmatter' | 'structure' | 'seo' | 'voice' | 'images' | 'links';
   field?: string;
   message: string;
   suggestion?: string;
@@ -50,6 +50,16 @@ export interface BrandGuidelines {
       max_keywords: number;
       min_tags: number;
       max_tags: number;
+    };
+    seo_strategy?: {
+      keyword_requirements: {
+        max_keyword_density_percent: number;
+        min_keyword_density_percent: number;
+      };
+      internal_linking: {
+        min_internal_links_per_post: number;
+        max_internal_links_per_post: number;
+      };
     };
     tone: {
       forbidden_phrases: string[];

@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import { motion } from 'framer-motion';
 
 export interface CodeBlockProps {
   children: string;
@@ -62,23 +63,27 @@ export function CodeBlock({
   return (
     <div className="relative group my-6">
       {/* Language badge and copy button */}
-      <div className="flex items-center justify-between px-4 py-2 bg-[#333333] border-2 border-b-0 border-[#F5F5F5]">
-        <span className="text-xs font-semibold text-[#F5F5F5] uppercase tracking-wider">
+      <div className="flex items-center justify-between px-4 py-2 bg-surface border-2 border-b-0 border-text">
+        <span className="text-xs font-semibold text-text uppercase tracking-wider">
           {displayLang}
         </span>
-        <button
+        <motion.button
           onClick={handleCopy}
           aria-label={copied ? 'Code copied' : 'Copy code to clipboard'}
-          className="px-3 py-1 text-xs font-semibold text-[#0A0A0A] bg-[#F5F5F5] border-2 border-[#0A0A0A]
-                     hover:bg-[#A9A9A9] focus:outline-none focus:ring-2 focus:ring-[#F5F5F5] focus:ring-offset-2
-                     focus:ring-offset-[#333333] transition-colors"
+          className={`px-3 py-1 text-xs font-semibold border-2 border-background
+                     focus:outline-none focus:ring-2 focus:ring-text focus:ring-offset-2
+                     focus:ring-offset-surface transition-colors ${
+                       copied ? 'bg-accent text-background' : 'bg-text text-background hover:bg-muted'
+                     }`}
+          animate={copied ? { scale: [1, 1.15, 1] } : {}}
+          transition={{ duration: 0.2 }}
         >
           {copied ? 'COPIED!' : 'COPY'}
-        </button>
+        </motion.button>
       </div>
 
       {/* Code container */}
-      <div className="relative bg-[#0A0A0A] border-2 border-[#F5F5F5] overflow-hidden">
+      <div className="relative bg-background border-2 border-text overflow-hidden">
         <div className="overflow-x-auto">
           {highlightedHtml ? (
             // Use pre-highlighted HTML from Shiki
@@ -92,7 +97,7 @@ export function CodeBlock({
               {/* Line numbers gutter */}
               {showLineNumbers && (
                 <div
-                  className="flex-shrink-0 px-4 py-4 text-right border-r-2 border-[#333333] select-none"
+                  className="flex-shrink-0 px-4 py-4 text-right border-r-2 border-surface select-none"
                   aria-hidden="true"
                 >
                   {lines.map((_, i) => {
@@ -102,7 +107,7 @@ export function CodeBlock({
                       <div
                         key={lineNum}
                         className={`font-mono text-xs leading-6 ${
-                          isHighlighted ? 'text-[#F5F5F5] font-bold' : 'text-[#666666]'
+                          isHighlighted ? 'text-text font-bold' : 'text-muted'
                         }`}
                       >
                         {lineNum}
@@ -115,7 +120,7 @@ export function CodeBlock({
               {/* Code content */}
               <div className="flex-1 px-4 py-4">
                 <pre className="font-mono text-sm leading-6">
-                  <code className="text-[#F5F5F5]">
+                  <code className="text-text">
                     {lines.map((line, i) => {
                       const lineNum = i + 1;
                       const isHighlighted = highlightLines.includes(lineNum);

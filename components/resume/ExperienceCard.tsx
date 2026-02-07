@@ -1,3 +1,8 @@
+'use client';
+
+import { motion } from 'framer-motion';
+import { staggerItemVariants } from '@/lib/animations';
+
 interface ExperienceCardProps {
   company: string;
   title: string;
@@ -14,7 +19,7 @@ export function ExperienceCard({
   highlights,
 }: ExperienceCardProps) {
   return (
-    <article className="border-4 border-text bg-surface p-6 border-l-8">
+    <motion.article variants={staggerItemVariants} className="border-4 border-text bg-surface p-6 border-l-8">
       <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-2 mb-4">
         <div>
           <h3 className="text-xl font-bold text-text">{title}</h3>
@@ -35,6 +40,6 @@ export function ExperienceCard({
           </li>
         ))}
       </ul>
-    </article>
+    </motion.article>
   );
 }

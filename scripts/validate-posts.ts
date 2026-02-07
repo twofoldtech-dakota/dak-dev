@@ -32,6 +32,7 @@ interface ValidationSummary {
 async function main() {
   const args = process.argv.slice(2);
   const includeAll = args.includes('--all');
+  const ciMode = args.includes('--ci');
   const slugIndex = args.indexOf('--slug');
   const specificSlug = slugIndex !== -1 ? args[slugIndex + 1] : null;
 
@@ -155,8 +156,9 @@ async function main() {
   // Exit with error if any posts failed (for CI)
   if (summary.failed > 0) {
     console.log('\n⚠️  Some posts have validation errors.\n');
-    // Don't exit with error - warn only as per user preference
-    // process.exit(1);
+    if (ciMode) {
+      process.exit(1);
+    }
   } else {
     console.log('\n✅ All posts passed validation!\n');
   }
