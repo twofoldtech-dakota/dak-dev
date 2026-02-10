@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "updated_at": "2026-02-05",
+  "updated_at": "2026-02-10",
   "workflow_stages": ["idea", "outlined", "drafting", "review", "ready", "published"],
   "topics": [
     {
@@ -112,6 +112,20 @@
       "notes": "Part 3 of Claude Skills series. Targets developers. Claude Code Skills, SKILL.md deep dive, Agent Skills open standard, cross-platform portability, advanced patterns with hooks and subagents.",
       "created_at": "2026-02-05",
       "updated_at": "2026-02-05"
+    },
+    {
+      "id": "topic_009",
+      "title": "MCP Apps: Interactive UI Has Entered the Chat",
+      "slug": "mcp-apps-interactive-ui-inside-ai-chat",
+      "type": "general",
+      "status": "published",
+      "published_date": "2026-02-10",
+      "priority": "high",
+      "target_date": "2026-02-10",
+      "tags": ["mcp", "ai-tools", "developer-tools"],
+      "notes": "Covers MCP Apps extension launch (Jan 26, 2026). Architecture deep dive, SDK overview, getting started guide. Primary keyword: MCP Apps. Links to STUDIO and dev setup posts.",
+      "created_at": "2026-02-10",
+      "updated_at": "2026-02-10"
     }
   ],
   "ideas_backlog": [
