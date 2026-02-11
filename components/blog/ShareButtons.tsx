@@ -87,7 +87,7 @@ export function ShareButtons({
         });
       } catch (error) {
         // User cancelled or error occurred
-        console.log('Share cancelled or failed:', error);
+        void error;
       }
     }
   };
@@ -103,7 +103,7 @@ export function ShareButtons({
         setCopied(false);
       }, 2000);
     } catch (error) {
-      console.error('Failed to copy link:', error);
+      void error;
     }
   };
 

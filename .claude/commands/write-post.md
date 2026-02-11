@@ -28,7 +28,10 @@ Before writing, collect:
 - **Facts**: Verified technical details
 - **Sources**: Documentation links, benchmarks
 
-**Anti-Slop Rule:** Writing cannot start without specific metrics. Generic claims like "improves performance" are rejected.
+**Anti-Slop Rule:** Writing cannot start without:
+- Specific metrics (generic claims like "improves performance" are rejected)
+- Identified tradeoffs or limitations for the approach
+- "When NOT to use" boundaries defined
 
 ### Step 2: Determine Content Type
 
@@ -58,7 +61,7 @@ keywords: [{{3-7 SEO keywords from research}}]
 Load template from `.content/templates/` and fill each section:
 
 **Introduction:**
-- Hook: Specific metric or compelling problem statement
+- Bottom line first: lead with the key insight or result
 - Context: What problem we're solving
 - Promise: What the reader will learn
 
@@ -67,6 +70,10 @@ Load template from `.content/templates/` and fill each section:
 - Concrete explanations with metrics
 - Code examples where relevant
 - Validation after each section
+- Tradeoffs section where applicable:
+  - What could go wrong
+  - When NOT to use this approach
+  - The complexity cost
 
 **Conclusion:**
 - Summary paragraph
@@ -86,6 +93,8 @@ npx tsx scripts/run-validation.ts validate <slug>
 - All metrics are specific
 - Excerpt is 140-160 chars exactly
 - Title is 30-70 chars
+- Tradeoffs/limitations addressed
+- Bottom line in opening paragraph
 
 ### Step 6: Iterate (if needed)
 
@@ -163,9 +172,15 @@ This skill delegates to:
 - [ ] Verified facts with sources
 
 ### Checked During Writing
-- [ ] No forbidden phrases (26+ patterns)
+- [ ] No forbidden phrases (31+ patterns)
 - [ ] Active voice (≤20% passive)
 - [ ] Short sentences (≤35 words each)
+
+### Transparency Checks
+- [ ] Tradeoffs/limitations stated for technical advice
+- [ ] No oversimplification phrases ("seamlessly", "effortlessly", "perfect solution", "zero overhead", "no downsides")
+- [ ] "When NOT to use" boundaries included
+- [ ] Real metrics from real projects (not synthetic)
 
 ### Validated After Writing
 - [ ] Score ≥ 80
@@ -173,6 +188,8 @@ This skill delegates to:
 - [ ] Excerpt 140-160 chars exactly
 - [ ] 3+ H2 headings
 - [ ] Conclusion with takeaways
+- [ ] Bottom line in opening paragraph
+- [ ] Tradeoffs/limitations addressed
 
 ## Failure Handling
 

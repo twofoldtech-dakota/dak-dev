@@ -53,7 +53,7 @@ export function TextDecode({ text, delay = 0, className }: TextDecodeProps) {
   }, [started, text]);
 
   return (
-    <span className={className} aria-label={text}>
+    <span className={className} role="text" aria-label={text}>
       {displayed.split('').map((char, i) => (
         <span key={i} aria-hidden="true">
           {char}

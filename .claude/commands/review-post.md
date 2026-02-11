@@ -88,9 +88,11 @@ images: 85/100 ✓
 - Code blocks have language identifiers
 
 ### Brand Voice
-- No forbidden phrases (26+ checked)
+- No forbidden phrases (31+ checked, including oversimplification phrases)
 - Passive voice ≤ 20%
 - Sentences ≤ 35 words
+- Tradeoffs/limitations mentioned (for technical advice posts)
+- No oversimplification phrases ("seamlessly", "effortlessly", "perfect solution", "zero overhead", "no downsides")
 
 ### SEO
 - Primary keyword in title
@@ -154,6 +156,11 @@ SEO requires the target keyword in the title.
 Posts must end with a conclusion containing takeaways.
 
 **Fix:** Add `## Conclusion` section with bullet-point takeaways.
+
+### "No tradeoffs or limitations mentioned"
+Technical advice posts should address when NOT to use an approach.
+
+**Fix:** Add a section covering what could go wrong, when it doesn't apply, and the complexity cost. Example: "This works for read-heavy APIs under 10K URLs. Beyond that, cache storage costs outweigh the latency gains."
 
 ## Related Commands
 

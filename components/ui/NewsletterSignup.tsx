@@ -36,7 +36,7 @@ export function NewsletterSignup() {
 
   return (
     <div className="w-full max-w-md mx-auto">
-      <div className="bg-surface border-[3px] border-text p-6 shadow-[4px_4px_0_0_var(--color-text)]">
+      <div className="bg-surface border-4 border-text p-6 shadow-[4px_4px_0_0_var(--color-text)]">
         <h3 className="text-xl font-bold mb-2">Subscribe to Updates</h3>
         <p className="text-muted text-sm mb-4">
           Get notified when I publish new posts. No spam, just quality content.
@@ -75,7 +75,7 @@ export function NewsletterSignup() {
             className={`
               w-full px-6 py-3
               bg-text text-background
-              border-[3px] border-text
+              border-4 border-text
               font-semibold
               shadow-[4px_4px_0_0_var(--color-accent)]
               focus:outline-none focus:ring-4 focus:ring-accent
@@ -92,7 +92,6 @@ export function NewsletterSignup() {
               `
               }
             `}
-            aria-label="Subscribe to newsletter"
           >
             {status === 'submitting'
               ? 'Opening email...'

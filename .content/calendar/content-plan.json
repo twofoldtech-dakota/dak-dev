@@ -89,29 +89,31 @@
     },
     {
       "id": "topic_007",
-      "title": "Claude Skills Power User Guide",
+      "title": "Claude Skills for Power Users: Scripts, Teams, and Architecture",
       "slug": "claude-skills-power-user-guide",
       "type": "tutorial",
-      "status": "idea",
+      "status": "published",
+      "published_date": "2026-02-10",
       "priority": "high",
-      "target_date": null,
-      "tags": ["ai-tools", "productivity", "claude", "skills", "tutorial"],
-      "notes": "Part 2 of Claude Skills series. Targets power users and AI-curious professionals. Advanced Skill creation, templates, supporting files, real workflow examples.",
+      "target_date": "2026-02-10",
+      "tags": ["ai-tools", "productivity", "claude", "skills"],
+      "notes": "Part 2 of Claude Skills series. Targets power users and AI-curious professionals. Covers 3-tier architecture, executable scripts, validation patterns, team deployment, real workflow examples.",
       "created_at": "2026-02-05",
-      "updated_at": "2026-02-05"
+      "updated_at": "2026-02-10"
     },
     {
       "id": "topic_008",
-      "title": "Claude Code Skills and the Agent Skills Standard",
+      "title": "Claude Code Skills and the Agent Skills Open Standard",
       "slug": "claude-code-skills-agent-skills-standard",
       "type": "tutorial",
-      "status": "idea",
+      "status": "published",
+      "published_date": "2026-02-10",
       "priority": "high",
-      "target_date": null,
+      "target_date": "2026-02-10",
       "tags": ["ai-tools", "claude-code", "skills", "developer-tools"],
-      "notes": "Part 3 of Claude Skills series. Targets developers. Claude Code Skills, SKILL.md deep dive, Agent Skills open standard, cross-platform portability, advanced patterns with hooks and subagents.",
+      "notes": "Part 3 of Claude Skills series. Targets developers. SKILL.md deep dive, invocation control, subagents, hooks, Agent Skills open standard, 10+ platform adoption, portability matrix.",
       "created_at": "2026-02-05",
-      "updated_at": "2026-02-05"
+      "updated_at": "2026-02-10"
     },
     {
       "id": "topic_009",

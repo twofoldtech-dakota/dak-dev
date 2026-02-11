@@ -29,7 +29,7 @@ export function Search({ className = '' }: SearchProps) {
     fetch('/api/search')
       .then((res) => res.json())
       .then((data) => setSearchIndex(data))
-      .catch((err) => console.error('Failed to load search index:', err));
+      .catch(() => {});
   }, []);
 
   // Keyboard shortcut handler
@@ -128,7 +128,7 @@ export function Search({ className = '' }: SearchProps) {
       {/* Search Button */}
       <button
         onClick={() => setIsOpen(true)}
-        className={`inline-flex items-center gap-2 px-4 py-2 bg-surface border-2 border-text text-text font-semibold hover:bg-text hover:text-background transition-colors focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2 focus:ring-offset-background ${className}`}
+        className={`group inline-flex items-center gap-2 px-4 py-2 bg-surface border-2 border-text text-text font-semibold hover:bg-text hover:text-background transition-colors focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2 focus:ring-offset-background ${className}`}
         aria-label="Open search"
       >
         <svg
@@ -146,7 +146,7 @@ export function Search({ className = '' }: SearchProps) {
           />
         </svg>
         <span className="hidden sm:inline">Search</span>
-        <kbd className="hidden md:inline-flex items-center gap-1 px-2 py-0.5 text-xs bg-background border border-text">
+        <kbd className="hidden md:inline-flex items-center gap-1 px-2 py-0.5 text-xs bg-background border border-text group-hover:text-accent">
           <span className="text-[10px]">⌘</span>K
         </kbd>
       </button>
@@ -176,7 +176,7 @@ export function Search({ className = '' }: SearchProps) {
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.95, y: -20 }}
               transition={{ duration: 0.2 }}
-              className="fixed inset-x-4 top-20 z-50 mx-auto max-w-2xl"
+              className="fixed inset-x-2 sm:inset-x-4 top-20 z-50 mx-auto max-w-2xl"
               role="dialog"
               aria-modal="true"
               aria-label="Search posts"
@@ -206,7 +206,9 @@ export function Search({ className = '' }: SearchProps) {
                     onKeyDown={handleKeyDown}
                     placeholder="Search posts..."
                     className="flex-1 bg-transparent text-text text-lg font-semibold placeholder:text-muted focus:outline-none"
+                    role="combobox"
                     aria-label="Search query"
+                    aria-expanded={results.length > 0}
                     aria-autocomplete="list"
                     aria-controls="search-results"
                     aria-activedescendant={

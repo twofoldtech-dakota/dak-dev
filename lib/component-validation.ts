@@ -86,7 +86,7 @@ function extractStrings(content: string, filePath: string): ExtractedString[] {
   const lines = content.split('\n');
 
   // Track if we're inside a code block or non-text context
-  let inCodeBlock = false;
+  const inCodeBlock = false;
   let inImport = false;
   let inClassNames = false;
 

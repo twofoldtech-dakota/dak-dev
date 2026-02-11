@@ -15,6 +15,8 @@ jobs:
   lighthouse:
     name: Lighthouse Audit
     runs-on: ubuntu-latest
+    permissions:
+      pull-requests: write
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -32,12 +34,12 @@ jobs:
           uploadArtifacts: true
 
       - name: Post results as PR comment
-        if: always()
+        if: always() && steps.lighthouse.outputs.manifest != ''
         uses: actions/github-script@v7
         with:
           script: |
             const results = ${{ steps.lighthouse.outputs.manifest }};
-            const links = ${{ steps.lighthouse.outputs.links }};
+            const links = ${{ steps.lighthouse.outputs.links || '{}' }};
 
             if (!results || results.length === 0) {
               console.log('No Lighthouse results found');

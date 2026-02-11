@@ -28,7 +28,9 @@ function SearchResults() {
           setResults([]);
         }
       } catch (error) {
-        console.error('Search failed:', error);
+        if (process.env.NODE_ENV === 'development') {
+          console.error('Search failed:', error);
+        }
         setResults([]);
       }
 

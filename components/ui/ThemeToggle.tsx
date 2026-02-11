@@ -110,7 +110,7 @@ export function ThemeToggle() {
         className={`
           p-3
           bg-surface
-          border-[3px] border-text
+          border-4 border-text
           text-text
           shadow-[4px_4px_0_0_var(--color-text)]
           focus:outline-none focus:ring-4 focus:ring-accent

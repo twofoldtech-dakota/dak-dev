@@ -11,6 +11,8 @@ jobs:
   validate:
     name: Content Validation
     runs-on: ubuntu-latest
+    permissions:
+      pull-requests: write
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -43,15 +45,14 @@ jobs:
 
             # Build results table
             RESULTS_TABLE=""
-            for row in $(jq -c '.results[]' .content/validation-report.json); do
-              SLUG=$(echo $row | jq -r '.slug')
-              TITLE=$(echo $row | jq -r '.title')
-              SCORE=$(echo $row | jq -r '.score')
-              ISSUES=$(echo $row | jq -r '.issueCount')
-              WARNS=$(echo $row | jq -r '.warningCount')
-              STATUS=$(echo $row | jq -r 'if .passed then "Pass" else "Fail" end')
+            while IFS= read -r row; do
+              TITLE=$(echo "$row" | jq -r '.title')
+              SCORE=$(echo "$row" | jq -r '.score')
+              ISSUES=$(echo "$row" | jq -r '.issueCount')
+              WARNS=$(echo "$row" | jq -r '.warningCount')
+              STATUS=$(echo "$row" | jq -r 'if .passed then "Pass" else "Fail" end')
               RESULTS_TABLE="${RESULTS_TABLE}| ${TITLE} | ${SCORE}/100 | ${STATUS} | ${ISSUES} | ${WARNS} |\n"
-            done
+            done < <(jq -c '.results[]' .content/validation-report.json)
             # Use a delimiter approach for multiline
             echo "results_table<<RESULTS_EOF" >> $GITHUB_OUTPUT
             echo -e "$RESULTS_TABLE" >> $GITHUB_OUTPUT
