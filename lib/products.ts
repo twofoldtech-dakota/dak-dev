@@ -21,7 +21,9 @@ export async function getAllProducts(): Promise<Product[]> {
     const products: Product[] = JSON.parse(fileContents);
     return products;
   } catch (error) {
-    console.error('Error loading products:', error);
+    if (process.env.NODE_ENV === 'development') {
+      console.error('Error loading products:', error);
+    }
     return [];
   }
 }

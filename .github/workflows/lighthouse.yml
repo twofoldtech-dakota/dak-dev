@@ -39,7 +39,7 @@ jobs:
         with:
           script: |
             const results = ${{ steps.lighthouse.outputs.manifest }};
-            const links = ${{ steps.lighthouse.outputs.links }};
+            const links = ${{ steps.lighthouse.outputs.links || '{}' }};
 
             if (!results || results.length === 0) {
               console.log('No Lighthouse results found');

@@ -98,7 +98,7 @@ export function CodeBlockWrapper({ children }: { children: React.ReactNode }) {
             button.style.transform = 'scale(1)';
           }, 2000);
         } catch (error) {
-          console.error('Failed to copy code:', error);
+          void error;
         }
       });
 

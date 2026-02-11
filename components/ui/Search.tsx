@@ -29,7 +29,7 @@ export function Search({ className = '' }: SearchProps) {
     fetch('/api/search')
       .then((res) => res.json())
       .then((data) => setSearchIndex(data))
-      .catch((err) => console.error('Failed to load search index:', err));
+      .catch(() => {});
   }, []);
 
   // Keyboard shortcut handler

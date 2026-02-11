@@ -2,7 +2,7 @@
 
 import { motion } from 'framer-motion';
 import { staggerContainerVariants, slideUpVariants, drawLineVariants } from '@/lib/animations';
-import { Button } from '@/components/ui/Button';
+
 import { TextDecode } from '@/components/ui/TextDecode';
 import Link from 'next/link';
 
@@ -71,26 +71,27 @@ export function Hero() {
             </a>
           </motion.div>
 
-          {/* CTA Button */}
+          {/* CTA Link */}
           <motion.div variants={slideUpVariants}>
-            <Link href="/blog">
-              <Button size="lg" variant="accent">
-                Read My Articles
-                <svg
-                  className="w-5 h-5"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                  aria-hidden="true"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M13 7l5 5m0 0l-5 5m5-5H6"
-                  />
-                </svg>
-              </Button>
+            <Link
+              href="/blog"
+              className="inline-flex items-center justify-center font-semibold px-8 py-4 text-lg gap-3 bg-transparent text-accent border-4 border-accent hover:bg-accent hover:text-background shadow-[4px_4px_0_0_var(--color-accent)] hover:shadow-[6px_6px_0_0_var(--color-accent)] transition-all duration-200 focus:outline-none focus:ring-4 focus:ring-accent focus:ring-offset-4 focus:ring-offset-background"
+            >
+              Read My Articles
+              <svg
+                className="w-5 h-5"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+                aria-hidden="true"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M13 7l5 5m0 0l-5 5m5-5H6"
+                />
+              </svg>
             </Link>
           </motion.div>
         </motion.div>

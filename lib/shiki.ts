@@ -78,7 +78,9 @@ export async function highlightCode(
 
     return html;
   } catch (error) {
-    console.warn(`Failed to highlight code for language "${language}":`, error);
+    if (process.env.NODE_ENV === 'development') {
+      console.warn(`Failed to highlight code for language "${language}":`, error);
+    }
     // Fallback to plain text if language is not supported
     return await codeToHtml(code, {
       lang: 'text',
