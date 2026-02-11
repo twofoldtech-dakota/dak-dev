@@ -92,7 +92,6 @@ export function NewsletterSignup() {
               `
               }
             `}
-            aria-label="Subscribe to newsletter"
           >
             {status === 'submitting'
               ? 'Opening email...'

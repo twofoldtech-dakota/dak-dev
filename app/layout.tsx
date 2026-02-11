@@ -131,8 +131,8 @@ export default function RootLayout({
             <ScrollToTop />
           </MotionConfig>
         </ThemeProvider>
-        <Analytics />
-        <SpeedInsights />
+        {process.env.NEXT_PUBLIC_VERCEL_ENV && <Analytics />}
+        {process.env.NEXT_PUBLIC_VERCEL_ENV && <SpeedInsights />}
       </body>
     </html>
   );
