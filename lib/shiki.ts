@@ -34,7 +34,7 @@ export function parseCodeMetadata(metastring: string = ''): CodeMetadata {
 
   // Find highlight range like {1,3-5}
   const rangeMatch = metastring.match(/\{([0-9,-]+)\}/);
-  let highlightLines: number[] = [];
+  const highlightLines: number[] = [];
 
   if (rangeMatch) {
     const ranges = rangeMatch[1].split(',');
