@@ -1,9 +1,9 @@
 ---
 title: "Building a Claude Code Plugin Marketplace for CMS Analysis"
 date: "2026-01-24"
-excerpt: "How I built a marketplace of specialized Claude Code plugins that analyze Sitecore, Umbraco, and Optimizely codebases."
+excerpt: "Replace generic linters with 50 platform-specific rules per CMS. Specialized Claude Code plugins outperform general agents for Sitecore and Umbraco analysis."
 slug: "building-claude-marketplace-cms-analyzers"
-tags: ["ai", "claude-code", "cms", "enterprise", "open-source"]
+tags: ["ai", "claude-code", "cms", "enterprise"]
 thumbnail: "/images/posts/building-claude-marketplace-cms-analyzers/thumbnail.jpg"
 thumbnailBlur: "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAASABIAAD/4QBMRXhpZgAATU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAA6ABAAMAAAABAAEAAKACAAQAAAABAAAAEqADAAQAAAABAAAACgAAAAD/wAARCAAKABIDASIAAhEBAxEB/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQAAAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi4+Tl5ufo6erx8vP09fb3+Pn6/8QAHwEAAwEBAQEBAQEBAQAAAAAAAAECAwQFBgcICQoL/8QAtREAAgECBAQDBAcFBAQAAQJ3AAECAxEEBSExBhJBUQdhcRMiMoEIFEKRobHBCSMzUvAVYnLRChYkNOEl8RcYGRomJygpKjU2Nzg5OkNERUZHSElKU1RVVldYWVpjZGVmZ2hpanN0dXZ3eHl6goOEhYaHiImKkpOUlZaXmJmaoqOkpaanqKmqsrO0tba3uLm6wsPExcbHyMnK0tPU1dbX2Nna4uPk5ebn6Onq8vP09fb3+Pn6/9sAQwAWFhYWFhYmFhYmNiYmJjZJNjY2NklcSUlJSUlcb1xcXFxcXG9vb29vb29vhoaGhoaGnJycnJyvr6+vr6+vr6+v/9sAQwEbHR0tKS1MKSlMt3xmfLe3t7e3t7e3t7e3t7e3t7e3t7e3t7e3t7e3t7e3t7e3t7e3t7e3t7e3t7e3t7e3t7e3/90ABAAC/9oADAMBAAIRAxEAPwDKtUygYleegIFTzLuHybQB7c1mRk4p7E460rGbWpBRSUVRZ//Z"
 hero: "/images/posts/building-claude-marketplace-cms-analyzers/hero.jpg"
@@ -13,24 +13,27 @@ author: "Dakota Smith"
 keywords: ["claude code plugin", "cms code analysis", "sitecore analyzer", "enterprise dev tools", "plugin marketplace"]
 ---
 
-Enterprise CMS platforms—Sitecore, Umbraco, Optimizely—have steep learning curves and platform-specific patterns. Generic code analysis tools miss the nuances. So I built a marketplace of specialized Claude Code plugins that understand these platforms deeply.
+A specialized agent with 50 platform-specific rules outperforms a general agent with 500 generic rules. That's the core lesson from building a marketplace of Claude Code plugins for enterprise CMS analysis.
 
-## The Problem with Generic Analysis
+Enterprise CMS platforms—Sitecore, Umbraco, Optimizely—have steep learning curves and platform-specific patterns. Running a general-purpose linter on a Sitecore codebase produces noise: valid Helix architecture patterns flagged as issues, hardcoded GUIDs missed entirely, pipeline processor ordering problems invisible to generic tools, and XM Cloud migration blockers undetected. Enterprise teams need analysis that speaks their platform's language.
 
-Running a general-purpose linter on a Sitecore codebase produces noise. It flags valid patterns as issues and misses actual problems:
+So I built a curated marketplace of specialized Claude Code plugins, each loaded with platform-specific expertise. The plugin architecture enables specialized agents to operate autonomously, following the same phased patterns used in [APL's multi-agent orchestration](/blog/building-apl-autonomous-coding-agent).
 
-- Helix architecture violations go undetected
-- Hardcoded GUIDs in templates seem fine to generic tools
-- Pipeline processor ordering issues require platform knowledge
-- XM Cloud migration blockers need specialized detection
+## Why Generic Linters Fail on Enterprise CMS Platforms
 
-Enterprise teams need analysis that speaks their platform's language.
+Generic code analysis tools optimize for language-level patterns—unused variables, potential null references, formatting violations. CMS platforms operate at a higher abstraction layer:
 
-## The Marketplace Approach
+- **Architecture violations** require platform knowledge. Sitecore's Helix architecture enforces strict layer separation (Foundation → Feature → Project). A generic linter sees a valid C# reference. A Sitecore specialist sees a cross-layer dependency that breaks the entire module boundary.
+- **Configuration patterns** are platform-specific. Hardcoded GUIDs, pipeline processor ordering, serialization configurations—these have meaning only within the CMS context.
+- **Migration blockers** need version-aware detection. Moving from Sitecore Classic to XM Cloud requires identifying on-premise-only APIs, server-side rendering dependencies, and incompatible pipeline configurations.
 
-Rather than one monolithic tool, I built a curated marketplace with platform-specific analyzers:
+A general agent can't know that `Glass Mapper over-fetching` is a Sitecore-specific anti-pattern, or that `Umbraco content apps` have specific registration requirements. Platform depth beats breadth.
 
-```
+## The Marketplace Architecture
+
+Rather than one monolithic tool, the marketplace offers platform-specific analyzers as standalone plugins:
+
+```text
 claude-marketplace/
 ├── analyzers/
 │   ├── sitecore-classic/     # Sitecore 10.x on-prem
@@ -43,13 +46,13 @@ claude-marketplace/
     └── performance-rules/    # Common performance patterns
 ```
 
-Each analyzer is a standalone Claude Code plugin. Teams install only what they need. The plugin architecture enables specialized agents to operate autonomously, similar to [how APL uses multi-agent orchestration](/blog/building-apl-autonomous-coding-agent).
+Teams install only what they need. This follows the same principle behind the [Agent Skills Standard](/blog/claude-code-skills-agent-skills-standard)—composable, specialized capabilities instead of monolithic tooling.
 
-## Anatomy of an Analyzer Plugin
+### Plugin Anatomy
 
 Each analyzer plugin follows a consistent structure:
 
-```
+```text
 sitecore-classic/
 ├── .claude-plugin/
 │   └── plugin.json
@@ -71,7 +74,7 @@ sitecore-classic/
 
 ### The Expert Agent
 
-Each analyzer includes a specialized agent with deep platform knowledge. The Sitecore expert agent, for example, knows:
+Each analyzer includes a specialized agent with deep platform knowledge. The Sitecore expert agent, for example, knows Helix layer separation, dependency direction enforcement, serialization patterns (Unicorn, TDS, SCS), and common anti-patterns like cross-layer dependencies and Glass Mapper over-fetching.
 
 ```markdown
 # Sitecore Expert Agent (excerpt)
@@ -90,12 +93,6 @@ You are a Sitecore 10.x architecture specialist with expertise in:
 - Hardcoded item paths instead of queries
 - Missing null checks on Sitecore.Context
 - Glass Mapper over-fetching
-
-## Security Concerns
-- Hardcoded connection strings
-- API keys in configuration
-- Exposed admin endpoints
-- Insecure deserialization in processors
 ```
 
 ### Rule Definitions
@@ -142,6 +139,8 @@ Running an analysis produces a structured markdown report:
 /sitecore-classic:analyze
 ```
 
+The report includes severity breakdown, critical issues with exact file locations, remediation guidance with links to documentation, and a full architecture dependency graph. Here's a representative output:
+
 ```markdown
 # Sitecore Classic Analysis Report
 
@@ -169,15 +168,6 @@ Running an analysis produces a structured markdown report:
 **Location:** src/Project/Website/Controllers/AdminController.cs:1
 **Details:** /api/admin/* endpoints lack authorization attributes
 **Remediation:** Add [Authorize(Roles = "sitecore\\Admin")] attribute
-
-## Architecture Issues
-
-### SC001: Cross-Layer Dependency (7 occurrences)
-| Location | Dependency |
-|----------|------------|
-| Feature.Navigation | → Project.Website |
-| Feature.Search | → Project.Website |
-...
 ```
 
 ## Safe Mode for Sensitive Codebases
@@ -190,7 +180,7 @@ Enterprise teams worry about sending proprietary code to AI systems. Safe mode a
 
 In safe mode, the analyzer:
 
-1. Reads only file paths and structure (not contents)
+1. Reads file paths and structure only (not file contents)
 2. Analyzes project references and dependencies
 3. Checks configuration file names (not values)
 4. Reports structural issues without exposing code
@@ -214,39 +204,11 @@ In safe mode, the analyzer:
 - 2 modules missing Unicorn serialization configuration
 ```
 
-## Generating Project-Specific Skills
-
-Beyond analysis, the marketplace generates custom skills that enhance Claude's understanding of your specific codebase:
-
-```bash
-/sitecore-classic:enhance
-```
-
-This produces skills tailored to your project:
-
-```markdown
-# Generated Skill: Acme.Website Patterns
-
-## Template Hierarchy
-- Base Page: {76036F5E-CBCE-46D1-AF0A-4143F9B557AA}
-  - Content Page: {A2B3C4D5-E6F7-8901-ABCD-EF0123456789}
-  - Landing Page: {B3C4D5E6-F789-0123-BCDE-F01234567890}
-
-## Custom Pipelines
-- Acme.Navigation.BuildMenu (httpRequestBegin)
-- Acme.Search.IndexUpdate (indexing:end)
-
-## Rendering Patterns
-- Controller renderings preferred over View renderings
-- All renderings use Glass Mapper for model binding
-- Caching enabled with "Vary by Data" for personalized content
-```
-
-Claude Code with these skills loaded provides contextually aware assistance for your specific Sitecore implementation.
+Safe mode catches approximately 40% of the issues that a full analysis finds. The remaining 60% require content inspection—code patterns, hardcoded values, logic anti-patterns. For security-conscious teams, safe mode serves as a first pass. Full analysis can follow in a controlled environment.
 
 ## CI/CD Integration
 
-The analyzers integrate into build pipelines:
+The analyzers integrate into build pipelines for automated enforcement:
 
 ```yaml
 # Azure DevOps example
@@ -264,11 +226,11 @@ The analyzers integrate into build pipelines:
       fi
 ```
 
-Pull requests get automated analysis comments. Critical issues block merges.
+Pull requests get automated analysis comments. Critical issues block merges. This mirrors the same CI/CD philosophy used in [this blog's content validation pipeline](/blog/how-apl-built-this-blog)—automated gates that catch problems before they reach production.
 
 ## Platform Coverage
 
-The marketplace currently includes:
+The marketplace currently includes five analyzers:
 
 | Platform | Version | Status | Focus Areas |
 |----------|---------|--------|-------------|
@@ -278,46 +240,36 @@ The marketplace currently includes:
 | Optimizely CMS | 12 | Stable | Content areas, blocks, scheduling |
 | Optimizely Experimentation | Current | Beta | A/B tests, feature flags, metrics |
 
-## Installation
+Each analyzer averages 50 platform-specific rules across architecture, security, performance, and maintainability categories. The shared rule sets add cross-platform security checks and common performance patterns.
 
-Add the marketplace to Claude Code:
+## The Tradeoffs
 
-```bash
-/plugin marketplace add https://github.com/twofoldtech-dakota/claude-marketplace
-```
+Specialized plugins carry specific costs:
 
-Install an analyzer:
+**Rule maintenance scales per platform version.** Each major CMS release requires rule review and updates. Sitecore's XM Cloud evolution alone generated 12 rule changes in three months. For teams tracking multiple platforms, the maintenance burden compounds. Budget 2-4 hours per platform per major release for rule updates.
 
-```bash
-/plugin install sitecore-classic@claude-marketplace
-```
+**Small projects don't justify the overhead.** For codebases under 10K lines of code or greenfield projects without established patterns, the marketplace adds complexity without proportional value. A general-purpose linter suffices until the codebase grows enough to accumulate platform-specific patterns.
 
-Run initial setup:
+**False negatives are the hidden risk.** Missing a rule is worse than a false positive. If the analyzer doesn't flag a cross-layer dependency, the team assumes the architecture is clean. Regular rule audits against the latest platform documentation mitigate this, but gaps exist—especially for newer platform features.
 
-```bash
-/sitecore-classic:setup
-```
+**Safe mode provides a fraction of full analysis.** The ~40% detection rate means teams relying exclusively on safe mode miss the majority of issues. Safe mode works as a gate, not a replacement. [My dev setup](/blog/my-2026-dev-setup) includes both modes in a staged pipeline—safe mode in CI, full analysis in local development.
 
-This generates a `.claudeignore` file with sensible defaults for your platform.
+## Key Takeaways
 
-## What I Learned
-
-Building this marketplace taught me about plugin architecture:
-
-**Domain expertise compounds**. A specialized agent with 50 platform-specific rules outperforms a general agent with 500 generic rules. Depth beats breadth.
-
-**Safety enables adoption**. Safe mode removed the primary objection from security teams. Enterprise adoption requires addressing their concerns explicitly.
-
-**Skills are underutilized**. Most Claude Code users don't realize they can generate project-specific skills. The `/enhance` command surfaces this capability.
-
-**Markdown is powerful**. The entire plugin—agents, commands, rules—is markdown and JSON. No build process, no compilation. Edit and reload. This simplicity enabled APL to [build complex projects entirely autonomously](/blog/how-apl-built-this-blog).
-
-## Open Source
+- **Domain expertise compounds.** A specialized agent with 50 platform-specific rules outperforms a general agent with 500 generic rules. Depth beats breadth for CMS analysis.
+- **Safety enables enterprise adoption.** Safe mode removed the primary objection from security teams. Address their concerns first, and capability conversations follow.
+- **Plugin architecture enables composition.** Teams install only what they need. Adding a new CMS platform follows the same structure—no monolith, no bloat.
+- **CI/CD integration is table stakes.** Analysis that runs only on-demand gets skipped. Automated pipeline integration ensures every change gets reviewed.
+- **Markdown is infrastructure.** The entire plugin—agents, commands, rules—is markdown and JSON. No build process, no compilation. Edit and reload. This simplicity enabled [APL to build complex projects](/blog/how-apl-built-this-blog) using the same plugin patterns.
 
 The marketplace is open source: [twofoldtech-dakota/claude-marketplace](https://github.com/twofoldtech-dakota/claude-marketplace)
 
-Contributions welcome. Each analyzer follows the same structure, so adding a new platform (Kentico, Contentful, Sanity) is straightforward.
+Install it:
 
----
+```bash
+/plugin marketplace add https://github.com/twofoldtech-dakota/claude-marketplace
+/plugin install sitecore-classic@claude-marketplace
+/sitecore-classic:setup
+```
 
-CMS development doesn't have to mean fighting the platform. With specialized analysis tuned to your platform's patterns, Claude Code becomes a team member who actually understands your architecture. That's the tool I wished I had—so I built it.
+Contributions welcome. Each analyzer follows the same structure, so adding a new platform (Kentico, Contentful, Sanity) is straightforward. CMS development doesn't have to mean fighting the platform—specialized analysis turns Claude Code into a team member who understands your architecture, powered by the same [supervision principles](/blog/supervisor-in-the-machine-why-i-built-studio) that keep autonomous agents aligned.

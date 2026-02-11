@@ -1,7 +1,7 @@
 ---
-title: "How APL Built This Entire Blog While I Watched"
+title: "How APL Built a 99-Lighthouse Blog in 6 Sessions"
 date: "2026-01-23"
-excerpt: "A behind-the-scenes look at how my autonomous coding agent APL built this Next.js blog from spec to deployment."
+excerpt: "An autonomous coding agent executed 47 stories across 6 epics, producing 4,200 lines of code and Lighthouse 99 performance with two hours of human input."
 slug: "how-apl-built-this-blog"
 tags: ["ai", "automation", "nextjs", "project-showcase"]
 thumbnail: "/images/posts/how-apl-built-this-blog/thumbnail.jpg"
@@ -13,45 +13,47 @@ author: "Dakota Smith"
 keywords: ["automated blog development", "AI-built website", "nextjs automation", "claude code project", "autonomous development"]
 ---
 
-The blog you're reading was built almost entirely by an autonomous AI agent. I wrote a spec document. APL—my [Autonomous Phased Looper](/blog/building-apl-autonomous-coding-agent)—did the rest. Here's what that looked like.
+47 stories. 6 epics. 4,200 lines of code. Lighthouse 99 performance. Two hours of human input.
 
-## The Starting Point
+The blog you're reading was built by [APL—the Autonomous Phased Looper](/blog/building-apl-autonomous-coding-agent). I wrote a spec document defining the architecture, design system, and performance targets. APL planned the work, executed it across six sessions, and reviewed its own output. Here's the full breakdown of what that looked like, where APL needed help, and what the numbers reveal about autonomous development.
 
-I had requirements documented in a `CLAUDE.md` file:
+## The Spec: What APL Received
+
+APL started with a `CLAUDE.md` file containing:
 
 - Next.js 16 with App Router and SSG
 - Neo-brutalist dark design (thick borders, hard shadows, no rounded corners)
-- MDX content with advanced code highlighting
+- MDX content with advanced code highlighting via Shiki
 - Lighthouse scores of 98+ across all categories
 - WCAG 2.1 AA accessibility compliance
-- Giscus comments, Vercel Analytics, full SEO
+- Giscus comments, Vercel Analytics, Schema.org structured data
 
-The spec included color values, typography rules, performance targets, and content structure. Everything APL needed to make decisions.
+The spec included color values (`#0A0A0A` background, `#F5F5F5` text, `#333333` surface), typography rules (Space Grotesk, 400/600/700 weights), performance targets (LCP < 2.0s, CLS < 0.05), and content structure (MDX files in `/content/posts/` with specific frontmatter schema). Everything APL needed to make decisions without asking.
 
-## The Planning Phase
+Spec quality determines output quality. Vague specs produce vague code. The `CLAUDE.md` ran 400+ lines because every ambiguous decision was resolved upfront.
 
-Using [APL's Tree-of-Thoughts planning architecture](/blog/building-apl-autonomous-coding-agent), I ran:
+## Planning: 6 Epics, 47 Stories
+
+Using [APL's Tree-of-Thoughts planning](/blog/building-apl-autonomous-coding-agent), I ran:
 
 ```bash
 /apl Build the complete blog according to CLAUDE.md
 ```
 
-APL's planner agent analyzed the spec and decomposed it into 6 epics with 47 total stories:
+The planner decomposed the project into six epics with dependency analysis:
 
+```text
+Epic 1: Foundation & Project Setup         (5 stories)
+Epic 2: Advanced Code Highlighting System   (4 stories)
+Epic 3: Core UI Components & Design System  (8 stories)
+Epic 4: Blog Pages & Content Display        (7 stories)
+Epic 5: SEO, Analytics & Comments           (7 stories)
+Epic 6: Performance Optimization            (11 stories)  ← 5 more stories than any other epic
 ```
-Epic 1: Foundation & Project Setup (5 stories)
-Epic 2: Advanced Code Highlighting System (4 stories)
-Epic 3: Core UI Components & Design System (8 stories)
-Epic 4: Blog Pages & Content Display (7 stories)
-Epic 5: SEO, Analytics & Comments (7 stories)
-Epic 6: Performance Optimization & Deployment (11 stories)
-```
 
-The task breakdown included dependency analysis. Epic 3 (UI components) blocked Epic 4 (pages). The code highlighting system was independent and could run in parallel with UI work.
+The task graph identified parallelization opportunities:
 
-```
-Task Dependency Graph (simplified):
-
+```text
 Epic 1 ────────────────────────────────────────┐
    │                                            │
    ├── Epic 2 (parallel) ─────────────────────┐│
@@ -59,7 +61,7 @@ Epic 1 ────────────────────────�
    └── Epic 3 ──── Epic 4 ──── Epic 5 ──── Epic 6
 ```
 
-Each story had explicit success criteria:
+Epic 2 (code highlighting) had no dependencies on Epic 3 (UI components) and could run in parallel. Each story had explicit success criteria—the same pattern that [STUDIO later formalized](/blog/supervisor-in-the-machine-why-i-built-studio) with mandatory validation commands per step.
 
 ```json
 {
@@ -76,24 +78,14 @@ Each story had explicit success criteria:
 }
 ```
 
-## The Execution Phase
+## Execution: Epic by Epic
 
-APL worked through the epics in order, with parallelization where dependencies allowed.
+### Epics 1-2: Foundation and Code Highlighting
 
-### Epic 1: Foundation
-
-The coder agent initialized the Next.js project, configured TypeScript strict mode, set up Tailwind with custom colors, and installed the MDX pipeline.
-
-```bash
-# APL's first commands
-npx create-next-app@latest . --typescript --tailwind --app
-npm install @next/mdx gray-matter
-```
-
-It configured `tailwind.config.ts` with the design system colors:
+The coder agent initialized the Next.js project, configured TypeScript strict mode, set up Tailwind with custom design tokens, and installed the MDX pipeline. The Tailwind config encoded the spec's design system:
 
 ```typescript
-// Generated by APL
+// Generated by APL - tailwind.config.ts
 const config: Config = {
   theme: {
     extend: {
@@ -115,55 +107,23 @@ const config: Config = {
 };
 ```
 
-### Epic 2: Code Highlighting
+The Shiki integration required the ReAct loop to self-correct. APL's first attempt used `rehype-pretty-code`, but the line highlighting syntax conflicted with MDX processing:
 
-The Shiki integration required multiple iterations. APL's first attempt used rehype-pretty-code, but the line highlighting syntax conflicted with MDX processing.
-
-The ReAct loop caught this:
-
-```
+```text
 REASON: rehype-pretty-code throws "Unexpected token" on line highlights
 ACT: Switch to direct Shiki integration with custom rehype plugin
 OBSERVE: Syntax highlighting works, line numbers render correctly
 VERIFY: ✓ Code blocks highlight, ✓ Line numbers visible, ✓ Diff syntax works
 ```
 
-The final implementation:
+The fix took one retry cycle. APL switched to direct Shiki integration and validated all three success criteria before moving on.
+
+### Epics 3-4: UI Components and Pages
+
+Epic 3 produced 12 components with neo-brutalist constraints. Every component included focus states because the spec mentioned WCAG compliance and the success criteria included "keyboard focusable with visible focus ring":
 
 ```typescript
-// lib/shiki.ts - Generated by APL
-import { getHighlighter } from 'shiki';
-
-const highlighter = await getHighlighter({
-  themes: ['github-dark'],
-  langs: ['typescript', 'javascript', 'python', 'rust', 'bash', 'json', 'markdown'],
-});
-
-export function highlightCode(code: string, lang: string, meta?: string) {
-  const lines = parseMetaString(meta); // {1,3-5} syntax
-  return highlighter.codeToHtml(code, {
-    lang,
-    theme: 'github-dark',
-    decorations: lines.map(line => ({
-      line,
-      classes: ['highlighted-line'],
-    })),
-  });
-}
-```
-
-### Epic 3: UI Components
-
-This epic produced 12 components. APL created each one with the neo-brutalist constraints:
-
-```typescript
-// components/ui/Button.tsx - Generated by APL
-interface ButtonProps {
-  children: React.ReactNode;
-  variant?: 'primary' | 'secondary';
-  onClick?: () => void;
-}
-
+// Generated by APL - components/ui/Button.tsx
 export function Button({ children, variant = 'primary', onClick }: ButtonProps) {
   return (
     <button
@@ -183,131 +143,39 @@ export function Button({ children, variant = 'primary', onClick }: ButtonProps) 
 }
 ```
 
-Notice the focus states. APL added them because the spec mentioned WCAG compliance, and the success criteria for each component included "keyboard focusable with visible focus ring."
-
-### Epic 4: Pages
-
-The blog listing and individual post pages came together from the components. APL wired up the MDX pipeline:
+Epic 4 wired the components into pages. The blog listing and individual post pages connected through the MDX pipeline with static generation:
 
 ```typescript
-// app/blog/[slug]/page.tsx - Generated by APL
+// Generated by APL - app/blog/[slug]/page.tsx
 export async function generateStaticParams() {
   const posts = await getAllPosts();
   return posts.map((post) => ({ slug: post.slug }));
 }
-
-export default async function BlogPost({ params }: { params: { slug: string } }) {
-  const post = await getPostBySlug(params.slug);
-  const MDXContent = await compileMDX(post.content);
-
-  return (
-    <article className="max-w-3xl mx-auto">
-      <HeroImage src={post.hero} alt={post.title} />
-      <header className="mb-12">
-        <h1 className="text-5xl font-bold mb-4">{post.title}</h1>
-        <PostMeta date={post.date} tags={post.tags} />
-      </header>
-      <div className="prose prose-invert prose-brutal">
-        <MDXContent />
-      </div>
-    </article>
-  );
-}
 ```
 
-### Epic 5: SEO & Comments
+### Epics 5-6: SEO, Analytics, and Performance
 
-APL generated Schema.org JSON-LD for each post type:
+APL generated Schema.org JSON-LD for BlogPosting, BreadcrumbList, and Person types. Giscus integration used IntersectionObserver for lazy loading—exactly as the spec prescribed.
 
-```typescript
-// lib/seo.ts - Generated by APL
-export function generateBlogPostSchema(post: Post) {
-  return {
-    '@context': 'https://schema.org',
-    '@type': 'BlogPosting',
-    headline: post.title,
-    description: post.excerpt,
-    image: `https://dakotasmith.dev${post.hero}`,
-    datePublished: post.date,
-    author: {
-      '@type': 'Person',
-      name: 'Dakota Smith',
-      url: 'https://dakotasmith.dev/about',
-    },
-  };
-}
-```
+The performance epic contained 11 stories, the largest epic. APL ran Lighthouse audits after each optimization:
 
-Giscus integration used lazy loading via IntersectionObserver, exactly as specified:
+```text
+Lighthouse (pre-optimization):     Lighthouse (post-optimization):
+- Performance: 89                  - Performance: 99
+- Accessibility: 100               - Accessibility: 100
+- Best Practices: 100              - Best Practices: 100
+- SEO: 100                         - SEO: 100
 
-```typescript
-// components/Comments.tsx - Generated by APL
-export function Comments() {
-  const ref = useRef<HTMLDivElement>(null);
-  const [loaded, setLoaded] = useState(false);
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setLoaded(true);
-          observer.disconnect();
-        }
-      },
-      { rootMargin: '100px' }
-    );
-
-    if (ref.current) observer.observe(ref.current);
-    return () => observer.disconnect();
-  }, []);
-
-  return (
-    <div ref={ref} className="mt-16">
-      {loaded && <GiscusComponent />}
-    </div>
-  );
-}
-```
-
-### Epic 6: Performance
-
-The final epic focused on optimization. APL ran Lighthouse audits after each change:
-
-```
-Lighthouse Audit (pre-optimization):
-- Performance: 89
-- Accessibility: 100
-- Best Practices: 100
-- SEO: 100
-
-Issues identified:
-- LCP: 2.4s (hero image not prioritized)
-- Unused CSS: 12KB
-```
-
-APL addressed each issue:
-
-1. Added `priority` prop to hero images
-2. Configured Tailwind purge for unused styles
-3. Implemented font preloading with `next/font`
-4. Added blur placeholders for images
-
-```
-Lighthouse Audit (post-optimization):
-- Performance: 99
-- Accessibility: 100
-- Best Practices: 100
-- SEO: 100
-
-Core Web Vitals:
-- LCP: 1.2s ✓
-- FID: 12ms ✓
-- CLS: 0.02 ✓
+Issues identified and resolved:
+- LCP 2.4s → 1.2s (hero image priority prop)
+- 12KB unused CSS → 0 (Tailwind purge)
+- Font render delay → 0 (next/font preloading)
+- Layout shift → 0.02 CLS (blur placeholders)
 ```
 
 ## The Review Phase
 
-After execution completed, the reviewer agent examined all changes:
+After execution, the reviewer agent examined all changes holistically:
 
 ```markdown
 ## Review Summary
@@ -327,21 +195,21 @@ After execution completed, the reviewer agent examined all changes:
 ### Regressions: None detected
 ```
 
-The learner agent persisted these insights to `.apl/patterns/` for future projects.
+The learner agent persisted these insights to `.apl/patterns/` for future projects. The neo-brutalist focus ring pattern alone saved time on every subsequent component built with APL.
 
-## What Required Human Input
+## Where APL Needed a Human
 
 APL isn't fully autonomous. I intervened for:
 
-**Design decisions**: The spec said "accent color TBD." I picked the specific neon green after seeing the dark theme in context.
+**Design decisions the spec left open.** The spec said "accent color TBD." I picked the specific neon green after seeing the dark theme in context. APL can't make aesthetic judgments—it needs concrete values.
 
-**Content**: APL scaffolded the MDX files but I wrote the actual posts (meta, I know).
+**Content creation.** APL scaffolded the MDX files with correct frontmatter, but I wrote the actual posts. Content requires judgment about what to say and why it matters.
 
-**API keys**: Giscus repo ID, Vercel project settings—APL prompted me to provide these.
+**API keys and deployment config.** Giscus repo ID, Vercel project settings, domain configuration—APL prompted me to provide these at the right moments.
 
-**Image assets**: Thumbnails and hero images required human creation.
+**Image assets.** Thumbnails and hero images required human creation. APL sized the placeholders correctly but couldn't produce the visual content.
 
-Total human time: about 2 hours across the entire build. Most of that was content and images, not code.
+Total human time: approximately two hours across the entire build. Most of that was content, images, and design decisions—not code.
 
 ## The Numbers
 
@@ -354,17 +222,30 @@ Total human time: about 2 hours across the entire build. Most of that was conten
 | Errors requiring retry | 8 |
 | Human interventions | 12 |
 | Final Lighthouse Performance | 99 |
+| Human time | ~2 hours |
 
-## What This Means
+Eight errors across 47 stories is a 17% retry rate. All eight were resolved within APL's retry budget (3 attempts per task). No story required human debugging.
 
-Building a blog isn't hard. Building a blog with perfect Lighthouse scores, full accessibility, advanced code highlighting, SEO optimization, and a cohesive design system—that's a significant project.
+## The Tradeoffs
 
-APL compressed weeks of work into hours. Not by cutting corners, but by maintaining context across dozens of interconnected decisions and verifying each one against explicit criteria.
+This project demonstrates both the strengths and costs of autonomous development:
 
-The blog you're reading is proof that autonomous coding works. Not for everything—creativity, content, and judgment remain human. But for translating a clear spec into working software, AI agents have arrived.
+**Token cost for 6 sessions adds up.** Each epic-length APL session consumes 3-5x the tokens of manual Claude Code usage. Six sessions for the full blog build cost meaningfully more than a skilled developer prompting Claude Code interactively. The ROI works because APL handles coordination—47 stories with dependency tracking—not because it's cheaper per token.
+
+**Spec quality is the bottleneck, not agent capability.** The 400-line `CLAUDE.md` took significant upfront effort. APL's output quality tracked the spec's specificity. Sections with precise values (color codes, shadow offsets, font weights) produced correct output on the first pass. Sections with vague guidance ("accent color TBD") required human intervention. The two-hour figure excludes spec-writing time.
+
+**Experimental UIs don't fit the autonomous model.** APL works when success criteria are measurable: "4px border," "Lighthouse 99," "keyboard focusable." For design-first projects where the goal is "try this layout, see if it feels right," the phased model adds overhead without value. [My dev setup](/blog/my-2026-dev-setup) separates these workflows—APL for execution, [Pencil.dev for design exploration](/blog/my-2026-dev-setup).
+
+**Review phase catches integration issues, not architectural problems.** APL's reviewer found inconsistent imports and a missing error boundary. It did not question whether the overall architecture was optimal. Architectural decisions were locked in at spec time. For projects where the architecture is uncertain, the autonomous model is the wrong tool. [STUDIO addresses this gap](/blog/supervisor-in-the-machine-why-i-built-studio) with its mandatory questioning phase before execution begins.
+
+## Key Takeaways
+
+- **Autonomous coding works for spec-driven projects.** A detailed spec with measurable success criteria produces working software with minimal human intervention.
+- **47 stories, 6 sessions, 2 hours human time.** The ratio demonstrates that coordination—not individual task execution—is where autonomous agents add the most value.
+- **Lighthouse 99 without manual optimization.** Performance targets in the spec translated directly to optimization stories with verifiable criteria.
+- **Spec investment pays for itself.** The upfront cost of a thorough spec is repaid by reduced iteration cycles. Garbage in, garbage out applies to autonomous agents more than it does to manual development.
+- **Humans remain essential for judgment.** Design aesthetics, content strategy, and architectural tradeoffs require human input. APL handles the mechanical translation from spec to code.
 
 Try APL yourself: [twofoldtech-dakota/apl](https://github.com/twofoldtech-dakota/apl)
 
----
-
-The irony of writing a blog post about how an AI built the blog isn't lost on me. But that's the point: APL handles the mechanical work. I focus on what to say and why it matters. That division of labor is the future of software development.
+The blog is proof that autonomous development works—not for everything, but for translating clear specs into working software. The same [Skills architecture](/blog/claude-skills-power-user-guide) that powers APL's commands can automate any repeatable workflow, from [CMS analysis](/blog/building-claude-marketplace-cms-analyzers) to content validation pipelines.

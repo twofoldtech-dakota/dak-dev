@@ -1,21 +1,84 @@
 {
-  "generated_at": "2026-02-07T20:52:36.057Z",
-  "pipeline": "publish-prepare",
-  "fix_mode": true,
+  "generated_at": "2026-02-11T05:00:34.667Z",
   "summary": {
-    "total": 1,
-    "passed": 0,
-    "failed": 1,
-    "average_score": 92
+    "total": 9,
+    "passed": 9,
+    "failed": 0,
+    "warnings": 34,
+    "average_score": 96
   },
   "results": [
     {
+      "slug": "ai-isnt-just-for-coders-claude-skills",
+      "title": "AI Isn't Just for Coders: How Claude Skills Bridge the Gap",
+      "passed": true,
+      "score": 96,
+      "issueCount": 0,
+      "warningCount": 4
+    },
+    {
       "slug": "building-apl-autonomous-coding-agent",
-      "title": "How I Built APL: Turning Claude Code into an Autonomous Dev Team",
-      "passed": false,
-      "score": 92,
-      "issues": 1,
-      "warnings": 7
+      "title": "Building APL: An Autonomous Coding Agent for Claude Code",
+      "passed": true,
+      "score": 96,
+      "issueCount": 0,
+      "warningCount": 3
+    },
+    {
+      "slug": "building-claude-marketplace-cms-analyzers",
+      "title": "Building a Claude Code Plugin Marketplace for CMS Analysis",
+      "passed": true,
+      "score": 98,
+      "issueCount": 0,
+      "warningCount": 2
+    },
+    {
+      "slug": "claude-code-skills-agent-skills-standard",
+      "title": "Claude Code Skills and the Agent Skills Open Standard",
+      "passed": true,
+      "score": 98,
+      "issueCount": 0,
+      "warningCount": 3
+    },
+    {
+      "slug": "claude-skills-power-user-guide",
+      "title": "Claude Skills for Power Users: Scripts, Teams, and Architecture",
+      "passed": true,
+      "score": 96,
+      "issueCount": 0,
+      "warningCount": 4
+    },
+    {
+      "slug": "how-apl-built-this-blog",
+      "title": "How APL Built a 99-Lighthouse Blog in 6 Sessions",
+      "passed": true,
+      "score": 95,
+      "issueCount": 0,
+      "warningCount": 5
+    },
+    {
+      "slug": "mcp-apps-interactive-ui-inside-ai-chat",
+      "title": "MCP Apps: Interactive UI Has Entered the Chat",
+      "passed": true,
+      "score": 99,
+      "issueCount": 0,
+      "warningCount": 2
+    },
+    {
+      "slug": "my-2026-dev-setup",
+      "title": "My 2026 Dev Setup: Custom Claude Code Workflows",
+      "passed": true,
+      "score": 93,
+      "issueCount": 0,
+      "warningCount": 6
+    },
+    {
+      "slug": "supervisor-in-the-machine-why-i-built-studio",
+      "title": "Why I Built STUDIO: Four Generations of AI Code Supervision",
+      "passed": true,
+      "score": 95,
+      "issueCount": 0,
+      "warningCount": 5
     }
   ]
 }
