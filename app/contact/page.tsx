@@ -30,7 +30,7 @@ export default function ContactPage() {
 
         {/* Email CTA */}
         <div className="flex flex-col items-center justify-center py-12">
-          <div className="bg-surface border-[3px] border-text p-8 md:p-12 shadow-[4px_4px_0_0_var(--color-text)] text-center max-w-xl w-full">
+          <div className="bg-surface border-4 border-text p-8 md:p-12 shadow-[4px_4px_0_0_var(--color-text)] text-center max-w-xl w-full">
 <h2 className="text-2xl font-bold mb-4">Let&apos;s Talk</h2>
             <p className="text-muted mb-8">
               Whether it&apos;s a project idea, a question, or you want to chat about AI and development—my inbox is open.
@@ -40,7 +40,7 @@ export default function ContactPage() {
               className="
                 inline-block px-8 py-4
                 bg-text text-background
-                border-[3px] border-text
+                border-4 border-text
                 font-bold text-lg
                 shadow-[4px_4px_0_0_var(--color-accent)]
                 transition-all duration-150

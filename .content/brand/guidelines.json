@@ -7,7 +7,7 @@
       "min_length": 30,
       "max_length": 70,
       "must_start_with_capital": true,
-      "forbidden_words": ["simple", "easy", "just", "amazing", "incredible"]
+      "forbidden_words": ["simple", "easy", "just", "amazing", "incredible", "seamless", "effortless"]
     },
     "excerpt": {
       "min_length": 140,
@@ -55,14 +55,24 @@
         "paradigm shift",
         "move the needle",
         "circle back",
-        "at the end of the day"
+        "at the end of the day",
+        "seamlessly",
+        "effortlessly",
+        "perfect solution",
+        "zero overhead",
+        "no downsides"
       ],
       "preferred_phrases": [
         "Here's how",
         "The key insight is",
         "This approach",
         "Notice how",
-        "Let's explore"
+        "Let's explore",
+        "I built this by",
+        "The tradeoff is",
+        "This works when",
+        "This breaks when",
+        "I tested this in production"
       ],
       "max_passive_voice_percentage": 20,
       "max_sentence_length": 35
@@ -84,6 +94,12 @@
         "height": 900
       }
     }
+  },
+  "content_principles": {
+    "product_is_marketing": "Every post shows what was built and how. Share working code, real decisions, and results.",
+    "build_trust": "Ruthless quality. Verify code, don't oversimplify, share failures, be transparent about complexity.",
+    "concise_precise": "Bottom line first. Scannable structure. Address concerns directly. Specifics over generalities.",
+    "build_community": "Own mistakes. Convert feedback to content. Make knowledge portable across jobs."
   },
   "scoring": {
     "weights": {

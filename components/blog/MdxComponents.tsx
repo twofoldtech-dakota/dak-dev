@@ -221,9 +221,57 @@ function Em({ children }: { children?: ReactNode }) {
 // Inline code
 function Code({ children }: { children?: ReactNode }) {
   return (
-    <code className="px-2 py-1 bg-surface border-2 border-text text-text text-sm font-mono">
+    <code className="px-1.5 py-0.5 bg-surface/50 text-text text-sm font-mono">
       {children}
     </code>
+  );
+}
+
+// Table components with scroll hint on mobile
+function Table({ children }: { children?: ReactNode }) {
+  return (
+    <div className="my-8 border-2 border-text relative">
+      <div className="overflow-x-auto table-scroll-container">
+        <table className="w-full border-collapse">{children}</table>
+      </div>
+    </div>
+  );
+}
+
+function Thead({ children }: { children?: ReactNode }) {
+  return <thead>{children}</thead>;
+}
+
+function Tbody({ children }: { children?: ReactNode }) {
+  return <tbody>{children}</tbody>;
+}
+
+function Tr({ children }: { children?: ReactNode }) {
+  return <tr className="hover:bg-surface/30 transition-colors">{children}</tr>;
+}
+
+function Th({ children }: { children?: ReactNode }) {
+  return (
+    <th className="bg-surface px-4 py-3 text-left text-xs font-bold uppercase tracking-wider text-text border-b-2 border-text">
+      {children}
+    </th>
+  );
+}
+
+function Td({ children }: { children?: ReactNode }) {
+  const text = children?.toString().trim();
+
+  let content: ReactNode = children;
+  if (text === 'Yes') {
+    content = <span className="text-accent font-medium">✓ Yes</span>;
+  } else if (text === 'No') {
+    content = <span className="text-muted/50">✗ No</span>;
+  } else if (text === 'Experimental') {
+    content = <span className="text-yellow-400 font-medium">◆ Experimental</span>;
+  }
+
+  return (
+    <td className="px-4 py-3 text-muted border-b border-muted/30">{content}</td>
   );
 }
 
@@ -248,4 +296,10 @@ export const mdxComponents = {
   strong: Strong,
   em: Em,
   code: Code,
+  table: Table,
+  thead: Thead,
+  tbody: Tbody,
+  tr: Tr,
+  th: Th,
+  td: Td,
 };

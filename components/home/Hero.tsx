@@ -29,7 +29,7 @@ export function Hero() {
           </motion.div>
 
           {/* Main Heading */}
-          <motion.h1 variants={slideUpVariants} className="text-5xl md:text-7xl font-bold mb-6 leading-tight">
+          <motion.h1 variants={slideUpVariants} className="text-4xl sm:text-5xl md:text-7xl font-bold mb-6 leading-tight">
             <TextDecode text="Dakota Smith" delay={400} />
           </motion.h1>
 

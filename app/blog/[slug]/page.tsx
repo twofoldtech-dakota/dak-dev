@@ -16,6 +16,7 @@ import {
   generateBreadcrumbSchema,
 } from '@/lib/schema';
 import rehypePrettyCode from 'rehype-pretty-code';
+import remarkGfm from 'remark-gfm';
 import { neoBrutalistTheme } from '@/lib/shiki-theme';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -102,6 +103,7 @@ export default async function BlogPost({
   // Configure rehype-pretty-code with our custom theme
   const mdxOptions: any = {
     mdxOptions: {
+      remarkPlugins: [remarkGfm],
       rehypePlugins: [
         [
           rehypePrettyCode,

@@ -15,13 +15,14 @@ Checks any text snippet against the Dakota Smith blog brand voice guidelines. Us
 - Checking individual paragraphs
 - Verifying headlines and excerpts
 - Pre-submission quality checks
+- Checking for transparency and tradeoff language
 
 ## Execution Steps
 
 1. **Load Guidelines**: Read the forbidden phrases from `.content/brand/guidelines.json`
 
 2. **Run Validation**: Check the provided text against:
-   - 26+ forbidden phrases (hedging, filler, hyperbole, corporate speak)
+   - 31+ forbidden phrases (hedging, filler, hyperbole, oversimplification, corporate speak)
    - Passive voice percentage (max 20%)
    - Sentence length (max 35 words per sentence)
 
@@ -45,6 +46,9 @@ These phrases indicate "AI slop" and must be removed:
 
 **Corporate Speak:**
 - "leverage", "synergy", "paradigm shift", "move the needle", "circle back", "at the end of the day"
+
+**Oversimplification:**
+- "seamlessly", "effortlessly", "perfect solution", "zero overhead", "no downsides"
 
 ## Examples
 
@@ -117,6 +121,8 @@ When invoked:
    - -5 per forbidden phrase instance
    - -5 if passive voice > 20%
    - -5 if any sentence > 35 words
+   - -5 if technical advice has zero transparency indicators (tradeoff, limitation, "when not to")
+   - Bonus: +5 if text includes specifics + tradeoffs (cap at 100)
 
 6. Output formatted results with suggestions for each issue
 

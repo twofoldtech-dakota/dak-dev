@@ -13,8 +13,8 @@ export function CodeBlockWrapper({ children }: { children: React.ReactNode }) {
     const preElements = preRef.current.querySelectorAll('pre');
 
     preElements.forEach((pre) => {
-      // Check if copy button already exists
-      if (pre.querySelector('.copy-button-wrapper')) return;
+      // Skip if already wrapped in a code-block-container
+      if (pre.closest('.code-block-container')) return;
 
       // Extract language from data attribute or class
       const code = pre.querySelector('code');
@@ -24,14 +24,14 @@ export function CodeBlockWrapper({ children }: { children: React.ReactNode }) {
         code?.className?.match(/language-(\w+)/)?.[1] ||
         'text';
 
+      // Create container wrapper
+      const container = document.createElement('div');
+      container.className = 'code-block-container';
+
       // Create wrapper for language badge and copy button
       const wrapper = document.createElement('div');
       wrapper.className = 'copy-button-wrapper';
       wrapper.style.cssText = `
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
         display: flex;
         align-items: center;
         justify-content: space-between;
@@ -105,12 +105,10 @@ export function CodeBlockWrapper({ children }: { children: React.ReactNode }) {
       wrapper.appendChild(badge);
       wrapper.appendChild(button);
 
-      // Make the pre element position relative
-      pre.style.position = 'relative';
-      pre.style.paddingTop = '3rem';
-
-      // Insert wrapper at the beginning of pre
-      pre.insertBefore(wrapper, pre.firstChild);
+      // Wrap the pre in the container: insert container before pre, then move pre inside
+      pre.parentNode?.insertBefore(container, pre);
+      container.appendChild(wrapper);
+      container.appendChild(pre);
     });
   }, [children]);
 

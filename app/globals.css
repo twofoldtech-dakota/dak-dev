@@ -72,17 +72,84 @@ body {
   color: var(--color-text);
 }
 
+/* Reset prose defaults for inline code — let MdxComponents handle styling */
+.mdx-content code:not(pre code) {
+  background-color: color-mix(in srgb, var(--color-surface) 50%, transparent);
+  color: var(--color-text);
+  padding: 0.125rem 0.375rem;
+  font-size: 0.875rem;
+  border-radius: 0;
+}
+
+.mdx-content code:not(pre code)::before,
+.mdx-content code:not(pre code)::after {
+  content: none;
+}
+
+/* Reset prose defaults for tables — let MdxComponents handle styling */
+.mdx-content table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 0;
+}
+
+.mdx-content thead {
+  border-bottom: none;
+}
+
+.mdx-content th {
+  background-color: var(--color-surface);
+  padding: 0.75rem 1rem;
+  text-align: left;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--color-text);
+  border-bottom: 2px solid var(--color-text);
+}
+
+.mdx-content td {
+  padding: 0.75rem 1rem;
+  color: var(--color-muted);
+  border-bottom: 1px solid color-mix(in srgb, var(--color-muted) 30%, transparent);
+}
+
+.mdx-content tbody tr {
+  transition: background-color 0.15s;
+  border-bottom: none;
+}
+
+.mdx-content tbody tr:hover {
+  background-color: color-mix(in srgb, var(--color-surface) 30%, transparent);
+}
+
 /* Code block styling (rehype-pretty-code output) */
-.mdx-content pre {
+.mdx-content .code-block-container {
   margin: 1.5rem 0;
+  border: 2px solid var(--color-text);
+}
+
+.mdx-content .code-block-container > pre {
+  margin: 0;
+  border: none;
+}
+
+.mdx-content pre {
   padding: 0;
   background-color: var(--color-background) !important;
-  border: 2px solid var(--color-text);
   overflow-x: auto;
+}
+
+/* Standalone pre (not wrapped by CodeBlockWrapper) */
+.mdx-content > pre {
+  margin: 1.5rem 0;
+  border: 2px solid var(--color-text);
 }
 
 .mdx-content pre > code {
   display: grid;
+  min-width: max-content;
   font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
   font-size: 0.875rem;
   line-height: 1.75rem;
@@ -143,6 +210,18 @@ body {
   position: absolute;
   left: 0.5rem;
   color: #ff5555;
+}
+
+/* Table scroll hint — right-edge fade when content overflows */
+.mdx-content .table-scroll-container {
+  background:
+    linear-gradient(to right, var(--color-background) 30%, transparent) left center,
+    linear-gradient(to left, var(--color-background) 30%, transparent) right center,
+    radial-gradient(farthest-side at 0% 50%, rgba(0,0,0,0.3), transparent) left center,
+    radial-gradient(farthest-side at 100% 50%, rgba(0,0,0,0.3), transparent) right center;
+  background-repeat: no-repeat;
+  background-size: 40px 100%, 40px 100%, 14px 100%, 14px 100%;
+  background-attachment: local, local, scroll, scroll;
 }
 
 /* Smooth scrollbar for code blocks */
