@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "updated_at": "2026-02-10",
+  "updated_at": "2026-02-16",
   "workflow_stages": ["idea", "outlined", "drafting", "review", "ready", "published"],
   "topics": [
     {
@@ -128,6 +128,48 @@
       "notes": "Covers MCP Apps extension launch (Jan 26, 2026). Architecture deep dive, SDK overview, getting started guide. Primary keyword: MCP Apps. Links to STUDIO and dev setup posts.",
       "created_at": "2026-02-10",
       "updated_at": "2026-02-10"
+    },
+    {
+      "id": "topic_010",
+      "title": "Building Plugin Architect: A Zero-Code Claude Code Plugin",
+      "slug": "building-plugin-architect-zero-code-claude-plugin",
+      "type": "project",
+      "status": "published",
+      "published_date": "2026-02-16",
+      "priority": "high",
+      "target_date": "2026-02-16",
+      "tags": ["claude-code", "ai-tools", "open-source", "prompt-engineering"],
+      "notes": "Part 1 of Plugin Lifecycle Toolkit series. Covers zero-code architecture, Hive pivot, component selection matrix. Primary keyword: claude code plugin.",
+      "created_at": "2026-02-16",
+      "updated_at": "2026-02-16"
+    },
+    {
+      "id": "topic_011",
+      "title": "Building Plugin GTM: A Go-To-Market Engine Inside Claude Code",
+      "slug": "building-plugin-gtm-go-to-market-engine",
+      "type": "project",
+      "status": "published",
+      "published_date": "2026-02-16",
+      "priority": "high",
+      "target_date": "2026-02-16",
+      "tags": ["claude-code", "ai-tools", "open-source", "developer-tools"],
+      "notes": "Part 2 of Plugin Lifecycle Toolkit series. Covers 29 MCP tools, content versioning, drift detection, GTM templates. Primary keyword: claude code plugin.",
+      "created_at": "2026-02-16",
+      "updated_at": "2026-02-16"
+    },
+    {
+      "id": "topic_012",
+      "title": "Building Plugin Ops: A Claude Code Plugin for Plugin Maintenance",
+      "slug": "building-plugin-ops-maintenance-engine",
+      "type": "project",
+      "status": "published",
+      "published_date": "2026-02-16",
+      "priority": "high",
+      "target_date": "2026-02-16",
+      "tags": ["claude-code", "ai-tools", "open-source", "developer-tools"],
+      "notes": "Part 3 of Plugin Lifecycle Toolkit series. Covers 32 MCP tools, health scanning, issue tracking, release management. Links to parts 1 and 2. Primary keyword: claude code plugin.",
+      "created_at": "2026-02-16",
+      "updated_at": "2026-02-16"
     }
   ],
   "ideas_backlog": [

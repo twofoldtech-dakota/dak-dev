@@ -35,3 +35,11 @@ export async function getFeaturedProducts(): Promise<Product[]> {
   const products = await getAllProducts();
   return products.filter((product) => product.featured);
 }
+
+/**
+ * Get a single product by ID
+ */
+export async function getProductById(id: string): Promise<Product | undefined> {
+  const products = await getAllProducts();
+  return products.find((product) => product.id === id);
+}

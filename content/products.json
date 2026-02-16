@@ -30,5 +30,45 @@
     "url": "https://github.com/twofoldtech-dakota/apl",
     "icon": "code",
     "featured": true
+  },
+  {
+    "id": "orc",
+    "name": "ORC",
+    "description": "Multi-agent orchestration system for autonomous software development. Coordinates multiple AI agents to tackle complex engineering tasks.",
+    "url": "https://github.com/twofoldtech-dakota/ORC",
+    "icon": "code",
+    "featured": true
+  },
+  {
+    "id": "conduit",
+    "name": "Conduit",
+    "description": "Enterprise MCP server that provides unified access to any CMS through a single, consistent interface.",
+    "url": "https://github.com/twofoldtech-dakota/conduit",
+    "icon": "api",
+    "featured": true
+  },
+  {
+    "id": "plugin-architect",
+    "name": "Plugin Architect",
+    "description": "Expert architect for designing and building Claude Code plugins. Covers the full extension ecosystem — plugins, skills, MCP servers, hooks, agents, and more.",
+    "url": "https://github.com/twofoldtech-dakota/plugin-architect",
+    "icon": "tool",
+    "featured": true
+  },
+  {
+    "id": "plugin-ops",
+    "name": "Plugin Ops",
+    "description": "Maintenance and operations engine for Claude Code plugins — health scanning, dependency management, versioning, issue tracking, and runbooks.",
+    "url": "https://github.com/twofoldtech-dakota/plugin-ops",
+    "icon": "tool",
+    "featured": true
+  },
+  {
+    "id": "plugin-gtm",
+    "name": "Plugin GTM",
+    "description": "Go-to-market engine for Claude Code. Analyze your product, build a GTM strategy, generate launch content, and track your launch — all from the terminal.",
+    "url": "https://github.com/twofoldtech-dakota/plugin-gtm",
+    "icon": "app",
+    "featured": true
   }
 ]

@@ -1,6 +1,6 @@
 import { getAllPosts } from '@/lib/posts';
 import { Hero } from '@/components/home/Hero';
-import { ProductsShowcase } from '@/components/home/ProductsShowcase';
+import { FeaturedTools } from '@/components/home/FeaturedTools';
 import { JsonLd } from '@/components/seo/JsonLd';
 import { generateWebSiteSchema } from '@/lib/schema';
 import Link from 'next/link';
@@ -85,7 +85,7 @@ export default async function Home() {
             >
               <article>
                 {/* Featured Badge */}
-                <div className="absolute -top-4 left-6 bg-surface text-accent px-4 py-1 border-4 border-text">
+                <div className="absolute -top-4 left-6 bg-accent text-background px-4 py-1 border-4 border-text">
                   <span className="text-sm font-bold uppercase tracking-wider">Featured</span>
                 </div>
 
@@ -187,8 +187,8 @@ export default async function Home() {
         </div>
       </section>
 
-      {/* Products & Tools Section - hidden for now */}
-      {/* <ProductsShowcase /> */}
+      {/* Featured Tool + More Tools */}
+      <FeaturedTools />
     </>
   );
 }
