@@ -29,7 +29,7 @@ A two-part system:
 Style: dark, moody digital illustration on near-black (#0A0A0A) background.
 Aesthetic: neo-brutalist, geometric, high contrast. Sharp edges, no soft gradients.
 Limited color palette — primarily dark grays with one neon accent color
-(#00ff88 green, #00d4ff cyan, or #ff6b35 orange).
+(#00ff88 neon green — the site's brand accent color).
 Mood: technical, engineered, minimal. Think circuit boards, grid patterns,
 architectural blueprints.
 Composition: leave the bottom 25% relatively dark/simple (text overlay zone).
