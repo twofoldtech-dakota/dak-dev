@@ -10,9 +10,8 @@ import { Search } from '@/components/ui/Search';
 const navigation = [
   { name: 'Home', href: '/' },
   { name: 'Blog', href: '/blog' },
-  { name: 'Tools', href: '/tools' },
+  { name: 'Patterns', href: '/patterns' },
   { name: 'About', href: '/about' },
-  { name: 'Contact', href: '/contact' },
 ];
 
 export function Header() {
