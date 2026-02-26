@@ -9,9 +9,13 @@ const nextConfig: NextConfig = {
   // Enable React strict mode for better development experience
   reactStrictMode: true,
 
+  // Disable X-Powered-By header
+  poweredByHeader: false,
+
   // Enable View Transitions API for smooth page navigation
   experimental: {
     viewTransition: true,
+    optimizePackageImports: ['framer-motion'],
   },
 
   // Image optimization configuration
@@ -98,6 +102,22 @@ const nextConfig: NextConfig = {
             value: 'public, max-age=0, must-revalidate',
           },
         ],
+      },
+    ];
+  },
+
+  // Redirects for consolidated pages
+  async redirects() {
+    return [
+      {
+        source: '/tools',
+        destination: '/about#tools',
+        permanent: true,
+      },
+      {
+        source: '/contact',
+        destination: '/about#contact',
+        permanent: true,
       },
     ];
   },
