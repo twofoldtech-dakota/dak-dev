@@ -95,7 +95,14 @@ export default async function AboutPage() {
               Things I&apos;ve Built
             </h2>
           </ScrollReveal>
-          <ProductCardList products={products} />
+          {products.length > 0 ? (
+            <ProductCardList products={products} />
+          ) : (
+            <div className="border-4 border-text p-12 text-center">
+              <p className="text-2xl font-semibold mb-2">No tools yet</p>
+              <p className="text-muted">Check back soon.</p>
+            </div>
+          )}
         </section>
 
         {/* Section 4: Contact */}
