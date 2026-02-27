@@ -46,25 +46,25 @@ export function TableOfContents({ items }: TableOfContentsProps) {
   }
 
   return (
-    <nav className="border-4 border-text bg-surface p-6" aria-label="Table of contents">
-      <h2 className="text-lg font-bold mb-4 uppercase tracking-wider">
-        Table of Contents
+    <nav aria-label="Table of contents">
+      <h2 className="text-[10px] font-bold uppercase tracking-widest text-muted/60 mb-3">
+        On this page
       </h2>
-      <ul className="space-y-2">
+      <ul className="space-y-0.5">
         {items.map((item) => {
           const isActive = activeId === item.id;
           const isH3 = item.level === 3;
 
           return (
-            <li key={item.id} className={isH3 ? 'ml-4' : ''}>
+            <li key={item.id} className={isH3 ? 'ml-3' : ''}>
               <a
                 href={`#${item.id}`}
                 className={`
-                  block text-sm leading-relaxed transition-colors focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2 focus:ring-offset-surface
+                  block text-[13px] leading-relaxed py-1 transition-colors duration-100 focus:outline-none focus:ring-2 focus:ring-accent
                   ${
                     isActive
-                      ? 'text-text font-bold border-l-4 border-accent pl-3'
-                      : 'text-muted hover:text-accent border-l-4 border-transparent pl-3 hover:border-accent'
+                      ? 'text-text font-semibold border-l-2 border-accent pl-3'
+                      : 'text-muted/60 hover:text-text border-l border-text/10 pl-3 hover:border-text/30'
                   }
                 `}
                 onClick={(e) => {
@@ -72,7 +72,6 @@ export function TableOfContents({ items }: TableOfContentsProps) {
                   const element = document.getElementById(item.id);
                   if (element) {
                     element.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                    // Update URL without scrolling
                     window.history.pushState(null, '', `#${item.id}`);
                   }
                 }}
