@@ -1,0 +1,123 @@
+---
+name: "Anchor Point"
+slug: "anchor-point"
+chapter: 2
+number: "2.4"
+intent: "Reference specific files, functions, and line numbers to ground the agent in concrete code rather than abstract descriptions."
+difficulty: "beginner"
+published: true
+keywords: ["anchor", "specific references", "file paths", "function names", "concrete instructions", "grounding"]
+relatedPatterns:
+  - slug: "context-priming"
+    type: "composes"
+    note: "Prime with files, then anchor requests to specific locations within them."
+  - slug: "agent-friendly-architecture"
+    type: "composes"
+    note: "Well-named files and explicit exports give the agent concrete anchors to reference."
+  - slug: "scope-fence"
+    type: "composes"
+    note: "Anchors implicitly fence scope — the agent works where you pointed it."
+---
+
+## Problem
+
+You tell the agent: "The user profile page has a bug where the avatar doesn't update after the user changes it."
+
+The agent searches for "avatar," "profile," and "user" across the codebase. It finds `UserProfile.tsx`, `UserAvatar.tsx`, `useUserProfile.ts`, `user-api.ts`, `UserSettings.tsx`, and `avatar-upload.ts`. It reads all six files, builds a theory about the bug, and proposes a fix in the wrong file — it changed the upload handler when the actual issue was a stale cache key in the profile hook.
+
+Abstract descriptions force the agent to search, guess, and theorize. Every step in that chain is an opportunity for the agent to diverge from your intent. The agent doesn't know that you already debugged this for 20 minutes and narrowed it to the cache key in the profile hook. It starts from scratch with your high-level description and its own judgment.
+
+## Solution
+
+Point the agent at the exact code. The more specific your reference, the less room there is for the agent to misinterpret.
+
+**Anchor by file path:**
+
+```
+# Vague — agent has to search
+"Fix the avatar caching bug on the profile page"
+
+# Anchored — agent starts in the right place
+"Fix the avatar caching bug in hooks/useUserProfile.ts"
+```
+
+**Anchor by function name:**
+
+```
+# Vague — agent reads the whole file to find the problem
+"The profile data fetching has a caching issue"
+
+# Anchored — agent reads one function
+"The getCacheKey function in hooks/useUserProfile.ts generates a cache key
+that doesn't include the avatar URL, so profile data is stale after avatar
+uploads"
+```
+
+**Anchor by line number when precision matters:**
+
+```
+# For a specific bug in a large file
+"In lib/payments/stripe-client.ts around line 147, the createSubscription
+function doesn't await the webhook confirmation before returning. Add an
+await to the confirmWebhook call."
+```
+
+Line numbers are fragile — they shift when code changes — but they're invaluable for pointing the agent at a specific spot in a large file.
+
+**Anchor by type signature when the interface is the contract:**
+
+```
+"The processOrder function in lib/orders.ts currently takes a single Order
+parameter. Change it to accept { order: Order; options?: ProcessingOptions }
+so we can pass retry configuration."
+```
+
+Type-level anchors are powerful because they're precise and the agent can verify its changes against the type system.
+
+**Chain anchors for multi-step tasks:**
+
+```
+1. In types/order.ts, add a 'retryCount' field to the ProcessingOptions interface
+2. In lib/orders.ts, update processOrder to read options.retryCount (default: 3)
+3. In app/api/orders/route.ts, pass { retryCount: 5 } for high-value orders
+   (where order.total > 1000)
+```
+
+Each step is anchored to a file, a function, and a specific change. The agent doesn't need to figure out *where* to make changes — only *how*.
+
+**Use existing code as an anchor for new code:**
+
+```
+"Create a new API route at app/api/teams/route.ts. Model it after
+app/api/users/route.ts — same error handling pattern, same response shape,
+same middleware chain."
+```
+
+Pointing at an existing implementation is the most information-dense anchor. It communicates patterns, conventions, and expectations in a single reference.
+
+<Callout type="critical" title="Abstract Instructions Are Ambiguous Instructions">
+Every time you write "fix the bug in the profile page," you're asking the agent to first figure out *which bug*, then *where in the profile page*, then *what the intended behavior is*. Each inference is a coin flip. Anchoring eliminates these coin flips. The 30 seconds you spend writing a specific file path, function name, and expected behavior saves 10 minutes of the agent exploring, guessing, and getting it wrong.
+</Callout>
+
+## Signals
+
+- The agent asks "which file should I look at?" — you should have told it
+- The agent modifies the wrong file or function and you have to redirect
+- Your requests use words like "the thing that handles X" instead of naming it
+- The agent's first attempt is wrong because it found the wrong code to modify
+- Multi-file tasks result in changes to files you didn't intend
+
+## Consequences
+
+**Benefits:**
+- Eliminates search time — the agent starts in the right place immediately
+- Reduces misinterpretation — specific references have one meaning, descriptions have many
+- Makes requests reproducible — another developer (or agent) reading the same anchor gets the same answer
+- Implicitly fences scope — pointing at a specific function means "work here"
+- Works with every coding agent regardless of capability level
+
+**Costs:**
+- Requires you to know the codebase well enough to provide specific references
+- Line numbers go stale quickly in active codebases
+- Over-anchoring can prevent the agent from seeing a better solution elsewhere
+- Doesn't help when you genuinely don't know where the problem is — use abstract descriptions for exploration, anchors for execution

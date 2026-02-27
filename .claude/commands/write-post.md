@@ -27,6 +27,7 @@ Before writing, collect:
 - **Code Examples**: Real, tested snippets
 - **Facts**: Verified technical details
 - **Sources**: Documentation links, benchmarks
+- **Recency**: External stats/studies must be ≤6 months old at time of publication. Older data is only acceptable for historical context clearly marked as such (e.g., "Back in 2023...").
 
 **Anti-Slop Rule:** Writing cannot start without:
 - Specific metrics (generic claims like "improves performance" are rejected)
@@ -170,6 +171,7 @@ This skill delegates to:
 - [ ] Specific metrics gathered (not "improves performance")
 - [ ] Real code examples (not generic pseudo-code)
 - [ ] Verified facts with sources
+- [ ] External sources are ≤6 months old (or clearly framed as historical)
 
 ### Checked During Writing
 - [ ] No forbidden phrases (31+ patterns)

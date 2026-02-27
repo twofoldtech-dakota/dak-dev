@@ -57,7 +57,7 @@ export async function FeaturedTools() {
             </p>
           </div>
           <Link
-            href="/tools"
+            href="/about#tools"
             className="hidden sm:inline-flex items-center gap-2 text-text font-semibold hover:underline underline-offset-4 decoration-4 focus:outline-none focus:ring-4 focus:ring-text focus:ring-offset-4 focus:ring-offset-background"
           >
             View All Tools
@@ -145,7 +145,7 @@ export async function FeaturedTools() {
         {/* Mobile "View All" Button */}
         <div className="mt-12 sm:hidden flex justify-center">
           <Link
-            href="/tools"
+            href="/about#tools"
             className="inline-flex items-center justify-center font-semibold px-6 py-3 text-base gap-2 bg-surface text-text border-4 border-text hover:bg-text hover:text-background shadow-[4px_4px_0_0_var(--color-text)] hover:shadow-[6px_6px_0_0_var(--color-text)] transition-all duration-200 focus:outline-none focus:ring-4 focus:ring-text focus:ring-offset-4 focus:ring-offset-background"
           >
             View All Tools

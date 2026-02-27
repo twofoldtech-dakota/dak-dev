@@ -1,0 +1,97 @@
+---
+name: "Context Priming"
+slug: "context-priming"
+chapter: 2
+number: "2.1"
+intent: "Front-load the most relevant files and decisions before making a request, so the agent starts from understanding rather than guessing."
+difficulty: "intermediate"
+published: true
+keywords: ["context", "priming", "front-loading", "files", "prompt engineering", "agent context"]
+relatedPatterns:
+  - slug: "convention-file"
+    type: "composes"
+    note: "The convention file is the single most important context to prime."
+  - slug: "anchor-point"
+    type: "composes"
+    note: "Prime with files, then anchor requests to specific locations within them."
+  - slug: "progressive-disclosure"
+    type: "contrasts"
+    note: "Priming front-loads context; progressive disclosure reveals it incrementally. Choose based on task complexity."
+---
+
+## Problem
+
+You ask the agent to "add error handling to the API routes." It generates a try-catch wrapper that catches generic `Error` objects, returns plain text error messages, and logs to `console.error`. Meanwhile, your codebase has a custom `AppError` class, returns structured `{ data, error }` responses, and uses a centralized logger.
+
+The agent didn't produce bad code. It produced code without context.
+
+Every request to a coding agent involves an implicit question: "based on what?" When you don't answer that question explicitly, the agent answers it with generic patterns from its training data. The larger and more opinionated your codebase, the wider the gap between generic output and what you actually need.
+
+The cost compounds. Each correction you make ("no, use `AppError` not `Error`", "we return JSON not strings") is context you could have provided upfront. And corrections mid-conversation degrade the agent's coherence — it starts patching its output rather than reasoning from first principles.
+
+## Solution
+
+Before making a request, identify and provide the files the agent needs to produce correct output. Think of it as briefing a contractor before they start work: show them the existing plumbing before asking them to add a new pipe.
+
+**Identify what the agent needs to see.** For any task, there are usually 3-5 files that contain 80% of the relevant context:
+
+```
+Adding error handling to API routes? Prime with:
+1. lib/errors.ts          — your custom error classes
+2. lib/api-response.ts    — the response shape convention
+3. lib/logger.ts          — how errors get logged
+4. app/api/users/route.ts — an existing route that does it right
+```
+
+**Provide an example of "correct" before asking for "new."** The single highest-leverage priming move is showing the agent an existing implementation that matches what you want:
+
+```
+Look at app/api/users/route.ts for how we handle errors in API routes.
+Now add the same error handling pattern to app/api/payments/route.ts.
+```
+
+This is more effective than describing what you want, because the agent can pattern-match against concrete code rather than interpreting abstract requirements.
+
+**Prime the type system.** When the agent needs to work with domain types, provide the type definitions upfront. This constrains the solution space better than prose descriptions:
+
+```
+Read these files first:
+- types/order.ts (the Order and OrderStatus types)
+- types/payment.ts (the PaymentIntent type)
+
+Now implement the processRefund function in lib/payments.ts.
+```
+
+**Layer your context: rules, then examples, then request.** The most effective priming sequence is:
+
+1. Convention file (automatic in most tools)
+2. Relevant type definitions
+3. An existing implementation that demonstrates the pattern
+4. Your specific request
+
+Each layer narrows the solution space. By the time the agent reads your actual request, the range of "reasonable" outputs has been constrained to a small neighborhood around what you want.
+
+<Callout type="info" title="Know Your Tool's Context Mechanics">
+Different agents handle context differently. Claude Code reads files when you reference them with `@file` or when it decides to explore. Cursor lets you pin files in the context panel. Copilot uses open editor tabs as implicit context. Understanding how your tool manages context is prerequisite to priming effectively — you can't brief the agent with files it never reads.
+</Callout>
+
+## Signals
+
+- Agent output is structurally correct but uses the wrong patterns, types, or conventions
+- You frequently say "no, look at how we do it in X"
+- The agent asks basic questions about your codebase that could be answered by reading a file
+- Generated code requires multiple rounds of correction to match existing style
+
+## Consequences
+
+**Benefits:**
+- First-attempt output quality improves dramatically
+- Reduces correction cycles from 3-4 to 0-1
+- Agent output is consistent with existing codebase patterns
+- Works with every coding agent — it's about what you provide, not tool-specific features
+
+**Costs:**
+- Requires you to know which files are relevant (codebase familiarity)
+- Over-priming floods the context window with irrelevant information
+- Identifying the right 3-5 files takes practice and judgment
+- Time spent priming feels unproductive — but pays back in fewer corrections

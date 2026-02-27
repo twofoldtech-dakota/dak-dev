@@ -1,0 +1,18 @@
+{
+  "claude-code": {
+    "description": "In Claude Code, prime context by reading key files at the start of a session or including them in your prompt.",
+    "code": "# Start of session — prime the agent:\n\nRead these files to understand the project:\n- package.json (dependencies and scripts)\n- src/lib/db.ts (database layer)\n- src/types/index.ts (shared types)\n\nNow implement a new endpoint for user profiles\nthat follows the patterns in src/api/users.ts."
+  },
+  "cursor": {
+    "description": "In Cursor, use @file references to include specific files in the agent's context window.",
+    "code": "# Using @file to prime context:\n\n@src/lib/db.ts @src/types/index.ts @src/api/users.ts\n\nCreate a new API endpoint for user profiles.\nFollow the same patterns as the users endpoint —\nsame return shape, same error handling,\nsame validation approach."
+  },
+  "copilot": {
+    "description": "In Copilot Chat, use #file references to attach files as context for your prompt.",
+    "code": "# Using #file to prime context:\n\n#file:src/lib/db.ts #file:src/types/index.ts\n#file:src/api/users.ts\n\nCreate a new API endpoint for user profiles\nfollowing the same patterns as users.ts."
+  },
+  "windsurf": {
+    "description": "In Windsurf, reference files with @-mentions to include them in the agent's context.",
+    "code": "# Using @-mentions to prime context:\n\n@src/lib/db.ts @src/types/index.ts @src/api/users.ts\n\nBuild a user profiles endpoint matching the\npatterns in the users API — same return shape,\nerror handling, and validation approach."
+  }
+}

@@ -16,6 +16,7 @@ export interface PostFrontmatter {
   published: boolean;
   author?: string;
   keywords?: string[];
+  thumbnailText?: string;  // Short 1-5 word tagline for thumbnail overlay
 }
 
 export interface Post {

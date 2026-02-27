@@ -1,0 +1,120 @@
+---
+name: "Parallel Fan-Out"
+slug: "parallel-fan-out"
+chapter: 3
+number: "3.4"
+intent: "Split independent subtasks across concurrent agent sessions to multiply throughput without multiplying errors."
+difficulty: "advanced"
+published: true
+keywords: ["parallel", "concurrent", "fan-out", "multi-session", "throughput", "independent tasks"]
+relatedPatterns:
+  - slug: "scaffold-first"
+    type: "composes"
+    note: "Shared types and interfaces let independent agents stay compatible."
+  - slug: "checkpoint-loop"
+    type: "contrasts"
+    note: "Checkpoints are serial verification; fan-out is parallel execution. Choose based on task independence."
+  - slug: "vertical-slice"
+    type: "composes"
+    note: "Independent vertical slices are natural candidates for parallel execution."
+---
+
+## Problem
+
+You have 8 API endpoints to build. Each one follows the same pattern — validate input, call the database, format the response. They're independent: the users endpoint doesn't affect the orders endpoint. But you're building them sequentially, one conversation at a time, waiting for each to finish before starting the next.
+
+You're using a parallelizable tool in a serial workflow. One agent session builds one endpoint while the others wait. Total time: 8 sessions × 15 minutes = 2 hours. You know it could be faster.
+
+The constraint isn't agent capability — it's the bottleneck of a single conversation thread. Most coding agents support multiple concurrent sessions, but engineers default to one-at-a-time because that's how human developers work. You can't split your brain into four parallel streams. Agents can.
+
+## Solution
+
+Identify independent subtasks, establish shared contracts, then dispatch them to concurrent agent sessions.
+
+**The fan-out protocol:**
+
+```
+1. Identify independent subtasks
+2. Create shared constraints (types, interfaces, conventions)
+3. Launch parallel sessions with identical context + specific assignments
+4. Collect and integrate results
+5. Verify the integrated whole
+```
+
+**Step 1: Identify independence.** Two tasks are independent if neither needs the output of the other. Test: "Can I build A without knowing how B turned out?" If yes, they're parallelizable.
+
+```
+Independent (parallelizable):
+- Users API endpoint + Orders API endpoint
+- Settings page + Dashboard page
+- Email service + Push notification service
+
+Dependent (must be serial):
+- Database schema + API endpoints (endpoints depend on schema)
+- Auth middleware + Protected routes (routes depend on middleware)
+- Type definitions + Implementation (implementation depends on types)
+```
+
+**Step 2: Establish shared contracts.** This is where Scaffold First composes with fan-out. Before launching parallel sessions, create the shared types and interfaces that all sessions must conform to:
+
+```
+# Pre-work: create shared contracts
+types/api.ts        — shared request/response shapes
+lib/db.ts           — database client interface
+lib/validators.ts   — validation utilities
+
+# Then fan out
+Session 1: "Build POST/GET /api/users using the types in types/api.ts"
+Session 2: "Build POST/GET /api/orders using the types in types/api.ts"
+Session 3: "Build POST/GET /api/products using the types in types/api.ts"
+```
+
+Each session gets the same shared files as context, ensuring compatible output.
+
+**Step 3: Launch with identical base context.** Every parallel session should read the same convention file, the same shared types, and one example implementation:
+
+```
+Each session gets:
+1. CLAUDE.md (project conventions)
+2. types/api.ts (shared types)
+3. app/api/users/route.ts (reference implementation — built first, serially)
+
+Session-specific assignment:
+"Build the orders API following the same pattern as the users API."
+```
+
+The reference implementation is key. Build one endpoint serially, verify it's correct, then use it as the template for parallel sessions.
+
+**Step 4: Collect and integrate.** When all sessions complete, review each output against the shared contracts. Look for:
+
+- Type mismatches (session invented a type instead of using the shared one)
+- Naming inconsistencies (session used different conventions)
+- Hidden dependencies (session assumed something about another session's output)
+
+**Step 5: Verify the whole.** Run the full test suite, type checker, and linter across all changes. Parallel sessions can produce individually correct code that conflicts when combined — a duplicate import, a naming collision, a port conflict.
+
+<Callout type="warning" title="Parallelism Amplifies Mistakes">
+If your shared contracts are wrong, every parallel session produces wrong output. If your reference implementation has a bug, every session copies it. Fan-out multiplies throughput but also multiplies any errors in the shared foundation. Get the contracts and reference implementation right before fanning out. Serial correctness first, then parallel speed.
+</Callout>
+
+## Signals
+
+- You have 3+ independent tasks that follow the same pattern
+- You're building them one at a time and each feels repetitive
+- The tasks share types or interfaces but don't share implementation logic
+- Total serial time is more than an hour but each task is under 20 minutes
+
+## Consequences
+
+**Benefits:**
+- 3-5x throughput increase for genuinely independent tasks
+- Each session has clean, focused context — no conversation bloat
+- Forces you to identify shared contracts upfront, which improves design
+- Failures are isolated — one bad session doesn't corrupt the others
+
+**Costs:**
+- Requires identifying true independence — hidden dependencies cause integration failures
+- Shared contracts must be correct before fan-out — mistakes multiply
+- Integration and verification step can be time-consuming
+- More complex workflow — overhead isn't worth it for fewer than 3 parallel tasks
+- Merge conflicts if parallel sessions modify the same files

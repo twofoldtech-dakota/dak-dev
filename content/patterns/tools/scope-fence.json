@@ -1,0 +1,18 @@
+{
+  "claude-code": {
+    "description": "In Claude Code, use CLAUDE.md to set persistent scope boundaries, or state constraints directly in your prompt.",
+    "code": "# In CLAUDE.md:\n## Scope Rules\n- Only modify files I explicitly mention\n- Don't refactor surrounding code\n- Don't add features I didn't ask for\n- Ask before creating new files\n\n# In a prompt:\nFix the pagination bug in src/api/tasks.ts.\nOnly modify that file. Don't touch the\nfrontend components or add new features."
+  },
+  "cursor": {
+    "description": "In Cursor, use .cursorrules for persistent boundaries and be explicit about scope in each prompt.",
+    "code": "# In .cursorrules:\nWhen fixing bugs:\n- Only modify the file containing the bug\n- Don't refactor adjacent code\n- Don't add error handling elsewhere\n- Don't update tests unless asked\n\n# In a prompt:\nFix the off-by-one error in src/utils/paginate.ts\nline 23. Only change that function. Don't modify\nany other files."
+  },
+  "copilot": {
+    "description": "In Copilot, set scope constraints in .github/copilot-instructions.md and reinforce in prompts.",
+    "code": "# In .github/copilot-instructions.md:\nScope discipline:\n- Only edit files explicitly named in the request\n- Never refactor code outside the scope\n- Ask before creating new files\n\n# In a prompt:\nFix the pagination bug in src/api/tasks.ts.\nDon't modify any other files. Don't add\nnew error handling or refactor."
+  },
+  "windsurf": {
+    "description": "In Windsurf, use .windsurfrules for persistent scope rules and explicit prompt constraints.",
+    "code": "# In .windsurfrules:\nStrict scope rules:\n- Only modify files I name\n- No refactoring outside scope\n- No new files without permission\n\n# In a prompt:\nFix the pagination in src/api/tasks.ts only.\nDon't touch frontend code, don't add features,\ndon't refactor surrounding functions."
+  }
+}

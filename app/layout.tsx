@@ -6,6 +6,8 @@ import { SpeedInsights } from '@vercel/speed-insights/next';
 import { Header } from '@/components/layout/Header';
 import { Footer } from '@/components/layout/Footer';
 import { ScrollToTop } from '@/components/ui/ScrollToTop';
+import { ReferralWidget } from '@/components/ui/ReferralWidget';
+import referralLinks from '@/content/referrals.json';
 import { ThemeProvider } from '@/contexts/ThemeContext';
 import './globals.css';
 
@@ -129,6 +131,7 @@ export default function RootLayout({
             <main id="main-content" className="flex-grow">{children}</main>
             <Footer />
             <ScrollToTop />
+            <ReferralWidget links={referralLinks} />
           </MotionConfig>
         </ThemeProvider>
         {process.env.NEXT_PUBLIC_VERCEL_ENV && <Analytics />}

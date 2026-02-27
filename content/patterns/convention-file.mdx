@@ -1,0 +1,90 @@
+---
+name: "Convention File"
+slug: "convention-file"
+chapter: 1
+number: "1.1"
+intent: "Make implicit project rules explicit in a file the agent always reads, so it follows your standards without being told each time."
+difficulty: "beginner"
+published: true
+keywords: ["CLAUDE.md", "conventions", "project rules", "coding standards", "agent configuration"]
+relatedPatterns:
+  - slug: "context-priming"
+    type: "enables"
+    note: "The convention file is the single most important context to prime."
+  - slug: "negative-space"
+    type: "prevents"
+    note: "Conventions encode 'don't do X' durably so you don't repeat it per-request."
+  - slug: "memory-layer"
+    type: "composes"
+    note: "Convention files and memory layers work together — conventions for rules, memory for evolving context."
+---
+
+## Problem
+
+Every codebase has unwritten rules. Use tabs not spaces. Never use `any`. Put tests next to source files. Prefer `const` over `let`. These rules live in developers' heads, enforced through code review and tribal knowledge.
+
+AI coding agents don't attend your standups. They don't read your team's Slack history. Without explicit guidance, they'll generate code that's technically correct but stylistically wrong — triggering a cycle of correction, re-generation, and frustration.
+
+The root issue: agents treat every session as a blank slate. They have no memory of your preferences unless you provide them.
+
+## Solution
+
+Create a dedicated file at your project root that the agent reads automatically at the start of every session. For Claude Code, this is `CLAUDE.md`. Other tools have equivalents (`.cursorrules`, `.github/copilot-instructions.md`).
+
+The file should contain:
+
+**Project conventions** — preferences the agent can't infer from config files or code:
+
+```markdown
+## Code Style
+- Prefer named exports over default exports
+- Co-locate tests next to source files, not in a /tests directory
+- Use `satisfies` over `as` for type assertions
+- Error messages must be user-facing strings, not error codes
+```
+
+**Architecture decisions** — non-obvious choices that aren't self-documenting:
+
+```markdown
+## Architecture
+- All API routes return { data, error } shape, never throw
+- Feature flags live in /config/flags.ts, not environment variables
+- Database migrations run manually, never on deploy
+```
+
+**What NOT to do** — behavioral rules the agent has no way to know:
+
+```markdown
+## Don'ts
+- Never install new dependencies without asking
+- Don't create README or documentation files unless requested
+- Never modify .env, CI configs, or deployment scripts
+- Don't refactor surrounding code when fixing a bug
+```
+
+Keep the file concise. Agents have limited context windows — a 200-line convention file that covers the essentials beats a 2,000-line document that buries signal in noise.
+
+<Callout type="critical" title="Every Line Costs Context">
+Your convention file is injected into the agent's context window on **every single session**. Every line you add displaces space the agent needs for reasoning, code, and conversation. Only include information the agent **cannot discover on its own** — things like team preferences, architectural decisions, and unwritten rules that live nowhere in the codebase. If the agent can figure it out by reading `package.json`, `tsconfig.json`, or existing code, leave it out. Treat your convention file like a budget: each line must earn its place.
+</Callout>
+
+## Signals
+
+- You find yourself typing the same correction in multiple agent sessions
+- Agent output passes tests but fails code review for style violations
+- New team members (and agents) make the same mistakes repeatedly
+- You spend more time fixing formatting than fixing logic
+
+## Consequences
+
+**Benefits:**
+- Agent output matches your codebase style from the first generation
+- Reduces back-and-forth correction cycles by 50-80%
+- Acts as living documentation for human developers too
+- Compounds over time — each rule added prevents future errors
+
+**Costs:**
+- Requires upfront time to articulate implicit knowledge
+- Must be maintained as conventions evolve
+- Can become stale if not updated with architectural changes
+- Too many rules can overwhelm the agent's context window

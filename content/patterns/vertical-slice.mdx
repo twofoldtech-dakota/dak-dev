@@ -1,0 +1,113 @@
+---
+name: "Vertical Slice"
+slug: "vertical-slice"
+chapter: 3
+number: "3.1"
+intent: "Break features into thin end-to-end slices rather than horizontal layers, giving the agent complete context for each piece."
+difficulty: "intermediate"
+published: true
+keywords: ["vertical slice", "task decomposition", "end-to-end", "feature slicing", "incremental delivery"]
+relatedPatterns:
+  - slug: "checkpoint-loop"
+    type: "composes"
+    note: "Slice thin, verify each slice, build confidence incrementally."
+  - slug: "progressive-disclosure"
+    type: "composes"
+    note: "Thin slices naturally limit how much context the agent needs at each step."
+  - slug: "parallel-fan-out"
+    type: "contrasts"
+    note: "Slices are serial verification; fan-out is parallel execution. Choose based on task independence."
+---
+
+## Problem
+
+You need the agent to build a user settings page. You break the task into layers: "First, create the database schema. Then build the API endpoints. Then create the React components. Then wire up the form submission."
+
+Each layer depends on the previous one. The agent builds the schema, but when it gets to the API endpoints it has to re-read the schema to remember the field names. By the time it reaches the React components, the conversation is long, context is diluted, and the agent's model of the data shape has drifted from what it actually built.
+
+Horizontal decomposition — breaking work by technical layer — is how engineers think about architecture. But it's the worst way to give work to an agent. Each layer is incomplete on its own: a schema with no API, an API with no UI, a UI with no data. The agent can't verify its work because there's nothing to test until all layers are connected.
+
+The result is a big-bang integration at the end where four layers meet for the first time and nothing fits.
+
+## Solution
+
+Break features into thin vertical slices — each slice cuts through every layer of the stack and delivers one complete, testable piece of functionality.
+
+**Instead of layers, think use cases:**
+
+```
+# Horizontal (bad for agents)
+1. Create settings schema (all 12 fields)
+2. Build all settings API endpoints
+3. Create all settings UI components
+4. Wire everything together
+
+# Vertical (good for agents)
+1. "Change display name" — schema field + API endpoint + form input + save
+2. "Update email address" — schema field + API endpoint + form input + validation + save
+3. "Change avatar" — schema field + upload API + image picker + preview + save
+4. "Toggle notifications" — schema field + API endpoint + checkbox + save
+```
+
+Each slice is a complete feature the agent can build in one pass. It sees the entire flow from database to UI. It can test its work by exercising the feature end-to-end.
+
+**A good vertical slice has three properties:**
+
+1. **Independently testable** — you can verify it works without building anything else
+2. **Small enough for one session** — the agent doesn't lose context mid-task
+3. **Cuts through all layers** — no "integration step" needed at the end
+
+**Frame the slice as a user action, not a technical task:**
+
+```
+# Technical (horizontal thinking leaks through)
+"Add the email validation logic to the API"
+
+# User action (naturally vertical)
+"A user should be able to update their email address. When they submit the form,
+validate the email format, check it's not already taken, update the database,
+and show a success message. If validation fails, show the error below the input."
+```
+
+User-action framing forces vertical thinking because user actions always cross layers.
+
+**Start with the simplest slice to establish the pattern:**
+
+```
+Start with "change display name" — it's the simplest settings field.
+No validation beyond non-empty, no uniqueness check, just:
+1. Text input in the settings form
+2. PATCH /api/settings endpoint
+3. Update the user record
+4. Show success feedback
+
+Once this works, we'll add more settings fields following the same pattern.
+```
+
+The first slice is the most important. It establishes the routing pattern, the API shape, the form structure, and the error handling convention. Every subsequent slice builds on this foundation.
+
+<Callout type="info" title="Thin Is Not Trivial">
+A vertical slice isn't a simplification — it's a scoping strategy. "Change display name" touches the database, API, and UI. It's end-to-end. It's just narrow. The agent does real work across every layer, establishing patterns that make later slices faster. The first slice might take 30 minutes; the tenth takes 5.
+</Callout>
+
+## Signals
+
+- The agent builds infrastructure that can't be tested until other layers are done
+- Integration at the end reveals mismatches between layers the agent built separately
+- Long conversations where the agent loses context about what it built earlier
+- The agent asks "should I also build the API for this?" — a sign you gave it a horizontal chunk
+
+## Consequences
+
+**Benefits:**
+- Each slice is independently verifiable — bugs are caught immediately, not at integration
+- The agent maintains complete context because each slice is small
+- Establishes patterns early that make subsequent slices faster
+- Progress is visible after every slice, not just at the end
+- Easier to revert — if a slice is wrong, you undo one coherent change, not a tangled mess
+
+**Costs:**
+- Requires upfront thought about how to decompose the feature
+- Some features resist clean vertical slicing (e.g., a new auth system has deep dependencies)
+- The first slice takes longer because it establishes all the patterns
+- Can feel slower than "just build all the API routes" — but the total time is usually less

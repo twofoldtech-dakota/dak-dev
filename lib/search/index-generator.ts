@@ -1,9 +1,10 @@
 /**
  * Search index generator - server-only (uses Node.js fs)
- * Generates the search index from MDX posts
+ * Generates the search index from MDX posts and patterns
  */
 
 import { getAllPosts, Post } from '../posts';
+import { getAllPatterns, CHAPTERS, Pattern } from '../patterns';
 import { SearchIndexItem } from './types';
 
 /**
@@ -35,15 +36,10 @@ function stripMarkdown(content: string): string {
     .trim();
 }
 
-/**
- * Generate search index from all published posts
- * Returns array of searchable items optimized for client-side search
- */
-export function generateSearchIndex(): SearchIndexItem[] {
+function generatePostSearchItems(): SearchIndexItem[] {
   const posts = getAllPosts();
 
   return posts.map((post: Post) => {
-    // Strip markdown and get first 500 characters for content preview
     const cleanContent = stripMarkdown(post.content);
     const contentPreview = cleanContent.slice(0, 500);
 
@@ -55,6 +51,40 @@ export function generateSearchIndex(): SearchIndexItem[] {
       tags: post.frontmatter.tags || [],
       keywords: post.frontmatter.keywords || [],
       date: post.frontmatter.date,
+      type: 'post' as const,
     };
   });
+}
+
+function generatePatternSearchItems(): SearchIndexItem[] {
+  const patterns = getAllPatterns();
+
+  return patterns.map((pattern: Pattern) => {
+    const cleanContent = stripMarkdown(pattern.content);
+    const contentPreview = cleanContent.slice(0, 500);
+    const chapter = CHAPTERS.find(
+      (c) => c.number === pattern.frontmatter.chapter
+    );
+
+    return {
+      slug: pattern.frontmatter.slug,
+      title: pattern.frontmatter.name,
+      excerpt: pattern.frontmatter.intent,
+      contentPreview,
+      tags: [],
+      keywords: pattern.frontmatter.keywords || [],
+      date: '',
+      type: 'pattern' as const,
+      patternNumber: pattern.frontmatter.number,
+      chapterName: chapter?.name || '',
+    };
+  });
+}
+
+/**
+ * Generate search index from all published posts and patterns
+ * Returns array of searchable items optimized for client-side search
+ */
+export function generateSearchIndex(): SearchIndexItem[] {
+  return [...generatePostSearchItems(), ...generatePatternSearchItems()];
 }

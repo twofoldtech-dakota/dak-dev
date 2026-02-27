@@ -1,0 +1,131 @@
+---
+name: "Negative Space"
+slug: "negative-space"
+chapter: 4
+number: "4.3"
+intent: "Define what the agent should NOT do, because constraints eliminate more bad output than instructions produce good output."
+difficulty: "intermediate"
+published: true
+keywords: ["negative space", "constraints", "don'ts", "boundaries", "exclusion", "anti-patterns"]
+relatedPatterns:
+  - slug: "convention-file"
+    type: "composes"
+    note: "Convention files encode 'don't do X' durably so you don't repeat it per-request."
+  - slug: "scope-fence"
+    type: "composes"
+    note: "Scope fences define where to work; negative space defines what not to do within that area."
+  - slug: "constraint-over-instruction"
+    type: "composes"
+    note: "Negative space is a specific form of constraint — defining the solution space by exclusion."
+---
+
+## Problem
+
+You ask the agent to "optimize the database queries on the dashboard page." It delivers: query caching with Redis, denormalized summary tables, a materialized view for the activity feed, connection pooling, and a batch loader for the user avatars. Performance improved — from 200ms to 40ms.
+
+You wanted it to add an index to the users table. That alone would have brought the query from 200ms to 50ms. The other changes added complexity you'll maintain for years, introduced a Redis dependency, and required a database migration to create the materialized view.
+
+The agent optimized aggressively because you didn't define the boundaries. "Optimize" is an open-ended instruction. Without knowing what you consider out of bounds, the agent explored every option and implemented the most impressive solution it could find.
+
+Positive instructions ("do X") define a target. Negative instructions ("don't do Y") define the boundary. Agents need both, but negative instructions are more commonly missing — and more costly when absent, because agents default to doing more rather than less.
+
+## Solution
+
+Before or alongside your request, explicitly state what the agent should not do. Define the negative space around your task.
+
+**Constrain the approach:**
+
+```
+Optimize the slow queries on the dashboard page.
+
+Do NOT:
+- Add caching (Redis or in-memory)
+- Create materialized views or denormalized tables
+- Add new dependencies
+- Change the database schema beyond adding indexes
+
+Start by identifying the slowest queries using EXPLAIN ANALYZE,
+then add appropriate indexes.
+```
+
+The negative space eliminates the agent's most aggressive options, steering it toward the simpler solution you wanted.
+
+**Constrain the scope of changes:**
+
+```
+Fix the date parsing bug in the import pipeline.
+
+Do NOT:
+- Refactor the import pipeline architecture
+- Change how other fields are parsed
+- Add a date parsing library — use the built-in Date constructor
+- Modify the test fixtures
+```
+
+**Constrain the style:**
+
+```
+Add form validation to the settings page.
+
+Do NOT:
+- Install a form library (React Hook Form, Formik, etc.)
+- Create a generic validation framework
+- Add validation to forms on other pages
+- Change the existing form structure or styling
+```
+
+**Constrain the ambition:**
+
+```
+The CI pipeline is slow. Investigate and suggest improvements.
+
+Do NOT implement any changes yet. Just analyze and report:
+- Which steps are slowest
+- What you'd recommend changing
+- Estimated impact of each change
+
+I'll decide what to implement after reviewing your analysis.
+```
+
+This is powerful for exploratory tasks. "Investigate but don't change" prevents the agent from acting on its findings before you've reviewed them.
+
+**Pattern: state the positive request, then close the negative space:**
+
+```
+[What to do]
+Add pagination to the blog listing page.
+
+[What NOT to do]
+- Don't add infinite scroll — use traditional page numbers
+- Don't change the existing BlogCard component
+- Don't add URL-based pagination (we'll add that later) — use component state for now
+- Don't pre-fetch adjacent pages
+```
+
+The positive request is one line. The negative space is four lines. That ratio is typical — there are usually more ways to go wrong than right.
+
+<Callout type="warning" title="Negative Space Is Reactive Knowledge">
+You learn what to exclude through experience. After the first time an agent adds Redis to a simple optimization task, you know to say "no caching." After it refactors surrounding code during a bug fix, you know to say "only modify the file I pointed at." Build a library of negative space instructions that grows with each surprised code review. Your convention file is the permanent home for these.
+</Callout>
+
+## Signals
+
+- Agent output is technically impressive but over-engineered for the task
+- You think "I didn't ask for that" when reviewing agent changes
+- The agent installs dependencies or creates abstractions unprompted
+- Simple tasks produce complex solutions because the agent explored too broadly
+- Your convention file has a growing "Don'ts" section — that's this pattern in action
+
+## Consequences
+
+**Benefits:**
+- Eliminates the most common forms of over-engineering in one instruction
+- Faster than describing the exact approach — exclusion is more efficient than specification
+- Compounds when added to convention files — one exclusion prevents errors permanently
+- Pairs with every other pattern — you can add negative space to any request
+
+**Costs:**
+- Requires anticipating what the agent might do wrong (experience-dependent)
+- Too many negatives can be confusing — "don't do X, Y, Z, A, B, C" overwhelms
+- Negative instructions can feel adversarial to humans reading them (agents don't care)
+- Doesn't tell the agent what TO do — pair with positive instructions

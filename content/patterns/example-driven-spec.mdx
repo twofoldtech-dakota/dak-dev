@@ -1,0 +1,162 @@
+---
+name: "Example-Driven Spec"
+slug: "example-driven-spec"
+chapter: 4
+number: "4.2"
+intent: "Show the desired output shape rather than describing it abstractly, reducing interpretation error."
+difficulty: "beginner"
+published: true
+keywords: ["examples", "specification", "output shape", "concrete", "show don't tell", "input-output"]
+relatedPatterns:
+  - slug: "context-priming"
+    type: "composes"
+    note: "Existing code is the best example — prime with a working implementation to show the pattern."
+  - slug: "constraint-over-instruction"
+    type: "contrasts"
+    note: "Examples show what you want; constraints define the space of acceptable solutions. Different approaches to the same problem."
+  - slug: "anchor-point"
+    type: "composes"
+    note: "Anchor to an existing example for maximum clarity."
+---
+
+## Problem
+
+You tell the agent: "Parse the CSV file and transform the data into a structured format suitable for the API." The agent produces code. It works. But the "structured format" is a flat object when you needed nested objects. It used camelCase keys when your API uses snake_case. It stringified the dates when you needed ISO timestamps. It omitted null fields when your API expects them to be present with null values.
+
+"Structured format suitable for the API" contains zero concrete information. Every word is open to interpretation. The agent filled in the gaps with reasonable defaults that don't match your specific system.
+
+This isn't a failure of the agent. It's a failure of specification. You know what the output should look like — the shape is vivid in your head. But you described the silhouette instead of showing the photograph.
+
+## Solution
+
+Show the agent a concrete example of the input and the expected output. One example communicates more than a paragraph of description.
+
+**Input-output pairs are the clearest specification:**
+
+```
+Transform CSV rows into API-ready objects.
+
+Input CSV row:
+first_name,last_name,email,signup_date,plan,is_active
+Jane,Doe,jane@example.com,2026-01-15,pro,true
+
+Expected output:
+{
+  "user": {
+    "first_name": "Jane",
+    "last_name": "Doe",
+    "email": "jane@example.com"
+  },
+  "account": {
+    "signup_date": "2026-01-15T00:00:00.000Z",
+    "plan": "pro",
+    "is_active": true
+  }
+}
+```
+
+One example answers every ambiguity: nested structure, snake_case keys, ISO timestamp format, boolean parsing, grouping logic. The agent extrapolates the general pattern from this specific instance.
+
+**Show edge cases with examples too:**
+
+```
+When a field is missing, include it as null:
+
+Input: Jane,,jane@example.com,2026-01-15,pro,true
+Output:
+{
+  "user": {
+    "first_name": "Jane",
+    "last_name": null,
+    "email": "jane@example.com"
+  },
+  ...
+}
+```
+
+**For UI work, show the markup you expect:**
+
+```
+Build a notification banner component. Here's the expected structure:
+
+<div role="alert" class="notification notification--warning">
+  <svg class="notification__icon">...</svg>
+  <div class="notification__content">
+    <p class="notification__title">Warning Title</p>
+    <p class="notification__message">Description text here</p>
+  </div>
+  <button class="notification__dismiss" aria-label="Dismiss notification">
+    <svg>...</svg>
+  </button>
+</div>
+
+Support three variants: info, warning, error.
+```
+
+The agent sees the BEM naming convention, the ARIA attributes, the icon placement, the dismiss button — all from one HTML example.
+
+**For API design, show the request and response:**
+
+```
+Design the endpoint following this shape:
+
+Request:
+POST /api/tasks
+Content-Type: application/json
+{
+  "title": "Review PR #42",
+  "priority": "high",
+  "assignee_id": "usr_abc123"
+}
+
+Success response (201):
+{
+  "data": {
+    "id": "tsk_xyz789",
+    "title": "Review PR #42",
+    "priority": "high",
+    "assignee_id": "usr_abc123",
+    "status": "pending",
+    "created_at": "2026-02-15T10:30:00Z"
+  },
+  "error": null
+}
+
+Error response (422):
+{
+  "data": null,
+  "error": {
+    "code": "VALIDATION_FAILED",
+    "message": "Title is required",
+    "details": [{ "field": "title", "issue": "required" }]
+  }
+}
+```
+
+Both success and error responses are shown. The agent knows the exact envelope format, the ID prefix convention, the error structure, and the HTTP status codes.
+
+<Callout type="info" title="One Good Example Beats Ten Paragraphs">
+Engineers instinctively describe requirements in prose: "The output should be a nested object with snake_case keys and ISO timestamps." This requires the agent to parse English, resolve ambiguities, and construct a mental model. An input-output example bypasses all of that — the agent pattern-matches directly against concrete data. When in doubt, show, don't tell.
+</Callout>
+
+## Signals
+
+- Agent output has the right logic but wrong data shape, naming, or format
+- You find yourself writing long descriptions of what the output should look like
+- The agent asks clarifying questions about format, structure, or naming conventions
+- Your corrections are about shape and formatting, not about logic
+
+## Consequences
+
+**Benefits:**
+- Eliminates structural ambiguity — the agent sees exactly what you want
+- Faster than writing detailed prose specifications
+- The agent can extrapolate general rules from specific examples
+- Examples serve as documentation and test cases after implementation
+- Works across all agent tools with no special features required
+
+**Costs:**
+- Creating good examples takes effort — trivial examples may miss edge cases
+- Examples can over-specify, constraining the agent when flexibility would be better
+- Multiple conflicting examples confuse the agent
+- Doesn't replace describing business logic — examples show *what*, not *why*

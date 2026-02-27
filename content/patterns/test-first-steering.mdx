@@ -1,0 +1,134 @@
+---
+name: "Test-First Steering"
+slug: "test-first-steering"
+chapter: 4
+number: "4.1"
+intent: "Write failing tests first so the agent has a concrete, verifiable target instead of an ambiguous description."
+difficulty: "intermediate"
+published: true
+keywords: ["TDD", "test-first", "failing tests", "specification", "verifiable target", "test-driven"]
+relatedPatterns:
+  - slug: "scaffold-first"
+    type: "composes"
+    note: "Build the types, write the tests, then the implementation is heavily constrained."
+  - slug: "safety-net"
+    type: "composes"
+    note: "Tests are the most powerful safety net — writing them first makes the net before you need it."
+  - slug: "checkpoint-loop"
+    type: "composes"
+    note: "Each test is a checkpoint — pass one, move to the next."
+---
+
+## Problem
+
+You tell the agent: "Build a function that calculates shipping costs based on weight, destination, and shipping speed." The agent produces a function. It handles weight correctly but uses country codes instead of your internal region IDs. It implements three shipping speeds when you have four. It rounds to the nearest dollar when your system uses cents.
+
+Every ambiguity in your description was a decision the agent made without asking. "Destination" could mean country code, zip code, region ID, or address object. "Shipping speed" could mean any set of tiers. "Calculates shipping costs" doesn't specify return type, error cases, or edge behavior.
+
+Natural language descriptions are inherently ambiguous. The agent resolves ambiguity by guessing. Sometimes it guesses right. When it guesses wrong, you spend time debugging code that "works" but doesn't match your requirements.
+
+## Solution
+
+Write tests that encode your requirements before asking the agent to implement. Tests are unambiguous specifications — they pass or fail with no room for interpretation.
+
+**Write the tests first:**
+
+```typescript
+// __tests__/shipping.test.ts
+describe('calculateShipping', () => {
+  it('returns cost in cents for standard domestic', () => {
+    const result = calculateShipping({
+      weightOz: 16,
+      regionId: 'us-east',
+      speed: 'standard',
+    });
+    expect(result).toEqual({ costCents: 599, estimatedDays: 5 });
+  });
+
+  it('applies heavy package surcharge over 48oz', () => {
+    const result = calculateShipping({
+      weightOz: 64,
+      regionId: 'us-east',
+      speed: 'standard',
+    });
+    expect(result.costCents).toBeGreaterThan(599);
+    expect(result.surcharges).toContain('heavy-package');
+  });
+
+  it('rejects invalid region IDs', () => {
+    expect(() =>
+      calculateShipping({
+        weightOz: 16,
+        regionId: 'invalid',
+        speed: 'standard',
+      })
+    ).toThrow('Unknown region: invalid');
+  });
+
+  it('supports all four shipping speeds', () => {
+    const speeds = ['standard', 'express', 'overnight', 'freight'] as const;
+    for (const speed of speeds) {
+      const result = calculateShipping({
+        weightOz: 16,
+        regionId: 'us-east',
+        speed,
+      });
+      expect(result.costCents).toBeGreaterThan(0);
+    }
+  });
+});
+```
+
+**Then hand the tests to the agent:**
+
+```
+Implement calculateShipping in lib/shipping.ts.
+The tests are already written at __tests__/shipping.test.ts.
+Make all tests pass. Don't modify the tests.
+```
+
+Every ambiguity is resolved by the tests: cents not dollars, region IDs not country codes, four speeds not three, specific error messages, specific return shape. The agent has a verifiable target and no room to deviate.
+
+**The test file communicates more than prose:**
+
+| Ambiguity | Prose Description | Test Specification |
+|-----------|------------------|-------------------|
+| Currency unit | "Returns the cost" | `costCents: 599` |
+| Location format | "Based on destination" | `regionId: 'us-east'` |
+| Tier count | "Different speeds" | Explicit array of 4 speeds |
+| Error behavior | "Handle invalid input" | `toThrow('Unknown region: invalid')` |
+| Return shape | "The shipping cost" | `{ costCents, estimatedDays, surcharges }` |
+
+**You don't need complete test coverage.** Even 3-4 tests that capture the key behaviors dramatically improve output quality. Focus on:
+
+1. The happy path with realistic data
+2. One edge case that reveals the expected error handling
+3. One test that encodes a non-obvious business rule
+
+The agent will infer the general pattern from these specific examples and produce implementation that's consistent with all of them.
+
+<Callout type="info" title="Tests As Communication, Not Quality Assurance">
+In this pattern, tests aren't primarily about catching bugs after the fact. They're about eliminating ambiguity before implementation starts. The tests are a specification language that happens to be executable. You're trading imprecise English for precise code — and the agent understands code better than English anyway.
+</Callout>
+
+## Signals
+
+- Agent output is structurally correct but uses wrong values, types, or behavior
+- You find yourself writing detailed prose descriptions of exact return shapes
+- The agent makes reasonable but wrong assumptions about edge cases
+- You spend more time describing the behavior than it would take to write a test
+
+## Consequences
+
+**Benefits:**
+- Eliminates ambiguity — tests pass or they don't, no interpretation needed
+- Agent output is verifiable in seconds, not minutes of manual review
+- Tests survive the implementation — you get a test suite as a byproduct
+- The agent often produces better code when given tests, because the constraints narrow the solution space
+- Composes with Scaffold First for maximum constraint: types + tests + implement
+
+**Costs:**
+- Requires you to write tests, which takes time upfront
+- Not all behaviors are easy to test (UI, async interactions, third-party integrations)
+- Brittle tests can over-constrain the implementation
+- The agent may "teach to the test" — passing tests while missing the intent

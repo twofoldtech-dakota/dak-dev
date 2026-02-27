@@ -7,6 +7,8 @@ export interface Product {
   description: string;
   url: string;
   icon: 'code' | 'tool' | 'app' | 'package' | 'api' | 'website';
+  category: 'agent' | 'plugin' | 'product' | 'infrastructure';
+  date: string;
   featured?: boolean;
 }
 
@@ -19,7 +21,7 @@ export async function getAllProducts(): Promise<Product[]> {
   try {
     const fileContents = await fs.readFile(productsPath, 'utf8');
     const products: Product[] = JSON.parse(fileContents);
-    return products;
+    return products.sort((a, b) => b.date.localeCompare(a.date));
   } catch (error) {
     if (process.env.NODE_ENV === 'development') {
       console.error('Error loading products:', error);

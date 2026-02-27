@@ -1,0 +1,116 @@
+---
+name: "Constraint Over Instruction"
+slug: "constraint-over-instruction"
+chapter: 4
+number: "4.4"
+intent: "Specify boundaries and invariants rather than step-by-step procedures, giving the agent room to find good solutions within your guardrails."
+difficulty: "intermediate"
+published: true
+keywords: ["constraints", "invariants", "boundaries", "declarative", "guardrails", "solution space"]
+relatedPatterns:
+  - slug: "negative-space"
+    type: "composes"
+    note: "Negative space is a specific form of constraint — defining the solution space by exclusion."
+  - slug: "example-driven-spec"
+    type: "contrasts"
+    note: "Examples show what you want; constraints define the space of acceptable solutions. Different approaches to the same problem."
+  - slug: "test-first-steering"
+    type: "composes"
+    note: "Tests are executable constraints — they define invariants the implementation must satisfy."
+---
+
+## Problem
+
+You give the agent step-by-step instructions: "First, read the user record from the database. Then check if the user's plan allows API access. Then validate the API key format. Then check the key against the keys table. Then rate limit based on the plan tier. Then proxy the request to the internal API. Then transform the response."
+
+The agent follows your steps exactly. The code works. But it's rigid — a 70-line function that does everything sequentially. It doesn't handle the case where the API key is valid but the user's plan was downgraded since the key was issued. It doesn't cache the plan lookup. It doesn't batch rate limit checks. It followed your procedure without understanding the problem well enough to handle cases your procedure missed.
+
+Step-by-step instructions tell the agent *how* to solve the problem. This is useful when the procedure is critical (database migrations, deployment scripts). But for most engineering tasks, *how* is the part you want the agent to figure out. What you care about is *what must be true* about the solution.
+
+When you dictate the procedure, the agent becomes a typist. When you define the constraints, the agent becomes an engineer.
+
+## Solution
+
+Describe the invariants — the things that must be true about the output — and let the agent figure out the implementation.
+
+**Procedural (how to do it):**
+
+```
+Build an API gateway middleware:
+1. Read the user from the database using the API key header
+2. Check the user's plan against the allowed plans list
+3. Validate the rate limit counter in Redis
+4. If all checks pass, call next()
+5. If any check fails, return the appropriate error
+```
+
+**Constraint-based (what must be true):**
+
+```
+Build an API gateway middleware. The middleware must satisfy these invariants:
+
+- Only users with an active plan that includes API access can proceed
+- API keys are validated against the keys table (keys can be revoked)
+- Requests are rate-limited per plan tier (free: 100/hr, pro: 1000/hr, enterprise: unlimited)
+- Invalid requests return structured errors: { error: { code, message } }
+- The middleware must add <50ms latency to the request path
+
+Use whatever approach makes these invariants hold. Look at our existing
+middleware in middleware/auth.ts for the pattern we use.
+```
+
+The constraint-based version communicates the same requirements but gives the agent freedom. It might cache the plan lookup, batch the rate limit check, or structure the code differently than your step-by-step would have. The result satisfies your invariants while potentially being better than your procedure.
+
+**Constraints are most powerful for these properties:**
+
+| Constraint Type | Example |
+|----------------|---------|
+| Performance | "Must respond in &lt;100ms at p99" |
+| Compatibility | "Must work with Node 20+ and handle ESM and CJS imports" |
+| Security | "Must not expose internal error details to the client" |
+| Data integrity | "Must never write partial records — all-or-nothing transactions" |
+| API contract | "Must return the same response shape as the existing endpoint" |
+| Dependencies | "Must not add new npm packages" |
+| Scope | "Must not modify any files outside of lib/gateway/" |
+
+**Combine constraints with a reference implementation:**
+
+```
+Build a new payment webhook handler. Constraints:
+- Must verify the Stripe signature before processing
+- Must be idempotent (processing the same event twice is a no-op)
+- Must complete within 30 seconds (Stripe's timeout)
+- Must log every event to the audit table regardless of outcome
+- Must return 200 even on processing errors (to prevent Stripe retries)
+
+Reference: look at lib/webhooks/subscription.ts for how we handle
+the subscription webhook — follow the same structure.
+```
+
+Constraints define the boundaries. The reference implementation shows the style. The agent fills the space between them.
+
+<Callout type="info" title="Constraints Compose With Everything">
+You can add constraints to any request: "Build X, but it must Y." They layer on top of other patterns — add constraints to your convention file, your test-first specs, your vertical slices, your scope fences. Constraints are the most versatile steering mechanism because they restrict the output space without restricting the approach.
+</Callout>
+
+## Signals
+
+- You write detailed step-by-step instructions and the agent follows them literally, missing edge cases
+- The agent's solution works but you can see a better approach it didn't consider
+- You care more about what the code *does* than how it's structured internally
+- The requirements are more about properties (fast, safe, compatible) than procedures
+
+## Consequences
+
+**Benefits:**
+- The agent can find solutions you wouldn't have thought of
+- Invariants are testable — you can verify constraints automatically
+- More robust to changing requirements — constraints are stable even when procedures change
+- The agent applies its full capability instead of being limited to your procedure
+- Constraints survive refactoring — the implementation changes, the invariants hold
+
+**Costs:**
+- Requires you to articulate what matters, which is harder than describing steps
+- The agent might choose an approach you don't like (even if it satisfies the constraints)
+- Some tasks genuinely need procedural instructions (migrations, deployment, data fixes)
+- Under-constrained tasks produce creative but unwanted solutions — know when to prescribe

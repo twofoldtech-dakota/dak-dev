@@ -11,4 +11,7 @@ export interface SearchIndexItem {
   tags: string[];
   keywords: string[];
   date: string;
+  type?: 'post' | 'pattern';
+  patternNumber?: string;
+  chapterName?: string;
 }
