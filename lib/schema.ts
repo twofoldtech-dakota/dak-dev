@@ -237,6 +237,27 @@ export function generatePatternCollectionSchema(
 }
 
 /**
+ * Generate CollectionPage schema for a chapter page
+ */
+export function generateChapterSchema(
+  chapter: ChapterMeta,
+  patternCount: number
+) {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'CollectionPage',
+    name: `Chapter ${chapter.number}: ${chapter.name} — Agent Patterns`,
+    description: chapter.description,
+    url: `${SITE_URL}/patterns/chapter/${chapter.slug}`,
+    author: generatePersonSchema(),
+    mainEntity: {
+      '@type': 'ItemList',
+      numberOfItems: patternCount,
+    },
+  };
+}
+
+/**
  * Render JSON-LD script tag
  */
 export function renderJsonLd(schema: object): string {

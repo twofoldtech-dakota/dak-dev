@@ -59,6 +59,22 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.8,
   }));
 
+  // Pattern sub-pages (graph, cards)
+  const patternSubPages: MetadataRoute.Sitemap = [
+    {
+      url: `${SITE_URL}/patterns/graph`,
+      lastModified: new Date(),
+      changeFrequency: 'monthly' as const,
+      priority: 0.6,
+    },
+    {
+      url: `${SITE_URL}/patterns/cards`,
+      lastModified: new Date(),
+      changeFrequency: 'monthly' as const,
+      priority: 0.6,
+    },
+  ];
+
   // Chapter pages
   const chapterPages: MetadataRoute.Sitemap = CHAPTERS.map((chapter) => ({
     url: `${SITE_URL}/patterns/chapter/${chapter.slug}`,
@@ -75,5 +91,5 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.6,
   }));
 
-  return [...staticPages, ...postPages, ...patternPages, ...chapterPages, ...tagPages];
+  return [...staticPages, ...postPages, ...patternPages, ...patternSubPages, ...chapterPages, ...tagPages];
 }

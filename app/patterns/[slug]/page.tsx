@@ -73,6 +73,7 @@ export async function generateMetadata({
       description: pattern.frontmatter.intent,
       images: [ogImageUrl],
     },
+    alternates: { canonical: `/patterns/${slug}` },
   };
 }
 
