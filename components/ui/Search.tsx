@@ -14,22 +14,44 @@ interface SearchProps {
  * Displays live search results with debouncing
  * Neo-brutalist styling with thick borders and hard shadows
  */
+// Module-level cache — fetched once per session, shared across mounts
+let cachedIndex: SearchIndexItem[] | null = null;
+let indexPromise: Promise<SearchIndexItem[]> | null = null;
+
+function fetchSearchIndex(): Promise<SearchIndexItem[]> {
+  if (cachedIndex) return Promise.resolve(cachedIndex);
+  if (!indexPromise) {
+    indexPromise = fetch('/api/search')
+      .then((res) => res.json())
+      .then((data: SearchIndexItem[]) => {
+        cachedIndex = data;
+        return data;
+      })
+      .catch(() => {
+        indexPromise = null;
+        return [] as SearchIndexItem[];
+      });
+  }
+  return indexPromise;
+}
+
 export function Search({ className = '' }: SearchProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [query, setQuery] = useState('');
   const [results, setResults] = useState<SearchIndexItem[]>([]);
   const [selectedIndex, setSelectedIndex] = useState(0);
-  const [searchIndex, setSearchIndex] = useState<SearchIndexItem[]>([]);
+  const [searchIndex, setSearchIndex] = useState<SearchIndexItem[]>(cachedIndex || []);
   const inputRef = useRef<HTMLInputElement>(null);
   const resultsRef = useRef<HTMLDivElement>(null);
   const router = useRouter();
 
-  // Fetch search index on mount
+  // Fetch search index once — uses module-level cache
   useEffect(() => {
-    fetch('/api/search')
-      .then((res) => res.json())
-      .then((data) => setSearchIndex(data))
-      .catch(() => {});
+    if (cachedIndex) {
+      setSearchIndex(cachedIndex);
+      return;
+    }
+    fetchSearchIndex().then(setSearchIndex);
   }, []);
 
   // Keyboard shortcut handler
@@ -94,7 +116,7 @@ export function Search({ className = '' }: SearchProps) {
         case 'Enter':
           e.preventDefault();
           if (results[selectedIndex]) {
-            navigateToPost(results[selectedIndex].slug);
+            navigateToResult(results[selectedIndex]);
           }
           break;
       }
@@ -102,8 +124,12 @@ export function Search({ className = '' }: SearchProps) {
     [results, selectedIndex]
   );
 
-  const navigateToPost = (slug: string) => {
-    router.push(`/blog/${slug}`);
+  const navigateToResult = (result: SearchIndexItem) => {
+    const path =
+      result.type === 'pattern'
+        ? `/patterns/${result.slug}`
+        : `/blog/${result.slug}`;
+    router.push(path);
     setIsOpen(false);
     setQuery('');
     setResults([]);
@@ -179,7 +205,7 @@ export function Search({ className = '' }: SearchProps) {
               className="fixed inset-x-2 sm:inset-x-4 top-20 z-50 mx-auto max-w-2xl"
               role="dialog"
               aria-modal="true"
-              aria-label="Search posts"
+              aria-label="Search posts and patterns"
             >
               <div className="bg-surface border-4 border-text shadow-[12px_12px_0_0_var(--color-text)]">
                 {/* Search Input */}
@@ -204,7 +230,7 @@ export function Search({ className = '' }: SearchProps) {
                     value={query}
                     onChange={(e) => setQuery(e.target.value)}
                     onKeyDown={handleKeyDown}
-                    placeholder="Search posts..."
+                    placeholder="Search posts and patterns..."
                     className="flex-1 bg-transparent text-text text-lg font-semibold placeholder:text-muted focus:outline-none"
                     role="combobox"
                     aria-label="Search query"
@@ -258,7 +284,7 @@ export function Search({ className = '' }: SearchProps) {
                           <button
                             key={result.slug}
                             id={`search-result-${index}`}
-                            onClick={() => navigateToPost(result.slug)}
+                            onClick={() => navigateToResult(result)}
                             className={`w-full text-left px-6 py-4 border-l-4 transition-colors focus:outline-none ${
                               index === selectedIndex
                                 ? 'bg-background border-accent'
@@ -267,16 +293,30 @@ export function Search({ className = '' }: SearchProps) {
                             role="option"
                             aria-selected={index === selectedIndex}
                           >
-                            <h3 className="text-lg font-bold text-text mb-2">
-                              {result.title}
-                            </h3>
+                            <div className="flex items-center gap-2 mb-2">
+                              {result.type === 'pattern' && (
+                                <span className="text-[10px] font-mono font-bold uppercase tracking-wider border px-1.5 py-0.5 border-accent text-accent">
+                                  Pattern {result.patternNumber}
+                                </span>
+                              )}
+                              <h3 className="text-lg font-bold text-text">
+                                {result.title}
+                              </h3>
+                            </div>
                             <p className="text-sm text-muted mb-3 line-clamp-2">
                               {result.excerpt}
                             </p>
                             <div className="flex flex-wrap items-center gap-2 text-xs">
-                              <time className="text-muted font-semibold">
-                                {formattedDate}
-                              </time>
+                              {result.type === 'pattern' && result.chapterName && (
+                                <span className="text-muted font-semibold">
+                                  {result.chapterName}
+                                </span>
+                              )}
+                              {result.date && (
+                                <time className="text-muted font-semibold">
+                                  {formattedDate}
+                                </time>
+                              )}
                               {result.tags.length > 0 && (
                                 <>
                                   <span className="text-muted" aria-hidden="true">

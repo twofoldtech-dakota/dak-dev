@@ -1,0 +1,18 @@
+{
+  "claude-code": {
+    "description": "Claude Code reads CLAUDE.md automatically at the start of every session. Place it in your project root.",
+    "code": "# CLAUDE.md\n\n## Code Style\n- Prefer named exports over default exports\n- Co-locate tests next to source files\n- Use `satisfies` over `as` for type assertions\n\n## Architecture\n- All API routes return { data, error } shape\n- Feature flags live in /config/flags.ts\n\n## Don'ts\n- Never install new dependencies without asking\n- Don't modify CI configs or deployment scripts"
+  },
+  "cursor": {
+    "description": "Cursor reads .cursorrules from your project root. Format is similar but the file name differs.",
+    "code": "# .cursorrules\n\nYou are working on a Next.js 16 project with TypeScript strict mode.\n\n## Conventions\n- Named exports only, no default exports\n- Tests live next to source files\n- Use satisfies over as for type assertions\n\n## Architecture\n- API routes return { data, error }, never throw\n- Feature flags in /config/flags.ts"
+  },
+  "copilot": {
+    "description": "GitHub Copilot reads .github/copilot-instructions.md for project-level context.",
+    "code": "# .github/copilot-instructions.md\n\nThis is a Next.js 16 TypeScript project.\n\n## Code Style\n- Use named exports\n- Co-locate test files with source\n- Prefer satisfies over as\n\n## Patterns\n- API routes: always return { data, error }\n- Feature flags: /config/flags.ts\n- Never add dependencies without approval"
+  },
+  "windsurf": {
+    "description": "Windsurf reads .windsurfrules from your project root for project conventions.",
+    "code": "# .windsurfrules\n\nNext.js 16 TypeScript project with strict mode.\n\n## Style\n- Named exports, no defaults\n- Tests next to source files\n- satisfies over as\n\n## Architecture\n- { data, error } return shape for all API routes\n- Feature flags in /config/flags.ts\n\n## Restrictions\n- No new dependencies without asking\n- Don't touch CI or deploy configs"
+  }
+}

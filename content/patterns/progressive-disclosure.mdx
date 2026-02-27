@@ -1,0 +1,134 @@
+---
+name: "Progressive Disclosure"
+slug: "progressive-disclosure"
+chapter: 2
+number: "2.3"
+intent: "Reveal project complexity incrementally instead of dumping everything at once, avoiding context overload."
+difficulty: "intermediate"
+published: true
+keywords: ["progressive disclosure", "incremental context", "complexity management", "context window", "information architecture"]
+relatedPatterns:
+  - slug: "context-priming"
+    type: "contrasts"
+    note: "Priming front-loads context; progressive disclosure reveals it gradually. Choose based on task complexity."
+  - slug: "memory-layer"
+    type: "composes"
+    note: "Memory files let you reveal accumulated knowledge progressively instead of front-loading everything."
+  - slug: "vertical-slice"
+    type: "composes"
+    note: "Thin slices naturally limit how much context the agent needs at each step."
+---
+
+## Problem
+
+Your project has a sophisticated authentication system: OAuth providers, session management, role-based access control, multi-tenancy, API key authentication, and rate limiting. You need the agent to add a new OAuth provider.
+
+So you dump everything: the auth config, the session middleware, the RBAC module, the tenant resolver, the API key validator, the rate limiter, and the database schema. The agent now has 2,000 lines of context and a simple task.
+
+The result: the agent gets confused. It tries to integrate the new provider with the rate limiter (unnecessary), adds tenant awareness to the OAuth callback (premature), and restructures the session middleware to "accommodate" the new provider (destructive). It saw connections between systems and felt compelled to address them all.
+
+This is context overload. More context isn't always better context. Agents, like humans, have difficulty distinguishing signal from noise when everything is presented simultaneously. They try to account for every piece of information you've given them, even when most of it is irrelevant to the immediate task.
+
+## Solution
+
+Reveal information in layers, giving the agent only what it needs for the current step. Start narrow and expand only when the agent demonstrates it needs more.
+
+**Layer 1: The immediate task with minimal context.**
+
+```
+Add Google OAuth as a new provider in our auth system.
+
+Here's how our existing GitHub provider is configured:
+@lib/auth/providers/github.ts
+
+Create a similar file for Google OAuth at lib/auth/providers/google.ts.
+```
+
+This might be all the agent needs. One example, one clear deliverable. If the output is correct, stop here.
+
+**Layer 2: Expand when the agent encounters a boundary.**
+
+The agent asks: "I see the provider file imports from `auth-config.ts` — should I add Google to the provider registry too?"
+
+```
+Yes. Here's the provider registry:
+@lib/auth/auth-config.ts
+
+Add Google to the PROVIDERS array following the same pattern as GitHub.
+```
+
+Now the agent has two files. Still focused.
+
+**Layer 3: Reveal system-level context only when needed.**
+
+The agent says: "The OAuth callback handler at `/api/auth/callback` has provider-specific logic. Should I add a Google branch?"
+
+```
+Yes. Here's the callback handler:
+@app/api/auth/callback/route.ts
+
+And here's the session creation utility it uses:
+@lib/auth/session.ts
+
+Add the Google callback branch. The session creation should work as-is —
+don't modify session.ts.
+```
+
+Three steps in, the agent has seen four files — exactly the four it needs. If you'd provided all four upfront plus the RBAC module, tenant resolver, and rate limiter, the output would have been worse.
+
+**The decision tree for disclosure:**
+
+```
+Start with: example + request
+         ↓
+Agent output correct? → Done
+         ↓ (no, or agent asks)
+Provide the specific file it needs
+         ↓
+Agent output correct? → Done
+         ↓ (no, or agent asks)
+Provide broader system context
+         ↓
+Agent output correct? → Done
+         ↓ (no)
+Consider: is the task too complex for a single pass?
+          → Break it down (see: Vertical Slice)
+```
+
+**Match disclosure depth to task complexity:**
+
+| Task Complexity | Disclosure Strategy |
+|-----------------|-------------------|
+| Bug fix in one file | Single file, fix-it-here instruction |
+| New feature, existing pattern | One example file + request |
+| New feature, new pattern | Types + architecture notes + request |
+| Cross-cutting change | Progressive layers as described above |
+| System redesign | Break into slices first, disclose per-slice |
+
+<Callout type="info" title="The Agent Will Ask When It Needs More">
+Good coding agents tell you when they lack context. They'll say "I see this imports from X — should I look at that?" or "I'm not sure how the session system works — can you share the relevant file?" Trust this mechanism. It's more efficient than preemptively guessing what the agent might need, because the agent knows what it doesn't know at the point where it matters.
+</Callout>
+
+## Signals
+
+- The agent's output touches systems you didn't ask it to modify
+- You provide 10+ files of context for a task that should need 2-3
+- The agent tries to "account for" every system it can see, even irrelevant ones
+- Output quality degrades as you add more context, not less
+- The agent asks no clarifying questions — a sign it's over-confidently interpreting too much context
+
+## Consequences
+
+**Benefits:**
+- Agent output stays focused on the immediate task
+- Avoids wasting context window budget on irrelevant information
+- Each step is small and verifiable before proceeding
+- Naturally surfaces which parts of the system are actually coupled
+- Reduces over-engineering caused by the agent seeing too many systems at once
+
+**Costs:**
+- More interactive — requires you to stay in the loop between steps
+- Slower for tasks where front-loading context would have worked fine
+- Requires judgment about what to reveal and when
+- Risk of under-disclosing — the agent might miss a genuine dependency
+- Doesn't work well in batch or autonomous modes where the agent can't ask questions

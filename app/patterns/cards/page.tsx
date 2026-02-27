@@ -1,0 +1,77 @@
+import { getAllPatterns, extractSignals, CHAPTERS } from '@/lib/patterns';
+import { QuickReferenceCard } from '@/components/patterns/QuickReferenceCard';
+import Link from 'next/link';
+
+export const metadata = {
+  title: 'Pattern Quick-Reference Cards | Dakota Smith',
+  description:
+    'At-a-glance reference cards for all agent patterns — see signals, difficulty, and keywords at a glance.',
+};
+
+export default function PatternCardsPage() {
+  const allPatterns = getAllPatterns();
+
+  return (
+    <div className="min-h-screen pb-16">
+      {/* Header */}
+      <header className="pt-2 pb-8 patterns-grid-bg -mx-4 sm:-mx-6 lg:-mx-0 px-4 sm:px-6 lg:px-0">
+        <nav className="mb-5" aria-label="Breadcrumb">
+          <ol className="flex items-center gap-2 text-xs text-muted font-mono">
+            <li>
+              <Link
+                href="/patterns"
+                className="hover:text-text hover:underline underline-offset-2 focus:outline-none focus:ring-2 focus:ring-text focus:ring-offset-2 focus:ring-offset-background"
+              >
+                Patterns
+              </Link>
+            </li>
+            <li aria-hidden="true">/</li>
+            <li aria-current="page">
+              <span className="text-text font-semibold">Cards</span>
+            </li>
+          </ol>
+        </nav>
+        <h1 className="text-3xl md:text-4xl font-bold tracking-tight mb-3">
+          Quick-Reference Cards
+        </h1>
+        <p className="text-muted max-w-2xl leading-relaxed">
+          All {allPatterns.length} patterns at a glance. Each card shows the
+          pattern&apos;s intent, key signals, difficulty, and keywords.
+        </p>
+      </header>
+
+      <div className="border-b-2 border-text/30" />
+
+      {/* Card Grid */}
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-0 py-10">
+        {CHAPTERS.map((chapter) => {
+          const chapterPatterns = allPatterns.filter(
+            (p) => p.frontmatter.chapter === chapter.number
+          );
+          if (chapterPatterns.length === 0) return null;
+
+          return (
+            <section key={chapter.number} className="mb-10 last:mb-0">
+              <h2 className="text-xs font-mono font-bold uppercase tracking-wider text-muted mb-4">
+                Chapter {chapter.number} — {chapter.name}
+              </h2>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                {chapterPatterns.map((pattern) => {
+                  const signals = extractSignals(pattern.content);
+                  return (
+                    <QuickReferenceCard
+                      key={pattern.frontmatter.slug}
+                      frontmatter={pattern.frontmatter}
+                      signals={signals}
+                      variant="standalone"
+                    />
+                  );
+                })}
+              </div>
+            </section>
+          );
+        })}
+      </div>
+    </div>
+  );
+}

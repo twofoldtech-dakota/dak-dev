@@ -1,0 +1,152 @@
+---
+name: "Agent-Friendly Architecture"
+slug: "agent-friendly-architecture"
+chapter: 1
+number: "1.4"
+intent: "Organize code with clear boundaries, named modules, and explicit interfaces so agents can navigate and modify it confidently."
+difficulty: "advanced"
+published: true
+keywords: ["architecture", "code organization", "module boundaries", "interfaces", "colocation", "named exports"]
+relatedPatterns:
+  - slug: "convention-file"
+    type: "composes"
+    note: "Convention files document the architecture; this pattern makes the architecture self-documenting."
+  - slug: "scope-fence"
+    type: "enables"
+    note: "Clear module boundaries make it easy to fence the agent into specific areas."
+  - slug: "anchor-point"
+    type: "enables"
+    note: "Well-named files and explicit exports give the agent concrete anchors to reference."
+---
+
+## Problem
+
+You ask the agent to add a notification when a user completes onboarding. It needs to find where onboarding lives, how notifications work, where to import the email service, and which types to use. In a well-structured codebase, this takes seconds. In a typical codebase, the agent reads 15 files, follows a chain of re-exports, misidentifies the wrong abstraction layer, and produces code that technically works but is wired into the wrong place.
+
+Agents navigate code the way a new developer reads code: by names, file paths, import chains, and type signatures. They don't have the mental model you've built over months of working in the codebase. When your architecture is implicit — when the "right" place to put something depends on context that lives in your head — the agent will guess. And it will guess wrong often enough to erode your trust.
+
+The problem isn't agent capability. It's that most codebases are optimized for people who already know where everything is.
+
+## Solution
+
+Structure your code so that an agent (or a new developer) can navigate it through names and boundaries alone, without needing institutional knowledge.
+
+**Name files for what they contain, not how they're used:**
+
+```
+# Hard for agents to navigate
+src/
+├── utils/
+│   ├── helpers.ts          # Helpers for what?
+│   ├── index.ts            # Re-exports — agent has to read to understand
+│   └── common.ts           # Common to whom?
+├── services/
+│   ├── api.ts              # Which API? All of them?
+│   └── core.ts             # Core what?
+
+# Easy for agents to navigate
+src/
+├── notifications/
+│   ├── send-email.ts
+│   ├── send-push.ts
+│   ├── templates.ts
+│   └── types.ts
+├── onboarding/
+│   ├── steps.ts
+│   ├── validation.ts
+│   └── types.ts
+├── payments/
+│   ├── stripe-client.ts
+│   ├── webhook-handler.ts
+│   └── types.ts
+```
+
+When an agent sees `notifications/send-email.ts`, it doesn't need to read the file to know what it does. When it sees `utils/helpers.ts`, it has to read every function to find what it needs.
+
+**Co-locate related code instead of organizing by type:**
+
+```
+# Organized by type — agent must cross-reference 4 directories
+components/
+  OnboardingForm.tsx
+hooks/
+  useOnboarding.ts
+types/
+  onboarding.ts
+tests/
+  onboarding.test.ts
+
+# Co-located — agent finds everything in one place
+onboarding/
+  OnboardingForm.tsx
+  useOnboarding.ts
+  types.ts
+  onboarding.test.ts
+```
+
+Co-location reduces the number of files the agent needs to discover. When it's asked to modify onboarding, it reads one directory instead of searching four.
+
+**Use explicit interfaces at module boundaries:**
+
+```typescript
+// payments/index.ts — the public API of this module
+export { createCheckoutSession } from './stripe-client';
+export { handleWebhook } from './webhook-handler';
+export type { CheckoutParams, WebhookEvent } from './types';
+
+// Everything else in payments/ is an implementation detail
+```
+
+Barrel files get a bad reputation, but used sparingly at module boundaries they serve a purpose: they tell the agent "this is what you can use from this module." Without them, agents import internal helpers directly, creating tight coupling.
+
+**Prefer named exports over default exports:**
+
+```typescript
+// Default export — agent has to read the file to know what's in it
+export default function handler() { ... }
+
+// Named export — searchable, explicit, self-documenting
+export function handlePaymentWebhook() { ... }
+```
+
+Named exports are grep-friendly. An agent searching for payment-related code can find `handlePaymentWebhook` across the entire codebase without reading a single file. Default exports require reading the import site to understand what's being imported.
+
+**Keep dependency graphs shallow:**
+
+```
+# Deep chain — agent loses context tracing through layers
+UserForm → useFormState → createFieldValidator → withValidation → baseValidator
+
+# Shallow — agent sees the full picture in one or two hops
+UserForm → useFormState → validateField
+```
+
+Every layer of indirection is a file the agent has to read, a function it has to trace, and context window budget it has to spend. Deep abstraction chains that make sense to the original author are mazes to an agent.
+
+<Callout type="warning" title="This Is Not About Dumbing Down Your Architecture">
+Agent-friendly architecture isn't simpler architecture — it's more explicit architecture. You can have sophisticated patterns (dependency injection, event systems, plugin architectures) as long as the boundaries are named, the interfaces are typed, and the relationships are discoverable through code rather than documentation. The goal is making the *right* choice obvious, not making all choices easy.
+</Callout>
+
+## Signals
+
+- The agent frequently imports from the wrong module or abstraction layer
+- You have to tell the agent "no, use the one in `/lib/payments`, not `/utils/stripe`"
+- Agent-generated code works but violates your intended architecture
+- File names like `utils.ts`, `helpers.ts`, `common.ts`, or `index.ts` proliferate
+- The agent creates duplicate functionality because it couldn't find the existing implementation
+
+## Consequences
+
+**Benefits:**
+- Agents navigate and modify code correctly on the first attempt more often
+- Reduces "wrong place" errors that are expensive to catch in review
+- Benefits human developers equally — especially new team members
+- Makes Scope Fence and Anchor Point patterns more effective
+- Code becomes self-documenting through naming and structure
+
+**Costs:**
+- Refactoring existing codebases to this style is a significant investment
+- Some patterns (like barrel files) have build-tool implications — tree shaking, circular dependencies
+- Co-location can feel redundant for very small modules
+- Teams may resist restructuring code that "works fine for humans"
+- Over-explicit naming can lead to verbose file paths

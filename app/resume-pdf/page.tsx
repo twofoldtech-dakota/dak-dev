@@ -83,7 +83,7 @@ export default function ResumePDFPage() {
         <h1 className="text-4xl font-bold mb-2">Dakota Smith</h1>
         <p className="text-xl mb-2">Principal Architect | Enterprise DXP & Agentic Orchestration</p>
         <div className="text-sm">
-          <p>Kansas City, MO | dakota@twofold.tech</p>
+          <p>dakota@twofold.tech</p>
           <p>github.com/twofoldtech-dakota | twofold.tech</p>
         </div>
       </header>

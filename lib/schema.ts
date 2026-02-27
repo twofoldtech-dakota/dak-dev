@@ -4,8 +4,9 @@
  */
 
 import type { PostFrontmatter } from './posts';
+import type { PatternFrontmatter, ChapterMeta } from './patterns';
 
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://your-domain.vercel.app';
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://dak-dev.vercel.app';
 const SITE_NAME = 'Dakota Smith Blog';
 const AUTHOR_NAME = 'Dakota Smith';
 const AUTHOR_URL = 'https://github.com/twofoldtech-dakota';
@@ -66,7 +67,7 @@ export interface ProfilePageSchema {
     jobTitle: string;
     description: string;
     url: string;
-    address: {
+    address?: {
       '@type': 'PostalAddress';
       addressLocality: string;
       addressRegion: string;
@@ -169,11 +170,6 @@ export function generateResumeSchema(): ProfilePageSchema {
       description:
         'Systems Architect with 15 years in enterprise software, specializing in Sitecore/.NET modernization and Deterministic AI Orchestration. 30+ production-ready projects.',
       url: `${SITE_URL}/resume`,
-      address: {
-        '@type': 'PostalAddress',
-        addressLocality: 'Kansas City',
-        addressRegion: 'MO',
-      },
       sameAs: [
         'https://linkedin.com/in/dakota-smith-a855b230',
         'https://github.com/twofoldtech-dakota',
@@ -188,6 +184,54 @@ export function generateResumeSchema(): ProfilePageSchema {
         'AI Integration',
         'Solution Architecture',
       ],
+    },
+  };
+}
+
+/**
+ * Generate TechArticle schema for individual pattern pages
+ */
+export function generatePatternSchema(
+  pattern: PatternFrontmatter,
+  chapter: ChapterMeta
+) {
+  const patternUrl = `${SITE_URL}/patterns/${pattern.slug}`;
+
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'TechArticle',
+    headline: `${pattern.name} — Agent Pattern ${pattern.number}`,
+    description: pattern.intent,
+    url: patternUrl,
+    author: generatePersonSchema(),
+    publisher: generatePersonSchema(),
+    mainEntityOfPage: {
+      '@type': 'WebPage',
+      '@id': patternUrl,
+    },
+    keywords: pattern.keywords || [],
+    proficiencyLevel: pattern.difficulty === 'beginner' ? 'Beginner' : pattern.difficulty === 'intermediate' ? 'Intermediate' : 'Expert',
+    articleSection: `Chapter ${chapter.number}: ${chapter.name}`,
+  };
+}
+
+/**
+ * Generate CollectionPage schema for the patterns index
+ */
+export function generatePatternCollectionSchema(
+  patternCount: number,
+  chapterCount: number
+) {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'CollectionPage',
+    name: 'Agent Patterns — AI Coding Agent Reference',
+    description: `A structured reference of ${patternCount} named patterns across ${chapterCount} chapters for working effectively with AI coding agents.`,
+    url: `${SITE_URL}/patterns`,
+    author: generatePersonSchema(),
+    mainEntity: {
+      '@type': 'ItemList',
+      numberOfItems: patternCount,
     },
   };
 }

@@ -96,39 +96,6 @@ export function Footer() {
           </div>
         </div>
 
-        {/* Additional footer info */}
-        <div className="mt-8 pt-8 border-t-2 border-surface">
-          <p className="text-xs text-center text-muted">
-            Built with{' '}
-            <Link
-              href="https://nextjs.org"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="underline hover:text-accent hover:decoration-accent transition-colors focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2 focus:ring-offset-background"
-            >
-              Next.js
-            </Link>
-            {' '}&{' '}
-            <Link
-              href="https://tailwindcss.com"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="underline hover:text-accent hover:decoration-accent transition-colors focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2 focus:ring-offset-background"
-            >
-              Tailwind CSS
-            </Link>
-            . Deployed on{' '}
-            <Link
-              href="https://vercel.com"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="underline hover:text-accent hover:decoration-accent transition-colors focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2 focus:ring-offset-background"
-            >
-              Vercel
-            </Link>
-            .
-          </p>
-        </div>
       </div>
     </footer>
   );

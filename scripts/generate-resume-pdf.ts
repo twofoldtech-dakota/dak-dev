@@ -16,7 +16,6 @@ const COLORS = {
 const resumeData = {
   name: 'Dakota Smith',
   title: 'Strategic Technical Leader & Fullstack Architect',
-  location: 'Kansas City, MO',
   email: 'dakota@twofold.tech',
   github: 'https://github.com/twofoldtech-dakota',
   summary: `Strategic Technical Leader & Fullstack Architect with 14 years of enterprise experience and a track record of shipping 30+ production-ready projects. I specialize in bridging the gap between high-level business vision and deep technical execution, possessing an "M-shaped" skill set that encompasses multiple technical domains, leadership, and project management. I am a "Big Picture Thinker" who excels at translating business requirements into scalable, secure, and maintainable architectural blueprints.`,
@@ -160,7 +159,7 @@ function generateResumePDF() {
   doc.moveDown(0.5);
   doc
     .fontSize(10)
-    .text(`${resumeData.location} | ${resumeData.email} | ${resumeData.github}`, { align: 'left' });
+    .text(`${resumeData.email} | ${resumeData.github}`, { align: 'left' });
 
   doc.moveDown(1);
   drawLine(doc);

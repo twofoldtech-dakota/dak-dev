@@ -1,0 +1,45 @@
+---
+name: "{{PATTERN_NAME}}"
+slug: "{{PATTERN_SLUG}}"
+chapter: {{CHAPTER_NUMBER}}
+number: "{{PATTERN_NUMBER}}"
+intent: "{{ONE_SENTENCE_INTENT}}"
+difficulty: "{{beginner|intermediate|advanced}}"
+published: false
+keywords: [{{KEYWORDS}}]
+relatedPatterns:
+  - slug: "{{RELATED_SLUG}}"
+    type: "{{enables|composes|prevents|contrasts}}"
+    note: "{{SHORT_RELATIONSHIP_NOTE}}"
+---
+
+## Problem
+
+<!-- 1-2 paragraphs: The recurring situation that motivates this pattern. What goes wrong without it. Be specific about observable symptoms. -->
+
+## Solution
+
+<!-- 2-4 paragraphs + concrete examples: The technique. This is the core of the pattern. Include code/prompt examples where relevant. Use code blocks for any CLI commands, configuration, or prompt templates. -->
+
+## Signals
+
+<!-- Bullet list: How to recognize when you need this pattern. Observable symptoms in your workflow. -->
+
+-
+-
+-
+-
+
+## Consequences
+
+<!-- What you gain and what it costs. Every pattern has tradeoffs. -->
+
+**Benefits:**
+-
+-
+-
+
+**Costs:**
+-
+-
+-

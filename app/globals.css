@@ -25,6 +25,22 @@
   --color-text: var(--color-text-dark);
   --color-muted: var(--color-muted-dark);
   --color-accent: var(--color-accent-dark);
+
+  /* Chapter accent colors — patterns section */
+  --color-chapter-1: #00ff88;
+  --color-chapter-2: #00d4ff;
+  --color-chapter-3: #ff6b35;
+  --color-chapter-4: #a855f7;
+  --color-chapter-5: #facc15;
+  --color-chapter-6: #ff3366;
+
+  /* Light-mode muted variants */
+  --color-chapter-1-muted: #00b35f;
+  --color-chapter-2-muted: #0099b8;
+  --color-chapter-3-muted: #cc5528;
+  --color-chapter-4-muted: #7c3aed;
+  --color-chapter-5-muted: #ca8a04;
+  --color-chapter-6-muted: #cc294f;
 }
 
 /* Light mode override - applies when html has 'light' class */
@@ -52,6 +68,12 @@ html.dark {
   --color-text: var(--color-text);
   --color-muted: var(--color-muted);
   --color-accent: var(--color-accent);
+  --color-chapter-1: var(--color-chapter-1);
+  --color-chapter-2: var(--color-chapter-2);
+  --color-chapter-3: var(--color-chapter-3);
+  --color-chapter-4: var(--color-chapter-4);
+  --color-chapter-5: var(--color-chapter-5);
+  --color-chapter-6: var(--color-chapter-6);
   --font-sans: var(--font-space-grotesk), ui-sans-serif, system-ui, sans-serif;
 }
 
@@ -243,6 +265,29 @@ body {
   background: var(--color-accent);
 }
 
+/* Patterns sidebar scrollbar */
+.patterns-sidebar-scroll {
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-muted) transparent;
+}
+
+.patterns-sidebar-scroll::-webkit-scrollbar {
+  width: 6px;
+}
+
+.patterns-sidebar-scroll::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.patterns-sidebar-scroll::-webkit-scrollbar-thumb {
+  background: var(--color-surface);
+  border: 1px solid var(--color-muted);
+}
+
+.patterns-sidebar-scroll::-webkit-scrollbar-thumb:hover {
+  background: var(--color-muted);
+}
+
 /* Share buttons - Neo-brutalist styling */
 .share-button {
   display: inline-flex;
@@ -273,6 +318,110 @@ body {
 .share-button:focus {
   outline: none;
   box-shadow: 0 0 0 4px var(--color-accent);
+}
+
+/* Subtle grid-line background */
+.patterns-grid-bg {
+  background-image:
+    linear-gradient(var(--color-surface) 1px, transparent 1px),
+    linear-gradient(90deg, var(--color-surface) 1px, transparent 1px);
+  background-size: 48px 48px;
+  background-position: -1px -1px;
+}
+
+/* Layered grid with radial depth — three grid scales + vignette */
+.patterns-grid-bg-depth {
+  position: relative;
+  background-image:
+    linear-gradient(color-mix(in srgb, var(--color-surface) 60%, transparent) 1px, transparent 1px),
+    linear-gradient(90deg, color-mix(in srgb, var(--color-surface) 60%, transparent) 1px, transparent 1px),
+    linear-gradient(var(--color-surface) 1px, transparent 1px),
+    linear-gradient(90deg, var(--color-surface) 1px, transparent 1px);
+  background-size: 12px 12px, 12px 12px, 48px 48px, 48px 48px;
+  background-position: -1px -1px;
+}
+
+/* Layer 1: accent-colored large grid, masked to focal area */
+.patterns-grid-bg-depth::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(color-mix(in srgb, var(--color-accent) 14%, transparent) 1px, transparent 1px),
+    linear-gradient(90deg, color-mix(in srgb, var(--color-accent) 14%, transparent) 1px, transparent 1px);
+  background-size: 192px 192px;
+  background-position: -1px -1px;
+  mask-image: radial-gradient(ellipse 80% 70% at 30% 50%, black 0%, transparent 100%);
+  -webkit-mask-image: radial-gradient(ellipse 80% 70% at 30% 50%, black 0%, transparent 100%);
+  pointer-events: none;
+}
+
+/* Layer 2: radial glow + edge vignette for depth */
+.patterns-grid-bg-depth::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 65% 55% at 25% 50%, color-mix(in srgb, var(--color-accent) 6%, transparent) 0%, transparent 70%),
+    radial-gradient(ellipse 40% 40% at 75% 30%, color-mix(in srgb, var(--color-accent) 3%, transparent) 0%, transparent 60%),
+    radial-gradient(ellipse 100% 100% at 50% 50%, transparent 40%, color-mix(in srgb, var(--color-background) 40%, transparent) 100%);
+  pointer-events: none;
+}
+
+/* ── Hero scanline — slow horizontal sweep ── */
+@keyframes scanline {
+  0%   { transform: translateY(-100%); opacity: 0; }
+  5%   { opacity: 1; }
+  90%  { opacity: 1; transform: translateY(calc(100vh - 60px)); }
+  100% { transform: translateY(100vh); opacity: 0; }
+}
+
+.hero-scanline {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    color-mix(in srgb, var(--color-accent) 40%, transparent) 20%,
+    var(--color-accent) 50%,
+    color-mix(in srgb, var(--color-accent) 40%, transparent) 80%,
+    transparent 100%
+  );
+  box-shadow: 0 0 8px color-mix(in srgb, var(--color-accent) 30%, transparent);
+  will-change: transform;
+  animation: scanline 8s ease-in-out infinite;
+  pointer-events: none;
+}
+
+/* ── Pulsing grid-intersection dots ── */
+@keyframes grid-pulse {
+  0%, 100% { opacity: 0.2; transform: scale(1); }
+  50%      { opacity: 0.7; transform: scale(2); }
+}
+
+.hero-grid-dot {
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: var(--color-accent);
+  will-change: opacity, transform;
+  animation: grid-pulse 4s ease-in-out infinite;
+  pointer-events: none;
+}
+
+/* ── Corner coordinate labels ── */
+.hero-coord {
+  position: absolute;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  color: color-mix(in srgb, var(--color-accent) 50%, transparent);
+  pointer-events: none;
+  user-select: none;
 }
 
 /* View Transitions — subtle cross-dissolve between pages */

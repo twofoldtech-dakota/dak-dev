@@ -1,0 +1,123 @@
+---
+name: "Checkpoint Loop"
+slug: "checkpoint-loop"
+chapter: 3
+number: "3.2"
+intent: "Work in small cycles of do-then-verify instead of one big request, catching drift early before it compounds."
+difficulty: "beginner"
+published: true
+keywords: ["checkpoint", "incremental", "verify", "iterate", "small steps", "feedback loop"]
+relatedPatterns:
+  - slug: "safety-net"
+    type: "composes"
+    note: "You can't verify incrementally without automated checks to run."
+  - slug: "vertical-slice"
+    type: "composes"
+    note: "Slice thin, verify each slice, build confidence incrementally."
+  - slug: "parallel-fan-out"
+    type: "contrasts"
+    note: "Checkpoints are serial verification; fan-out is parallel execution. Choose based on task independence."
+---
+
+<FlowDiagram
+  before='[{"label":"Write one large request"},{"label":"Agent generates 400 lines across 6 files"},{"label":"Review giant diff","highlight":true},{"label":"Discover cascading errors"},{"label":"Rewrite half the output"}]'
+  after='[{"label":"Give one focused task"},{"label":"Agent generates ~30 lines"},{"label":"Verify immediately","highlight":true},{"label":"Correct while context is fresh"},{"label":"Move to next task"}]'
+/>
+
+## Problem
+
+You ask the agent to build a complete CRUD API for a task management system. Fifteen minutes later, it presents 400 lines of code across 6 files. You start reviewing and find that the create endpoint uses the wrong validation library, the update endpoint doesn't check ownership, the delete endpoint is missing soft-delete logic, and the list endpoint ignores pagination.
+
+Each issue is small. But they compound. Fixing the validation approach requires changing the create, update, and list endpoints. The ownership check requires a middleware that touches all routes. By the time you've corrected everything, you've rewritten half the code.
+
+The root problem: you gave the agent a large task, it executed for 15 minutes without feedback, and errors accumulated silently. The agent didn't know it was drifting because you only checked the output at the very end.
+
+## Solution
+
+Break work into small cycles: the agent does one thing, you verify it, then it does the next thing. Each cycle catches errors before they cascade.
+
+**The basic loop:**
+
+```
+1. Give the agent one focused task
+2. Agent produces output
+3. You verify (read the code, run the tests, check the behavior)
+4. If correct: move to the next task
+5. If wrong: correct immediately while context is fresh
+```
+
+**Apply it to the CRUD API example:**
+
+```
+Step 1: "Create the task schema in types/task.ts with these fields: id, title,
+description, status (todo/in-progress/done), ownerId, createdAt, updatedAt."
+→ Verify the types are correct before proceeding.
+
+Step 2: "Create POST /api/tasks that validates the input using zod (that's what
+we use — see lib/validators.ts for examples) and creates a task."
+→ Verify validation approach matches the codebase. Test the endpoint.
+
+Step 3: "Add GET /api/tasks with pagination (limit/offset) and filtering by
+status. Only return tasks owned by the authenticated user."
+→ Verify ownership scoping and pagination work correctly.
+
+Step 4: "Add PATCH /api/tasks/[id] with ownership check — return 403 if the
+user doesn't own the task."
+→ Verify the ownership guard works.
+
+Step 5: "Add DELETE /api/tasks/[id] as a soft delete — set deletedAt timestamp,
+don't remove the row. Same ownership check as PATCH."
+→ Verify soft delete behavior.
+```
+
+Five steps instead of one. Each step builds on verified output from the previous step. If the agent uses the wrong validation library in step 2, you catch it before it propagates to steps 3, 4, and 5.
+
+**Calibrate step size to risk:**
+
+| Risk Level | Step Size | Example |
+|------------|-----------|---------|
+| Low risk | Larger steps (multiple files) | Adding a new page that follows an existing pattern |
+| Medium risk | One logical change | New API endpoint, new component |
+| High risk | Single file, single function | Auth changes, payment logic, data migration |
+
+The riskier the change, the smaller the steps. Auth code gets verified line by line. A new blog post component can be built in one pass.
+
+**Automate the verification step where possible:**
+
+```
+# In your convention file, tell the agent to run checks after each change:
+After making changes, always run:
+1. npm run typecheck
+2. npm test -- --related
+3. npm run lint
+
+Do not proceed to the next step if any check fails.
+```
+
+When the agent runs checks itself, the loop tightens: do → auto-verify → report → you decide → next step.
+
+<Callout type="warning" title="Don't Checkpoint So Small That You Slow to a Crawl">
+The point of checkpoints is catching drift early, not micromanaging the agent. If you verify every line, you're doing the work yourself with extra steps. Find the sweet spot: large enough that the agent does meaningful work, small enough that errors don't compound. For most tasks, one logical change per checkpoint is the right granularity.
+</Callout>
+
+## Signals
+
+- You frequently discover multiple interconnected errors in agent output
+- Reviewing agent changes takes longer than making them yourself would have
+- Errors in early code cascade into later code, requiring extensive rework
+- You feel anxious letting the agent work for more than a few minutes unsupervised
+
+## Consequences
+
+**Benefits:**
+- Errors are caught when they're cheap to fix — one file, not six
+- Each checkpoint builds confidence that the foundation is solid
+- The agent gets corrective feedback while context is fresh
+- Total time is often less than one big task with extensive rework
+- Creates natural save points — easy to revert to the last good checkpoint
+
+**Costs:**
+- More interactive — you're in the loop at every step
+- Can feel slow compared to "just let it build the whole thing"
+- Over-checkpointing creates friction without adding value
+- Requires discipline to actually verify at each step, not just skim and continue

@@ -1,0 +1,93 @@
+---
+name: "Safety Net"
+slug: "safety-net"
+chapter: 1
+number: "1.2"
+intent: "Establish automated checks (tests, types, linting) as guardrails so agent mistakes get caught immediately, not in production."
+difficulty: "beginner"
+published: true
+keywords: ["testing", "linting", "type checking", "guardrails", "CI", "automated checks"]
+relatedPatterns:
+  - slug: "checkpoint-loop"
+    type: "enables"
+    note: "You can't verify incrementally without automated checks to run."
+  - slug: "regression-guard"
+    type: "enables"
+    note: "Guards need an existing test suite to run."
+  - slug: "convention-file"
+    type: "composes"
+    note: "Convention files tell the agent what to do; safety nets catch when it doesn't."
+---
+
+## Problem
+
+AI coding agents are confident. They'll refactor a function, update imports, adjust types, and present the result as complete — even when they've introduced a subtle regression three files away from where they were working.
+
+Without automated checks, you're the safety net. You review every line, run the app manually, and hope you catch what the agent missed. This defeats the purpose of using an agent: you wanted to move faster, not become a full-time code reviewer.
+
+The deeper problem is that agents optimize for the immediate request. They don't naturally verify side effects, check boundary conditions, or run the test suite. They solve what you asked for and stop.
+
+## Solution
+
+Build a layered verification system that catches different classes of errors automatically:
+
+**Layer 1: Type checking** — catches structural errors instantly:
+
+```bash
+# In your convention file, tell the agent to run this after changes
+npm run typecheck  # or: tsc --noEmit
+```
+
+TypeScript strict mode is the single highest-value safety net. It catches null reference errors, missing properties, incorrect function signatures, and interface violations — all the things agents get wrong when working across multiple files.
+
+**Layer 2: Linting** — catches style and logic issues:
+
+```bash
+npm run lint       # ESLint with your project rules
+```
+
+Linters catch unused variables, unreachable code, missing accessibility attributes, and convention violations. They're cheap to run and catch issues that type checking misses.
+
+**Layer 3: Tests** — catches behavioral regressions:
+
+```bash
+npm test           # Run the full suite
+npm test -- --related  # Run only tests related to changed files
+```
+
+Tests are the most powerful safety net but also the most expensive to maintain. Start with integration tests that verify critical paths, then add unit tests for complex logic.
+
+**Layer 4: Build verification** — catches everything else:
+
+```bash
+npm run build      # Full production build
+```
+
+A successful build proves that all imports resolve, all pages render, and the entire application hangs together. It's slow but comprehensive.
+
+Tell the agent about these checks in your convention file, and instruct it to run the relevant layer after making changes. The best agents will do this automatically; others need explicit prompting.
+
+<Callout type="warning" title="Speed Kills the Safety Net">
+A safety net that takes 30 seconds to run won't get used. Agents and developers will skip it, disable it, or work around it. Optimize your checks for speed: use `tsc --noEmit` over a full build, run `--related` tests instead of the full suite, and keep linting scoped to changed files. The best safety net is the one that's fast enough to run on every change — whether triggered by a hook, a CI step, or habit.
+</Callout>
+
+## Signals
+
+- You discover agent-introduced bugs during manual testing
+- The agent's changes pass initial review but break in CI
+- You're afraid to let the agent modify shared utilities
+- Refactoring tasks produce subtle regressions
+
+## Consequences
+
+**Benefits:**
+- Catches 80%+ of agent errors before you review the code
+- Gives you confidence to let agents modify larger portions of the codebase
+- Reduces review time — you focus on logic, not syntax
+- Enables the Checkpoint Loop pattern (verify at each step, not just at the end)
+
+**Costs:**
+- Requires initial investment in test coverage
+- Slow test suites create friction (optimize for speed)
+- False positives in linting can frustrate the agent workflow
+- Doesn't catch all errors — logic bugs that tests don't cover still slip through

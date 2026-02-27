@@ -5,6 +5,8 @@
     "description": "A high-performance orchestration layer built to give \"Industrial Clarity\" and engineering precision to AI-assisted development.",
     "url": "https://github.com/twofoldtech-dakota/studio",
     "icon": "tool",
+    "category": "agent",
+    "date": "2025-12",
     "featured": true
   },
   {
@@ -13,6 +15,8 @@
     "description": "AI-powered project handoff documentation for consulting agencies and freelancers. Connect your repo, generate comprehensive docs, and ship with confidence.",
     "url": "https://handoffkit.ai/",
     "icon": "app",
+    "category": "product",
+    "date": "2026-01",
     "featured": true
   },
   {
@@ -21,6 +25,8 @@
     "description": "Claude Code plugins that analyze enterprise CMS codebases, deliver actionable reports with severity ratings, and generate custom AI enhancements.",
     "url": "https://github.com/twofoldtech-dakota/claude-marketplace",
     "icon": "tool",
+    "category": "plugin",
+    "date": "2026-01",
     "featured": true
   },
   {
@@ -29,6 +35,8 @@
     "description": "Claude Code plugin that transforms Claude into an autonomous coding agent with Plan → Execute → Review cycles and self-learning capabilities.",
     "url": "https://github.com/twofoldtech-dakota/apl",
     "icon": "code",
+    "category": "agent",
+    "date": "2026-01",
     "featured": true
   },
   {
@@ -37,6 +45,8 @@
     "description": "Multi-agent orchestration system for autonomous software development. Coordinates multiple AI agents to tackle complex engineering tasks.",
     "url": "https://github.com/twofoldtech-dakota/ORC",
     "icon": "code",
+    "category": "agent",
+    "date": "2026-01",
     "featured": true
   },
   {
@@ -45,6 +55,8 @@
     "description": "Enterprise MCP server that provides unified access to any CMS through a single, consistent interface.",
     "url": "https://github.com/twofoldtech-dakota/conduit",
     "icon": "api",
+    "category": "infrastructure",
+    "date": "2026-01",
     "featured": true
   },
   {
@@ -53,6 +65,8 @@
     "description": "Expert architect for designing and building Claude Code plugins. Covers the full extension ecosystem — plugins, skills, MCP servers, hooks, agents, and more.",
     "url": "https://github.com/twofoldtech-dakota/plugin-architect",
     "icon": "tool",
+    "category": "plugin",
+    "date": "2026-02",
     "featured": true
   },
   {
@@ -61,6 +75,8 @@
     "description": "Maintenance and operations engine for Claude Code plugins — health scanning, dependency management, versioning, issue tracking, and runbooks.",
     "url": "https://github.com/twofoldtech-dakota/plugin-ops",
     "icon": "tool",
+    "category": "plugin",
+    "date": "2026-02",
     "featured": true
   },
   {
@@ -69,6 +85,8 @@
     "description": "Go-to-market engine for Claude Code. Analyze your product, build a GTM strategy, generate launch content, and track your launch — all from the terminal.",
     "url": "https://github.com/twofoldtech-dakota/plugin-gtm",
     "icon": "app",
+    "category": "plugin",
+    "date": "2026-02",
     "featured": true
   }
 ]

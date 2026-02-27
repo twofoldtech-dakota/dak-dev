@@ -1,0 +1,116 @@
+---
+name: "Scope Fence"
+slug: "scope-fence"
+chapter: 2
+number: "2.2"
+intent: "Explicitly constrain the agent's working area to prevent drift into unrelated code, keeping changes focused and reviewable."
+difficulty: "intermediate"
+published: true
+keywords: ["scope", "constraints", "boundaries", "drift", "focused changes", "code review"]
+relatedPatterns:
+  - slug: "agent-friendly-architecture"
+    type: "composes"
+    note: "Clear module boundaries make it easy to fence the agent into specific areas."
+  - slug: "negative-space"
+    type: "composes"
+    note: "Scope fences define where to work; negative space defines what not to do within that area."
+  - slug: "clean-slate"
+    type: "prevents"
+    note: "If you fence well, the agent rarely drifts far enough to need a restart."
+---
+
+## Problem
+
+You ask the agent to fix a date formatting bug in the invoice display. Twenty minutes later, it has: reformatted the date correctly, refactored the invoice component to use a shared `formatDate` utility it created, updated six other components to use the new utility, added TypeScript overloads to handle different date formats, and modified your Intl configuration.
+
+The date displays correctly. You now have a 400-line diff touching 9 files when you expected a 3-line fix.
+
+This is agent drift — the tendency to expand scope beyond what was asked. Agents don't drift maliciously. They see an opportunity to "improve" adjacent code, follow a chain of dependencies, or anticipate requirements you didn't express. Each individual step makes local sense. The accumulated result is an unreviewable mess.
+
+Drift is expensive because it's invisible until you review the diff. The agent doesn't flag that it went off-script. And once drift has happened, untangling the necessary changes from the unnecessary ones is harder than doing the original task manually.
+
+## Solution
+
+Tell the agent exactly where to work and where to stop. Scope fences are explicit boundaries you set before the agent starts.
+
+**Fence by files:**
+
+```
+Fix the date formatting bug in components/invoice/InvoiceDisplay.tsx.
+Only modify this file. Do not create new files or modify any other files.
+```
+
+This is the simplest and most reliable fence. One file, no side effects, no exploration.
+
+**Fence by module boundary:**
+
+```
+Implement the new notification system. You can create and modify files within
+the src/notifications/ directory. Do not modify files outside this directory.
+Do not change the public API exported from src/notifications/index.ts without
+asking first.
+```
+
+Module-level fencing works for larger tasks. The agent has room to work but can't bleed into other parts of the codebase.
+
+**Fence by behavior:**
+
+```
+Add input validation to the checkout form. Requirements:
+- Add validation logic to the existing form component
+- Show error messages below each field
+- Do NOT refactor the form structure
+- Do NOT extract a reusable validation library
+- Do NOT modify the API endpoint or database schema
+```
+
+Behavioral fences work when file-level fencing is too restrictive but you want to prevent specific kinds of scope creep.
+
+**Fence by diff size:**
+
+```
+This should be a small change — expect 10-20 lines modified across 1-2 files.
+If you find yourself making larger changes, stop and explain what you think
+needs to change and why, before proceeding.
+```
+
+Diff-size fencing is a meta-constraint. It doesn't tell the agent *what* to do, but signals that large changes indicate it's drifted from the intent.
+
+**Combine fences for complex tasks:**
+
+```
+Refactor the payment processing to support multiple currencies.
+- Work within: lib/payments/, types/payment.ts
+- Do not modify: the Stripe webhook handler, the database schema, or the API routes
+- Expected scope: ~100 lines changed across 3-4 files
+- If the schema needs changes, stop and discuss before modifying
+```
+
+Layered fences give the agent freedom where it needs it and constraints where drift is likely.
+
+<Callout type="warning" title="Fences Are Not Set-and-Forget">
+Scope fences work at the start of a conversation, but agents can slowly rationalize their way past boundaries over a long session. In multi-turn conversations, restate the fence when you notice the agent exploring outside its boundaries. Think of it like a GPS recalculation — the agent needs periodic reminders of the intended route.
+</Callout>
+
+## Signals
+
+- Code reviews reveal agent changes to files you didn't expect to be modified
+- Diffs are consistently 3-5x larger than the task warranted
+- The agent "helpfully" refactors code adjacent to what you asked for
+- You find new files or utilities the agent created without being asked
+- The agent chains through dependencies, modifying each file along the way
+
+## Consequences
+
+**Benefits:**
+- Diffs stay small and reviewable
+- Changes are isolated — easier to revert if something goes wrong
+- Prevents the agent from creating unnecessary abstractions
+- Makes code review tractable — you know exactly where to look
+- Reduces "what did it actually change?" anxiety
+
+**Costs:**
+- Overly tight fences can prevent the agent from making legitimately necessary changes
+- You need enough codebase knowledge to set appropriate boundaries
+- Fence-setting adds upfront effort to each request
+- Sometimes the agent genuinely needs to cross a boundary — rigid fences require negotiation

@@ -13,8 +13,28 @@ import Link from 'next/link';
  */
 export function Hero() {
   return (
-    <section className="min-h-[60vh] flex items-center border-b-4 border-text">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-16 md:py-24">
+    <section className="relative min-h-[60vh] flex items-center border-b-4 border-text patterns-grid-bg-depth overflow-hidden">
+      {/* Scanline sweep */}
+      <div className="hero-scanline z-[1]" aria-hidden="true" />
+
+      {/* Corner marks + coordinate labels */}
+      <div className="absolute z-[2] top-3 left-3 w-8 h-8 border-t-2 border-l-2 border-accent/40" aria-hidden="true" />
+      <span className="hero-coord z-[2] top-4 left-14" aria-hidden="true">0,0</span>
+      <div className="absolute z-[2] top-3 right-3 w-8 h-8 border-t-2 border-r-2 border-accent/40" aria-hidden="true" />
+      <span className="hero-coord z-[2] top-4 right-14" aria-hidden="true">1,0</span>
+      <div className="absolute z-[2] bottom-3 left-3 w-8 h-8 border-b-2 border-l-2 border-accent/40" aria-hidden="true" />
+      <span className="hero-coord z-[2] bottom-4 left-14" aria-hidden="true">0,1</span>
+      <div className="absolute z-[2] bottom-3 right-3 w-8 h-8 border-b-2 border-r-2 border-accent/40" aria-hidden="true" />
+      <span className="hero-coord z-[2] bottom-4 right-14" aria-hidden="true">1,1</span>
+
+      {/* Grid intersection accent dots */}
+      <div className="hero-grid-dot z-[1]" style={{ top: '25%', left: '20%' }} aria-hidden="true" />
+      <div className="hero-grid-dot z-[1]" style={{ top: '70%', left: '65%', animationDelay: '1.5s' }} aria-hidden="true" />
+      <div className="hero-grid-dot z-[1]" style={{ top: '15%', left: '80%', animationDelay: '2.8s' }} aria-hidden="true" />
+      <div className="hero-grid-dot z-[1]" style={{ top: '85%', left: '40%', animationDelay: '0.8s' }} aria-hidden="true" />
+      <div className="hero-grid-dot z-[1]" style={{ top: '45%', left: '90%', animationDelay: '3.5s' }} aria-hidden="true" />
+
+      <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-16 md:py-24">
         <motion.div
           className="max-w-4xl"
           variants={staggerContainerVariants}

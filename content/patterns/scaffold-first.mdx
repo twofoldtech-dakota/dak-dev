@@ -1,0 +1,116 @@
+---
+name: "Scaffold First"
+slug: "scaffold-first"
+chapter: 3
+number: "3.3"
+intent: "Have the agent build types, interfaces, and structure before filling in implementation, establishing constraints that guide the rest."
+difficulty: "advanced"
+published: true
+keywords: ["scaffold", "types first", "interfaces", "structure", "contracts", "type-driven development"]
+relatedPatterns:
+  - slug: "test-first-steering"
+    type: "composes"
+    note: "Build the types, write the tests, then the implementation is heavily constrained."
+  - slug: "parallel-fan-out"
+    type: "enables"
+    note: "Shared types and interfaces let independent agents stay compatible."
+  - slug: "vertical-slice"
+    type: "composes"
+    note: "Scaffold the slice's types and interfaces, then fill in the implementation."
+---
+
+## Problem
+
+You ask the agent to build an event processing pipeline. It starts writing the ingestion endpoint, makes up a data shape on the fly, passes it to a processor function that expects a slightly different shape, which outputs to a formatter that assumes yet another structure. Halfway through, it realizes the shapes don't align and starts adding transformation layers to paper over the inconsistencies.
+
+The result: working code with unnecessary adapters, inconsistent naming, and a data model that emerged accidentally rather than by design. The pipeline functions, but it's fragile — change one shape and three adapter layers break.
+
+When agents build structure and implementation simultaneously, they make local decisions that conflict globally. Each function defines its own expectations instead of conforming to a shared contract. The agent optimizes for "make this function work" rather than "make the system coherent."
+
+## Solution
+
+Split the work into two phases: first, establish the structure (types, interfaces, function signatures); second, fill in the implementation. The scaffold constrains what the implementation can do.
+
+**Phase 1: Build the contracts.**
+
+```
+Create the type definitions for an event processing pipeline:
+
+1. types/events.ts:
+   - RawEvent: the shape received from the webhook
+   - ProcessedEvent: the normalized internal representation
+   - EventOutput: the shape written to the database
+
+2. types/pipeline.ts:
+   - EventProcessor interface: takes RawEvent, returns ProcessedEvent
+   - EventFormatter interface: takes ProcessedEvent, returns EventOutput
+   - PipelineConfig: configuration for retry, batching, error handling
+
+3. pipeline/index.ts:
+   - Export function signatures only (no implementation):
+     - ingestEvent(raw: RawEvent): Promise<ProcessedEvent>
+     - formatEvent(processed: ProcessedEvent): EventOutput
+     - runPipeline(events: RawEvent[], config: PipelineConfig): Promise<EventOutput[]>
+
+Don't implement any logic yet. Just the types and empty function stubs
+that satisfy the type checker.
+```
+
+Verify the scaffold: do the types make sense? Do the function signatures capture the right flow? Are the interfaces coherent? This is where design decisions happen — fix them before implementation bakes them in.
+
+**Phase 2: Fill in the implementation.**
+
+```
+Now implement the functions in pipeline/index.ts.
+The types and interfaces are already defined — follow them exactly.
+Don't modify any type definitions.
+```
+
+The agent now writes code that must conform to the types you've approved. It can't invent new shapes, add unnecessary adapter layers, or drift from the agreed structure. The type checker enforces the contract.
+
+**Scaffold depth matches task complexity:**
+
+| Task | Scaffold |
+|------|----------|
+| Single function | Input type + return type + function signature |
+| API endpoint | Request/response types + route handler signature |
+| Feature module | All public types + exported function signatures + index file |
+| System | All module interfaces + interaction contracts + shared types |
+
+**For complex systems, scaffold in layers:**
+
+```
+Layer 1: Define the domain types (what data exists)
+Layer 2: Define the module interfaces (what operations exist)
+Layer 3: Define the integration contracts (how modules talk to each other)
+→ Verify all three layers are coherent
+Layer 4: Implement one module at a time
+```
+
+Each implementation step is tightly constrained by the scaffold. The agent can't make global design decisions during implementation because those decisions were already made.
+
+<Callout type="critical" title="Verify the Scaffold Before Building On It">
+The scaffold is the foundation. If it's wrong, everything built on it is wrong. Spend time reviewing types, interfaces, and function signatures before asking the agent to implement anything. Changing a type after implementation exists means rewriting every function that touches it. Changing it before implementation exists means editing one file.
+</Callout>
+
+## Signals
+
+- The agent creates data transformation layers to bridge inconsistent shapes
+- Function signatures change as the agent discovers what it actually needs mid-implementation
+- Type definitions are scattered across implementation files instead of centralized
+- You find yourself saying "that's not the right shape for this data"
+
+## Consequences
+
+**Benefits:**
+- Implementation is constrained by approved types — fewer structural surprises
+- Design decisions are explicit and reviewable before code is written
+- Multiple agents can implement different parts of the scaffold in parallel
+- Type checker catches deviations from the agreed structure automatically
+- Refactoring is cheaper — change the types, let the compiler show you what breaks
+
+**Costs:**
+- Two-phase workflow is slower for small tasks where structure is obvious
+- Requires enough design skill to create good scaffolds — garbage types produce garbage code
+- Over-scaffolding creates unnecessary rigidity for simple features
+- The agent may struggle with abstract type design if the domain is complex

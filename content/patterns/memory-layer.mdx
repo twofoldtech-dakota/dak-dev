@@ -1,0 +1,121 @@
+---
+name: "Memory Layer"
+slug: "memory-layer"
+chapter: 1
+number: "1.3"
+intent: "Use persistent context files to maintain project knowledge across sessions, eliminating repetitive re-explanation."
+difficulty: "advanced"
+published: true
+keywords: ["memory", "persistent context", "session continuity", "auto-memory", "project knowledge", "context files"]
+relatedPatterns:
+  - slug: "convention-file"
+    type: "composes"
+    note: "Convention files store rules; memory layers store evolving context like decisions, discoveries, and state."
+  - slug: "context-priming"
+    type: "enables"
+    note: "Memory files become high-value priming material for future sessions."
+  - slug: "progressive-disclosure"
+    type: "composes"
+    note: "Memory files let you reveal accumulated knowledge progressively instead of front-loading everything."
+---
+
+## Problem
+
+You finish a productive two-hour session with a coding agent. You've made architectural decisions, discovered edge cases, debugged a tricky integration, and built shared understanding of the codebase. Then you close the terminal.
+
+Next session, all of that is gone. The agent doesn't remember that you chose Zustand over Redux, that the payment API has a 30-second timeout you need to work around, or that the legacy auth module can't be modified because it's shared with the mobile app. You re-explain. The agent re-discovers. You lose 20 minutes getting back to where you were.
+
+Convention files solve part of this — they store stable rules. But projects generate a constant stream of *evolving* knowledge: decisions made during implementation, gotchas discovered through debugging, patterns that emerged organically, intermediate state of multi-session work. This knowledge doesn't belong in a convention file because it changes frequently and is often context-dependent.
+
+Without a memory layer, every session starts from zero. The agent is perpetually a new hire on their first day.
+
+## Solution
+
+Create a structured system of persistent files that capture project knowledge beyond static conventions. The memory layer sits between the convention file (stable rules) and the conversation (ephemeral context).
+
+**Auto-memory directories** — tools like Claude Code support a `memory/` directory where the agent writes its own notes:
+
+```
+.claude/
+├── memory/
+│   ├── MEMORY.md          # Always loaded — high-level summary
+│   ├── architecture.md    # Key architecture decisions
+│   ├── debugging.md       # Solutions to recurring issues
+│   └── patterns.md        # Discovered codebase patterns
+```
+
+`MEMORY.md` is the index file — it's loaded into every session automatically, so keep it concise (under 200 lines). Link out to topic files for details:
+
+```markdown
+# Project Memory
+
+## Architecture Decisions
+- Chose Zustand over Redux for state management (see architecture.md)
+- API routes use edge runtime except /api/webhook (needs Node.js crypto)
+
+## Known Gotchas
+- Payment API has 30s timeout — batch operations need chunking (see debugging.md)
+- Legacy auth module is shared with mobile — do not modify without coordination
+
+## Current Work
+- Migrating from Pages Router to App Router (3 of 12 routes done)
+- See architecture.md for migration order and blockers
+```
+
+**Decision logs** — when you make a non-obvious choice during a session, capture the *why*, not just the *what*:
+
+```markdown
+## 2026-02-15: Chose server actions over API routes for forms
+
+Context: Needed form handling for settings page.
+Options considered: API routes, server actions, tRPC.
+Decision: Server actions — colocation with components, less boilerplate,
+built-in revalidation. Trade-off: harder to test in isolation.
+```
+
+**Session handoff notes** — when ending a multi-session task, leave a breadcrumb trail:
+
+```markdown
+## Current State: Auth Migration (Session 3 of ~5)
+
+Completed:
+- Login flow migrated to App Router
+- Session middleware ported to Next.js middleware
+
+Next session should:
+1. Migrate /api/auth/callback to route handler
+2. Update CSRF token generation (current impl uses pages-specific API)
+3. Run full auth integration test suite after migration
+
+Known issues:
+- Session cookie SameSite attribute differs between old/new — test cross-origin
+```
+
+The key discipline is writing memory that's useful to a *future agent session*, not to you. Be specific. Include file paths, function names, and the reasoning behind decisions. Vague notes like "auth is tricky" waste context window space.
+
+<Callout type="info" title="Memory Is Not Documentation">
+Memory files serve the agent, not human readers. They're terse, specific, and frequently updated. They complement documentation — they don't replace it. If something belongs in a README or ADR, put it there. Memory files capture the working knowledge that falls between formal docs and ephemeral chat.
+</Callout>
+
+## Signals
+
+- You spend the first 10+ minutes of each session re-explaining context
+- The agent re-discovers the same gotcha you encountered two sessions ago
+- Multi-session projects lose momentum because continuity is lost
+- You keep a personal text file of "things to tell the agent" — that file *is* the memory layer, just unstructured
+
+## Consequences
+
+**Benefits:**
+- Sessions start productive immediately instead of ramping up
+- Eliminates repetitive explanation across sessions
+- Captures institutional knowledge that otherwise exists only in your head
+- Multi-session projects maintain continuity without human effort
+- Compounds — the memory layer gets more valuable over time
+
+**Costs:**
+- Requires discipline to write useful notes, not noise
+- Stale memories are worse than no memories — outdated context actively misleads
+- Auto-loaded files consume context window budget every session
+- Over-documenting creates information overload — curate ruthlessly
+- Some tools have limited or no support for persistent memory

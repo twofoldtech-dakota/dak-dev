@@ -1,7 +1,7 @@
 # Dakota Smith
 **Principal Architect | Enterprise DXP & Agentic Orchestration**
 
-Kansas City, MO | dakota@twofold.tech
+dakota@twofold.tech
 [GitHub](https://github.com/twofoldtech-dakota) | [Twofold Tech](https://www.twofold.tech/)
 
 ---
