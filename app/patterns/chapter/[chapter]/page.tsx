@@ -6,7 +6,11 @@ import {
 } from '@/lib/patterns';
 import { PageTransition } from '@/components/ui/PageTransition';
 import { PatternCard } from '@/components/patterns/PatternCard';
+import { JsonLd } from '@/components/seo/JsonLd';
+import { generateBreadcrumbSchema, generateChapterSchema } from '@/lib/schema';
 import Link from 'next/link';
+
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://dak-dev.vercel.app';
 
 export async function generateStaticParams() {
   return CHAPTERS.map((chapter) => ({ chapter: chapter.slug }));
@@ -24,9 +28,32 @@ export async function generateMetadata({
     return { title: 'Chapter Not Found | Dakota Smith' };
   }
 
+  const patterns = getPatternsByChapter(chapter.number);
+  const title = `Chapter ${chapter.number}: ${chapter.name} — Agent Patterns | Dakota Smith`;
+  const ogImage = `${siteUrl}/api/og?type=pattern&title=${encodeURIComponent(chapter.name)}&chapter=${chapter.number}`;
+
   return {
-    title: `Chapter ${chapter.number}: ${chapter.name} — Agent Patterns | Dakota Smith`,
+    title,
     description: chapter.description,
+    keywords: [
+      'AI coding patterns',
+      chapter.name.toLowerCase(),
+      'agent patterns',
+      `chapter ${chapter.number}`,
+    ],
+    openGraph: {
+      title: `Chapter ${chapter.number}: ${chapter.name} — Agent Patterns`,
+      description: chapter.description,
+      url: `${siteUrl}/patterns/chapter/${chapter.slug}`,
+      images: [{ url: ogImage, width: 1200, height: 630, alt: `${chapter.name} patterns` }],
+    },
+    twitter: {
+      card: 'summary_large_image' as const,
+      title: `Chapter ${chapter.number}: ${chapter.name} — Agent Patterns`,
+      description: chapter.description,
+      images: [ogImage],
+    },
+    alternates: { canonical: `/patterns/chapter/${chapter.slug}` },
   };
 }
 
@@ -69,8 +96,18 @@ export default async function ChapterPage({
   const nextChapter =
     chapterIndex < CHAPTERS.length - 1 ? CHAPTERS[chapterIndex + 1] : null;
 
+  const breadcrumbSchema = generateBreadcrumbSchema([
+    { name: 'Home', url: '/' },
+    { name: 'Patterns', url: '/patterns' },
+    { name: chapter.name },
+  ]);
+  const chapterSchema = generateChapterSchema(chapter, patterns.length);
+
   return (
     <PageTransition className="min-h-screen pb-16">
+      <JsonLd data={breadcrumbSchema} />
+      <JsonLd data={chapterSchema} />
+
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-0">
         {/* Breadcrumb */}
         <nav className="mb-6 pt-2" aria-label="Breadcrumb">

@@ -21,7 +21,8 @@
     "rss:test": "npx tsx scripts/test-rss-feed.ts",
     "publish:prepare": "npx tsx scripts/publish-prepare.ts",
     "publish:prepare:fix": "npx tsx scripts/publish-prepare.ts --fix",
-    "publish:prepare:all": "npx tsx scripts/publish-prepare.ts --all"
+    "publish:prepare:all": "npx tsx scripts/publish-prepare.ts --all",
+    "generate:og": "npx tsx scripts/generate-default-og.ts"
   },
   "repository": {
     "type": "git",

@@ -1,3 +1,4 @@
+import type { Metadata } from 'next';
 import { getAllPatterns, CHAPTERS } from '@/lib/patterns';
 import { PageTransition } from '@/components/ui/PageTransition';
 import { ChapterHeader } from '@/components/patterns/ChapterHeader';
@@ -9,18 +10,38 @@ import { JsonLd } from '@/components/seo/JsonLd';
 import { generatePatternCollectionSchema } from '@/lib/schema';
 import Link from 'next/link';
 
-export const metadata = {
-  title: 'Agent Patterns | Dakota Smith',
-  description:
-    'A searchable reference of named patterns for working effectively with AI coding agents. 24 patterns across 6 chapters.',
-  keywords: [
-    'AI coding patterns',
-    'agent patterns',
-    'Claude Code',
-    'AI engineering',
-    'coding agents',
-  ],
-};
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://dak-dev.vercel.app';
+
+export function generateMetadata(): Metadata {
+  const allPatterns = getAllPatterns();
+  const description = `A searchable reference of ${allPatterns.length} named patterns across ${CHAPTERS.length} chapters for working effectively with AI coding agents.`;
+  const ogImage = `${siteUrl}/api/og?type=pattern&title=${encodeURIComponent('Agent Patterns')}`;
+
+  return {
+    title: 'Agent Patterns | Dakota Smith',
+    description,
+    keywords: [
+      'AI coding patterns',
+      'agent patterns',
+      'Claude Code',
+      'AI engineering',
+      'coding agents',
+    ],
+    openGraph: {
+      title: 'Agent Patterns — AI Coding Agent Reference',
+      description,
+      url: `${siteUrl}/patterns`,
+      images: [{ url: ogImage, width: 1200, height: 630, alt: 'Agent Patterns catalog' }],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: 'Agent Patterns — AI Coding Agent Reference',
+      description,
+      images: [ogImage],
+    },
+    alternates: { canonical: '/patterns' },
+  };
+}
 
 export default function PatternsPage() {
   const allPatterns = getAllPatterns();
