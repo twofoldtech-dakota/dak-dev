@@ -466,3 +466,8 @@ body {
     transition-duration: 0.01ms !important;
   }
 }
+
+/* Hide scrollbar while keeping scroll behavior (webkit browsers) */
+[data-no-scrollbar]::-webkit-scrollbar {
+  display: none;
+}

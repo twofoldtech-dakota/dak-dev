@@ -15,7 +15,7 @@ export default function PatternsLayout({ children }: { children: ReactNode }) {
   }));
 
   return (
-    <div className="mx-auto max-w-[1400px]">
+    <div className="mx-auto max-w-[1400px] overflow-x-hidden">
       {/* Mobile nav */}
       <PatternsMobileNav
         chapters={CHAPTERS}
