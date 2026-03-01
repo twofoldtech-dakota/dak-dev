@@ -155,7 +155,7 @@ export function Search({ className = '' }: SearchProps) {
       <button
         onClick={() => setIsOpen(true)}
         className={`group inline-flex items-center gap-2 px-4 py-2 bg-surface border-2 border-text text-text font-semibold hover:bg-text hover:text-background transition-colors focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2 focus:ring-offset-background ${className}`}
-        aria-label="Open search"
+        aria-label="Search"
       >
         <svg
           className="w-5 h-5"

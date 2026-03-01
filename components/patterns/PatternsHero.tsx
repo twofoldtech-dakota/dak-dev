@@ -15,7 +15,7 @@ interface PatternsHeroProps {
 
 export function PatternsHero({ patternCount, chapterCount }: PatternsHeroProps) {
   return (
-    <header className="relative min-h-[45vh] flex items-center border-b-4 border-text patterns-grid-bg-depth overflow-hidden -mx-4 sm:-mx-6 lg:-mx-0">
+    <header className="relative min-h-[45vh] flex items-center border-b-4 border-text patterns-grid-bg-depth overflow-hidden">
 
       {/* Corner marks + coordinate labels */}
       <div className="absolute z-[2] top-3 left-3 w-8 h-8 border-t-2 border-l-2 border-accent/40" aria-hidden="true" />
@@ -34,7 +34,7 @@ export function PatternsHero({ patternCount, chapterCount }: PatternsHeroProps) 
       <div className="hero-grid-dot z-[1]" style={{ top: '80%', left: '35%', animationDelay: '0.8s' }} aria-hidden="true" />
 
 
-      <div className="relative z-10 px-4 sm:px-6 lg:px-8 py-16 md:py-20 w-full">
+      <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-16 md:py-20 w-full">
         <motion.div
           className="max-w-4xl"
           variants={staggerContainerVariants}

@@ -1,18 +1,55 @@
+import type { Metadata } from 'next';
 import { getAllPatterns, extractSignals, CHAPTERS } from '@/lib/patterns';
 import { QuickReferenceCard } from '@/components/patterns/QuickReferenceCard';
+import { JsonLd } from '@/components/seo/JsonLd';
+import { generateBreadcrumbSchema } from '@/lib/schema';
 import Link from 'next/link';
 
-export const metadata = {
-  title: 'Pattern Quick-Reference Cards | Dakota Smith',
-  description:
-    'At-a-glance reference cards for all agent patterns — see signals, difficulty, and keywords at a glance.',
-};
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://dak-dev.vercel.app';
+
+export function generateMetadata(): Metadata {
+  const allPatterns = getAllPatterns();
+  const description = `At-a-glance reference cards for ${allPatterns.length} agent patterns — see signals, difficulty, and keywords at a glance.`;
+  const ogImage = `${siteUrl}/api/og?type=pattern&title=${encodeURIComponent('Quick-Reference Cards')}`;
+
+  return {
+    title: 'Pattern Quick-Reference Cards | Dakota Smith',
+    description,
+    keywords: [
+      'pattern cards',
+      'quick reference',
+      'agent patterns',
+      'AI coding cheatsheet',
+    ],
+    openGraph: {
+      title: 'Quick-Reference Cards — Agent Patterns',
+      description,
+      url: `${siteUrl}/patterns/cards`,
+      images: [{ url: ogImage, width: 1200, height: 630, alt: 'Pattern Quick-Reference Cards' }],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: 'Quick-Reference Cards — Agent Patterns',
+      description,
+      images: [ogImage],
+    },
+    alternates: { canonical: '/patterns/cards' },
+  };
+}
 
 export default function PatternCardsPage() {
   const allPatterns = getAllPatterns();
 
+  const breadcrumbSchema = generateBreadcrumbSchema([
+    { name: 'Home', url: '/' },
+    { name: 'Patterns', url: '/patterns' },
+    { name: 'Cards' },
+  ]);
+
   return (
     <div className="min-h-screen pb-16">
+      <JsonLd data={breadcrumbSchema} />
+
       {/* Header */}
       <header className="pt-2 pb-8 patterns-grid-bg -mx-4 sm:-mx-6 lg:-mx-0 px-4 sm:px-6 lg:px-0">
         <nav className="mb-5" aria-label="Breadcrumb">

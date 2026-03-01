@@ -1,26 +1,57 @@
+import type { Metadata } from 'next';
 import { getAllPatterns, CHAPTERS } from '@/lib/patterns';
 import { computeGraphLayout, COLUMN_COUNT, SIDE_PADDING, TOP_PADDING } from '@/lib/graph-layout';
 import { PatternLanguageGraph } from '@/components/patterns/PatternLanguageGraph';
+import { JsonLd } from '@/components/seo/JsonLd';
+import { generateBreadcrumbSchema } from '@/lib/schema';
 import Link from 'next/link';
 
-export const metadata = {
-  title: 'Pattern Language Map | Dakota Smith',
-  description:
-    'Interactive graph showing how all agent patterns relate to each other — enables, composes, prevents, and contrasts relationships at a glance.',
-  keywords: [
-    'pattern language',
-    'pattern map',
-    'agent patterns',
-    'pattern relationships',
-  ],
-};
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://dak-dev.vercel.app';
+
+export function generateMetadata(): Metadata {
+  const allPatterns = getAllPatterns();
+  const description = `Interactive graph showing how ${allPatterns.length} agent patterns relate to each other — enables, composes, prevents, and contrasts relationships at a glance.`;
+  const ogImage = `${siteUrl}/api/og?type=pattern&title=${encodeURIComponent('Pattern Language Map')}`;
+
+  return {
+    title: 'Pattern Language Map | Dakota Smith',
+    description,
+    keywords: [
+      'pattern language',
+      'pattern map',
+      'agent patterns',
+      'pattern relationships',
+    ],
+    openGraph: {
+      title: 'Pattern Language Map — Agent Patterns',
+      description,
+      url: `${siteUrl}/patterns/graph`,
+      images: [{ url: ogImage, width: 1200, height: 630, alt: 'Pattern Language Map' }],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: 'Pattern Language Map — Agent Patterns',
+      description,
+      images: [ogImage],
+    },
+    alternates: { canonical: '/patterns/graph' },
+  };
+}
 
 export default function PatternGraphPage() {
   const allPatterns = getAllPatterns();
   const graphData = allPatterns.length >= 3 ? computeGraphLayout(allPatterns) : null;
 
+  const breadcrumbSchema = generateBreadcrumbSchema([
+    { name: 'Home', url: '/' },
+    { name: 'Patterns', url: '/patterns' },
+    { name: 'Graph' },
+  ]);
+
   return (
     <div className="min-h-screen pb-16">
+      <JsonLd data={breadcrumbSchema} />
+
       {/* Header */}
       <header className="pt-2 pb-8 patterns-grid-bg -mx-4 sm:-mx-6 lg:-mx-0 px-4 sm:px-6 lg:px-0">
         <nav className="mb-5" aria-label="Breadcrumb">

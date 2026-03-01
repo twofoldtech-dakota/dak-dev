@@ -38,6 +38,9 @@ Thumbs.db
 # TypeScript build cache
 tsconfig.tsbuildinfo
 
+# Playwright MCP artifacts
+.playwright-mcp/
+
 # Claude Code (except commands which are version controlled)
 .claude/*
 !.claude/commands/

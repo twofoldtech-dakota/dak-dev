@@ -50,7 +50,7 @@ export const metadata: Metadata = {
       'High-performance personal blog featuring engineering projects, web development insights, and technical tutorials.',
     images: [
       {
-        url: '/api/og?title=Dakota%20Smith%20-%20Fullstack%20Solutions%20Architect',
+        url: '/og-default.png',
         width: 1200,
         height: 630,
         alt: 'Dakota Smith Blog',
@@ -62,9 +62,7 @@ export const metadata: Metadata = {
     title: 'Dakota Smith - Fullstack Solutions Architect',
     description:
       'High-performance personal blog featuring engineering projects and web development insights.',
-    images: [
-      '/api/og?title=Dakota%20Smith%20-%20Fullstack%20Solutions%20Architect',
-    ],
+    images: ['/og-default.png'],
   },
   robots: {
     index: true,

@@ -95,11 +95,11 @@ export function Hero() {
           <motion.div variants={slideUpVariants}>
             <Link
               href="/blog"
-              className="inline-flex items-center justify-center font-semibold px-8 py-4 text-lg gap-3 bg-transparent text-accent border-4 border-accent hover:bg-accent hover:text-background shadow-[4px_4px_0_0_var(--color-accent)] hover:shadow-[6px_6px_0_0_var(--color-accent)] transition-all duration-200 focus:outline-none focus:ring-4 focus:ring-accent focus:ring-offset-4 focus:ring-offset-background"
+              className="group inline-flex items-center justify-center font-semibold px-8 py-4 text-lg gap-3 bg-transparent text-accent border-4 border-accent hover:bg-accent hover:text-background shadow-[4px_4px_0_0_var(--color-accent)] hover:shadow-[6px_6px_0_0_var(--color-accent)] transition-all duration-200 focus:outline-none focus:ring-4 focus:ring-accent focus:ring-offset-4 focus:ring-offset-background"
             >
               Read My Articles
               <svg
-                className="w-5 h-5"
+                className="w-5 h-5 transition-transform group-hover:translate-x-1"
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"

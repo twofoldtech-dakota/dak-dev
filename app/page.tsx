@@ -1,6 +1,7 @@
 import { getAllPosts } from '@/lib/posts';
 import { Hero } from '@/components/home/Hero';
-import { FeaturedTools } from '@/components/home/FeaturedTools';
+import { PatternsShowcase } from '@/components/home/PatternsShowcase';
+import { ToolsBar } from '@/components/home/ToolsBar';
 import { JsonLd } from '@/components/seo/JsonLd';
 import { generateWebSiteSchema } from '@/lib/schema';
 import Link from 'next/link';
@@ -57,11 +58,11 @@ export default async function Home() {
             </div>
             <Link
               href="/blog"
-              className="hidden sm:inline-flex items-center gap-2 text-text font-semibold hover:underline underline-offset-4 decoration-4 focus:outline-none focus:ring-4 focus:ring-text focus:ring-offset-4 focus:ring-offset-background"
+              className="group hidden sm:inline-flex items-center gap-2 text-text font-semibold hover:underline underline-offset-4 decoration-4 focus:outline-none focus:ring-4 focus:ring-text focus:ring-offset-4 focus:ring-offset-background"
             >
               View All Posts
               <svg
-                className="w-5 h-5"
+                className="w-5 h-5 transition-transform group-hover:translate-x-1"
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
@@ -187,8 +188,11 @@ export default async function Home() {
         </div>
       </section>
 
-      {/* Featured Tool + More Tools */}
-      <FeaturedTools />
+      {/* Agent Patterns Showcase */}
+      <PatternsShowcase />
+
+      {/* Compact Tools Bar */}
+      <ToolsBar />
     </>
   );
 }
