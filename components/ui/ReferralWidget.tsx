@@ -57,7 +57,7 @@ export function ReferralWidget({ links }: { links: ReferralLink[] }) {
       <button
         onClick={() => setOpen(!open)}
         aria-expanded={open}
-        aria-label={open ? 'Close referral links' : 'Open referral links'}
+        aria-label={open ? 'Close REFS panel' : 'Open REFS panel'}
         className="absolute right-0 top-1/2 -translate-y-1/2 bg-accent text-background border-2 border-text border-r-0 px-1.5 py-3 font-bold text-xs uppercase tracking-widest shadow-[-3px_3px_0_0_var(--color-text)] hover:shadow-[-5px_5px_0_0_var(--color-text)] hover:translate-x-[-2px] transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2 focus:ring-offset-background"
         style={{ writingMode: 'vertical-rl', textOrientation: 'mixed' }}
       >
