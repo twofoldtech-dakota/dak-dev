@@ -187,6 +187,20 @@
       "updated_at": "2026-02-25"
     }
   ],
+    {
+      "id": "topic_014",
+      "title": "Claude Managed Agents: The End of DIY Agent Infrastructure",
+      "slug": "claude-managed-agents-end-of-diy-infrastructure",
+      "type": "general",
+      "status": "review",
+      "priority": "high",
+      "target_date": "2026-04-14",
+      "tags": ["ai", "claude", "agents", "developer-tools"],
+      "notes": "Covers Anthropic's April 8, 2026 launch. Decoupled architecture deep dive, Messages API comparison, tradeoffs, real-world adopters. Primary keyword: claude managed agents. Links to STUDIO and MCP Apps posts.",
+      "created_at": "2026-04-14",
+      "updated_at": "2026-04-14"
+    }
+  ],
   "ideas_backlog": [
     {
       "id": "idea_001",
