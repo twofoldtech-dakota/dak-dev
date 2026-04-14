@@ -201,6 +201,20 @@
       "updated_at": "2026-04-14"
     }
   ],
+    {
+      "id": "topic_015",
+      "title": "The Agent Operating System: Multi-Agent Pipelines with Claude",
+      "slug": "agent-operating-system-multi-agent-pipelines",
+      "type": "general",
+      "status": "review",
+      "priority": "high",
+      "target_date": "2026-04-14",
+      "tags": ["ai", "claude", "agents", "architecture"],
+      "notes": "Part 2 of Managed Agents series. OS abstraction mapping, three-agent auto-PR pipeline, STUDIO comparison, multi-agent threads deep dive. Primary keyword: claude managed agents.",
+      "created_at": "2026-04-14",
+      "updated_at": "2026-04-14"
+    }
+  ],
   "ideas_backlog": [
     {
       "id": "idea_001",
