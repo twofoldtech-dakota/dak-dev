@@ -329,15 +329,13 @@ body {
   background-position: -1px -1px;
 }
 
-/* Layered grid with radial depth — three grid scales + vignette */
+/* Layered grid with radial depth — structural grid + vignette */
 .patterns-grid-bg-depth {
   position: relative;
   background-image:
-    linear-gradient(color-mix(in srgb, var(--color-surface) 60%, transparent) 1px, transparent 1px),
-    linear-gradient(90deg, color-mix(in srgb, var(--color-surface) 60%, transparent) 1px, transparent 1px),
-    linear-gradient(var(--color-surface) 1px, transparent 1px),
-    linear-gradient(90deg, var(--color-surface) 1px, transparent 1px);
-  background-size: 12px 12px, 12px 12px, 48px 48px, 48px 48px;
+    linear-gradient(color-mix(in srgb, var(--color-surface) 50%, transparent) 1px, transparent 1px),
+    linear-gradient(90deg, color-mix(in srgb, var(--color-surface) 50%, transparent) 1px, transparent 1px);
+  background-size: 48px 48px;
   background-position: -1px -1px;
 }
 

@@ -213,6 +213,19 @@
       "notes": "Part 2 of Managed Agents series. OS abstraction mapping, three-agent auto-PR pipeline, STUDIO comparison, multi-agent threads deep dive. Primary keyword: claude managed agents.",
       "created_at": "2026-04-14",
       "updated_at": "2026-04-14"
+    },
+    {
+      "id": "topic_016",
+      "title": "Preparing for Mythos: A Web Security Checklist for Dev Teams",
+      "slug": "preparing-for-mythos-ai-security-checklist",
+      "type": "general",
+      "status": "review",
+      "priority": "high",
+      "target_date": "2026-04-15",
+      "tags": ["security", "ai", "web-development", "devops"],
+      "notes": "Covers Anthropic Mythos Preview and Project Glasswing security implications. Actionable checklist for agencies and dev teams. Primary keyword: mythos ai security. Links to managed agents posts.",
+      "created_at": "2026-04-15",
+      "updated_at": "2026-04-15"
     }
   ],
   "ideas_backlog": [
