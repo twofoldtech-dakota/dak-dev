@@ -119,6 +119,16 @@ const nextConfig: NextConfig = {
         destination: '/about#contact',
         permanent: true,
       },
+      {
+        source: '/patterns',
+        destination: '/learn/patterns',
+        permanent: true,
+      },
+      {
+        source: '/patterns/:path*',
+        destination: '/learn/patterns/:path*',
+        permanent: true,
+      },
     ];
   },
 };
