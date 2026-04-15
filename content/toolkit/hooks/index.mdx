@@ -1,0 +1,37 @@
+---
+title: "Hooks: Expert's Guide"
+topic: "hooks"
+order: 1
+description: "Master Claude Code hooks — lifecycle automation, validation pipelines, and agent guardrails for production workflows."
+relatedPatterns: ["safety-net", "convention-file"]
+relatedTopics: ["skills", "agents", "claude-md"]
+published: true
+keywords: ["claude code hooks", "lifecycle automation", "validation pipeline", "agent guardrails"]
+---
+
+# Hooks
+
+Hooks are Claude Code's lifecycle automation system. They fire shell commands at precise moments — before or after tool calls — giving you programmatic control over agent behavior without touching the agent itself.
+
+## Why Hooks Matter
+
+Most developers discover hooks when they want auto-formatting. That's the tip of the iceberg. Hooks are the mechanism for building **deterministic guardrails** around non-deterministic agent behavior. They're how you enforce invariants that prompts alone can't guarantee.
+
+## When to Use Hooks vs. Alternatives
+
+| Need | Use |
+|------|-----|
+| Enforce a rule on every tool call | **Hook** |
+| Teach the agent a reusable workflow | Skill |
+| Give the agent a one-time instruction | CLAUDE.md |
+| Block dangerous operations | **Hook** (PreToolUse) |
+| Format code after edits | **Hook** (PostToolUse) |
+
+## What's Inside
+
+Explore the sub-pages for deep expertise:
+
+- **Mental Model** — How hooks fit into Claude Code's execution lifecycle
+- **Playbook** — Production-ready hook configurations with rationale
+- **Compositions** — Hooks combined with skills, agents, and MCP
+- **Pitfalls** — Silent failures, ordering surprises, and performance traps
