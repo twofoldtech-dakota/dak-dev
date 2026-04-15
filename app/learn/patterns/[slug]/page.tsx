@@ -73,7 +73,7 @@ export async function generateMetadata({
       description: pattern.frontmatter.intent,
       images: [ogImageUrl],
     },
-    alternates: { canonical: `/patterns/${slug}` },
+    alternates: { canonical: `/learn/patterns/${slug}` },
   };
 }
 
@@ -121,8 +121,9 @@ export default async function PatternPage({
 
   const breadcrumbSchema = generateBreadcrumbSchema([
     { name: 'Home', url: '/' },
-    { name: 'Patterns', url: '/patterns' },
-    { name: chapter?.name || '', url: `/patterns/chapter/${chapter?.slug}` },
+    { name: 'Learn', url: '/learn' },
+    { name: 'Patterns', url: '/learn/patterns' },
+    { name: chapter?.name || '', url: `/learn/patterns/chapter/${chapter?.slug}` },
     { name: pattern.frontmatter.name },
   ]);
 
@@ -142,7 +143,16 @@ export default async function PatternPage({
           <ol className="flex flex-wrap items-center gap-2 text-xs text-muted font-mono">
             <li>
               <Link
-                href="/patterns"
+                href="/learn"
+                className="hover:text-text hover:underline underline-offset-2 focus:outline-none focus:ring-2 focus:ring-text focus:ring-offset-2 focus:ring-offset-background"
+              >
+                Learn
+              </Link>
+            </li>
+            <li aria-hidden="true">/</li>
+            <li>
+              <Link
+                href="/learn/patterns"
                 className="hover:text-text hover:underline underline-offset-2 focus:outline-none focus:ring-2 focus:ring-text focus:ring-offset-2 focus:ring-offset-background"
               >
                 Patterns
@@ -151,7 +161,7 @@ export default async function PatternPage({
             <li aria-hidden="true">/</li>
             <li>
               <Link
-                href={`/patterns/chapter/${chapter?.slug}`}
+                href={`/learn/patterns/chapter/${chapter?.slug}`}
                 className={`hover:text-text hover:underline underline-offset-2 focus:outline-none focus:ring-2 focus:ring-text focus:ring-offset-2 focus:ring-offset-background ${CHAPTER_TEXT_COLORS[pattern.frontmatter.chapter]}`}
               >
                 {chapter?.name}

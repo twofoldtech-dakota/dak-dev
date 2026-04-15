@@ -25,7 +25,7 @@ export function generateMetadata(): Metadata {
     openGraph: {
       title: 'Pattern Language Map — Agent Patterns',
       description,
-      url: `${siteUrl}/patterns/graph`,
+      url: `${siteUrl}/learn/patterns/graph`,
       images: [{ url: ogImage, width: 1200, height: 630, alt: 'Pattern Language Map' }],
     },
     twitter: {
@@ -34,7 +34,7 @@ export function generateMetadata(): Metadata {
       description,
       images: [ogImage],
     },
-    alternates: { canonical: '/patterns/graph' },
+    alternates: { canonical: '/learn/patterns/graph' },
   };
 }
 
@@ -44,7 +44,8 @@ export default function PatternGraphPage() {
 
   const breadcrumbSchema = generateBreadcrumbSchema([
     { name: 'Home', url: '/' },
-    { name: 'Patterns', url: '/patterns' },
+    { name: 'Learn', url: '/learn' },
+    { name: 'Patterns', url: '/learn/patterns' },
     { name: 'Graph' },
   ]);
 
@@ -58,7 +59,16 @@ export default function PatternGraphPage() {
           <ol className="flex items-center gap-2 text-xs text-muted font-mono">
             <li>
               <Link
-                href="/patterns"
+                href="/learn"
+                className="hover:text-text hover:underline underline-offset-2 focus:outline-none focus:ring-2 focus:ring-text focus:ring-offset-2 focus:ring-offset-background"
+              >
+                Learn
+              </Link>
+            </li>
+            <li aria-hidden="true">/</li>
+            <li>
+              <Link
+                href="/learn/patterns"
                 className="hover:text-text hover:underline underline-offset-2 focus:outline-none focus:ring-2 focus:ring-text focus:ring-offset-2 focus:ring-offset-background"
               >
                 Patterns

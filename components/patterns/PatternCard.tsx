@@ -30,7 +30,7 @@ export function PatternCard({ pattern, className = '' }: PatternCardProps) {
 
   return (
     <Link
-      href={`/patterns/${frontmatter.slug}`}
+      href={`/learn/patterns/${frontmatter.slug}`}
       className={`group block border-2 border-text/60 hover:border-text bg-surface/60 border-l-4 ${CHAPTER_BORDER_COLORS[frontmatter.chapter]} p-5 transition-all duration-150 hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[4px_4px_0_0_var(--color-text)] focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2 focus:ring-offset-background ${className}`}
     >
       <div className="flex items-center gap-3 mb-2">

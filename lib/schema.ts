@@ -195,7 +195,7 @@ export function generatePatternSchema(
   pattern: PatternFrontmatter,
   chapter: ChapterMeta
 ) {
-  const patternUrl = `${SITE_URL}/patterns/${pattern.slug}`;
+  const patternUrl = `${SITE_URL}/learn/patterns/${pattern.slug}`;
 
   return {
     '@context': 'https://schema.org',
@@ -227,7 +227,7 @@ export function generatePatternCollectionSchema(
     '@type': 'CollectionPage',
     name: 'Agent Patterns — AI Coding Agent Reference',
     description: `A structured reference of ${patternCount} named patterns across ${chapterCount} chapters for working effectively with AI coding agents.`,
-    url: `${SITE_URL}/patterns`,
+    url: `${SITE_URL}/learn/patterns`,
     author: generatePersonSchema(),
     mainEntity: {
       '@type': 'ItemList',
@@ -248,7 +248,7 @@ export function generateChapterSchema(
     '@type': 'CollectionPage',
     name: `Chapter ${chapter.number}: ${chapter.name} — Agent Patterns`,
     description: chapter.description,
-    url: `${SITE_URL}/patterns/chapter/${chapter.slug}`,
+    url: `${SITE_URL}/learn/patterns/chapter/${chapter.slug}`,
     author: generatePersonSchema(),
     mainEntity: {
       '@type': 'ItemList',

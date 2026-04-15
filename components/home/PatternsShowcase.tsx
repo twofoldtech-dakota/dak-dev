@@ -68,7 +68,7 @@ export function PatternsShowcase() {
             </p>
           </div>
           <Link
-            href="/patterns"
+            href="/learn/patterns"
             className="group hidden sm:inline-flex items-center gap-2 text-text font-semibold hover:underline underline-offset-4 decoration-4 focus:outline-none focus:ring-4 focus:ring-text focus:ring-offset-4 focus:ring-offset-background"
           >
             Explore Catalog
@@ -120,7 +120,7 @@ export function PatternsShowcase() {
           {chapterStats.map((chapter) => (
             <Link
               key={chapter.number}
-              href={`/patterns/chapter/${chapter.slug}`}
+              href={`/learn/patterns/chapter/${chapter.slug}`}
               className={`group block border-2 border-text/30 hover:border-text ${CHAPTER_BG_COLORS[chapter.number]} p-4 transition-all duration-150 hover:-translate-y-0.5 hover:shadow-[3px_3px_0_0_var(--color-text)] focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2 focus:ring-offset-background`}
             >
               <span className={`block font-mono text-xs font-bold ${CHAPTER_TEXT_COLORS[chapter.number]} mb-1`}>
@@ -144,7 +144,7 @@ export function PatternsShowcase() {
           {featuredPatterns.map((pattern) => (
             <Link
               key={pattern.frontmatter.slug}
-              href={`/patterns/${pattern.frontmatter.slug}`}
+              href={`/learn/patterns/${pattern.frontmatter.slug}`}
               className={`group block border-2 border-text/20 hover:border-text/60 bg-surface/40 border-l-4 ${CHAPTER_BORDER_COLORS[pattern.frontmatter.chapter]} px-5 py-4 transition-all duration-150 hover:-translate-x-0.5 hover:shadow-[3px_3px_0_0_var(--color-text)] focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2 focus:ring-offset-background`}
             >
               {/* Line 1: Number + Name + Difficulty */}
@@ -177,7 +177,7 @@ export function PatternsShowcase() {
         {/* CTA */}
         <div className="mt-10 flex flex-col sm:flex-row gap-4 items-start sm:items-center">
           <Link
-            href="/patterns"
+            href="/learn/patterns"
             className="group inline-flex items-center justify-center font-semibold px-6 py-3 text-base gap-2 bg-transparent text-accent border-4 border-accent hover:bg-accent hover:text-background shadow-[4px_4px_0_0_var(--color-accent)] hover:shadow-[6px_6px_0_0_var(--color-accent)] transition-all duration-200 focus:outline-none focus:ring-4 focus:ring-accent focus:ring-offset-4 focus:ring-offset-background"
           >
             Browse All Patterns
@@ -197,7 +197,7 @@ export function PatternsShowcase() {
             </svg>
           </Link>
           <Link
-            href="/patterns/graph"
+            href="/learn/patterns/graph"
             className="inline-flex items-center gap-2 text-sm font-semibold text-muted hover:text-text transition-colors focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2 focus:ring-offset-background"
           >
             <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">

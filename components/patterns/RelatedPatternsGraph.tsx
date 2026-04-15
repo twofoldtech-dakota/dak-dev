@@ -84,7 +84,7 @@ export function RelatedPatternsGraph({
           return (
             <a
               key={`node-${rp.frontmatter.slug}`}
-              href={`/patterns/${rp.frontmatter.slug}`}
+              href={`/learn/patterns/${rp.frontmatter.slug}`}
               className="rg-node" style={{ outline: 'none' }}
             >
               {/* Edge line */}
@@ -199,7 +199,7 @@ export function RelatedPatternsGraph({
           return (
             <Link
               key={type}
-              href={`/patterns/${match.frontmatter.slug}`}
+              href={`/learn/patterns/${match.frontmatter.slug}`}
               className="flex items-center gap-1.5 hover:opacity-100 opacity-80 transition-opacity focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-1 focus:ring-offset-background"
             >
               <svg width="20" height="8" aria-hidden="true">

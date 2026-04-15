@@ -11,7 +11,7 @@ import { ReactNode } from 'react';
 function PatternRef({ slug, children }: { slug: string; children?: ReactNode }) {
   return (
     <Link
-      href={`/patterns/${slug}`}
+      href={`/learn/patterns/${slug}`}
       className="text-accent font-semibold underline decoration-2 underline-offset-4 hover:decoration-4 transition-all focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2 focus:ring-offset-background"
     >
       {children}

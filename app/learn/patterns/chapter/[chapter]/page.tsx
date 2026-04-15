@@ -44,7 +44,7 @@ export async function generateMetadata({
     openGraph: {
       title: `Chapter ${chapter.number}: ${chapter.name} — Agent Patterns`,
       description: chapter.description,
-      url: `${siteUrl}/patterns/chapter/${chapter.slug}`,
+      url: `${siteUrl}/learn/patterns/chapter/${chapter.slug}`,
       images: [{ url: ogImage, width: 1200, height: 630, alt: `${chapter.name} patterns` }],
     },
     twitter: {
@@ -53,7 +53,7 @@ export async function generateMetadata({
       description: chapter.description,
       images: [ogImage],
     },
-    alternates: { canonical: `/patterns/chapter/${chapter.slug}` },
+    alternates: { canonical: `/learn/patterns/chapter/${chapter.slug}` },
   };
 }
 
@@ -98,7 +98,8 @@ export default async function ChapterPage({
 
   const breadcrumbSchema = generateBreadcrumbSchema([
     { name: 'Home', url: '/' },
-    { name: 'Patterns', url: '/patterns' },
+    { name: 'Learn', url: '/learn' },
+    { name: 'Patterns', url: '/learn/patterns' },
     { name: chapter.name },
   ]);
   const chapterSchema = generateChapterSchema(chapter, patterns.length);
@@ -114,7 +115,16 @@ export default async function ChapterPage({
           <ol className="flex items-center gap-2 text-xs text-muted font-mono">
             <li>
               <Link
-                href="/patterns"
+                href="/learn"
+                className="hover:text-text hover:underline underline-offset-2 focus:outline-none focus:ring-2 focus:ring-text focus:ring-offset-2 focus:ring-offset-background"
+              >
+                Learn
+              </Link>
+            </li>
+            <li aria-hidden="true">/</li>
+            <li>
+              <Link
+                href="/learn/patterns"
                 className="hover:text-text hover:underline underline-offset-2 focus:outline-none focus:ring-2 focus:ring-text focus:ring-offset-2 focus:ring-offset-background"
               >
                 Patterns
@@ -171,7 +181,7 @@ export default async function ChapterPage({
         <div className="mt-16 pt-8 border-t-2 border-text/30 grid grid-cols-2 gap-4">
           {prevChapter ? (
             <Link
-              href={`/patterns/chapter/${prevChapter.slug}`}
+              href={`/learn/patterns/chapter/${prevChapter.slug}`}
               className={`group border-2 border-text/60 hover:border-text p-4 border-l-4 ${CHAPTER_BORDER_COLORS[prevChapter.number]} transition-all duration-150 hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[4px_4px_0_0_var(--color-text)] focus:outline-none focus:ring-2 focus:ring-accent`}
             >
               <span className="text-[10px] text-muted uppercase tracking-widest font-mono">
@@ -186,7 +196,7 @@ export default async function ChapterPage({
           )}
           {nextChapter ? (
             <Link
-              href={`/patterns/chapter/${nextChapter.slug}`}
+              href={`/learn/patterns/chapter/${nextChapter.slug}`}
               className={`group border-2 border-text/60 hover:border-text p-4 border-r-4 ${CHAPTER_BORDER_COLORS[nextChapter.number]} text-right transition-all duration-150 hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[4px_4px_0_0_var(--color-text)] focus:outline-none focus:ring-2 focus:ring-accent`}
             >
               <span className="text-[10px] text-muted uppercase tracking-widest font-mono">

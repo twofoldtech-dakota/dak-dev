@@ -30,7 +30,7 @@ export function generateMetadata(): Metadata {
     openGraph: {
       title: 'Agent Patterns — AI Coding Agent Reference',
       description,
-      url: `${siteUrl}/patterns`,
+      url: `${siteUrl}/learn/patterns`,
       images: [{ url: ogImage, width: 1200, height: 630, alt: 'Agent Patterns catalog' }],
     },
     twitter: {
@@ -39,7 +39,7 @@ export function generateMetadata(): Metadata {
       description,
       images: [ogImage],
     },
-    alternates: { canonical: '/patterns' },
+    alternates: { canonical: '/learn/patterns' },
   };
 }
 
@@ -74,7 +74,7 @@ export default function PatternsPage() {
             return (
               <section key={chapter.number}>
                 <Link
-                  href={`/patterns/chapter/${chapter.slug}`}
+                  href={`/learn/patterns/chapter/${chapter.slug}`}
                   className="group block mb-5"
                 >
                   <ChapterHeader

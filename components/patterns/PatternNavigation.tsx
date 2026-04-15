@@ -31,7 +31,7 @@ export function PatternNavigation({ previous, next }: PatternNavigationProps) {
     <nav className="grid grid-cols-2 gap-4" aria-label="Pattern navigation">
       {previous ? (
         <Link
-          href={`/patterns/${previous.frontmatter.slug}`}
+          href={`/learn/patterns/${previous.frontmatter.slug}`}
           className={`group border-2 border-text/60 hover:border-text p-4 border-l-4 ${CHAPTER_BORDER_COLORS[previous.frontmatter.chapter]} transition-all duration-150 hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[4px_4px_0_0_var(--color-text)] focus:outline-none focus:ring-2 focus:ring-accent`}
         >
           <span className="text-[10px] text-muted uppercase tracking-widest font-mono">
@@ -49,7 +49,7 @@ export function PatternNavigation({ previous, next }: PatternNavigationProps) {
       )}
       {next ? (
         <Link
-          href={`/patterns/${next.frontmatter.slug}`}
+          href={`/learn/patterns/${next.frontmatter.slug}`}
           className={`group border-2 border-text/60 hover:border-text p-4 border-r-4 ${CHAPTER_BORDER_COLORS[next.frontmatter.chapter]} text-right transition-all duration-150 hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[4px_4px_0_0_var(--color-text)] focus:outline-none focus:ring-2 focus:ring-accent`}
         >
           <span className="text-[10px] text-muted uppercase tracking-widest font-mono">

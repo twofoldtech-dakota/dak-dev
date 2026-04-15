@@ -36,7 +36,7 @@ export function RelatedPatternLink({
 
   return (
     <Link
-      href={`/patterns/${slug}`}
+      href={`/learn/patterns/${slug}`}
       className="group block py-2 border-l border-text/10 pl-3 hover:border-l-2 hover:border-text/30 transition-all duration-100 focus:outline-none focus:ring-2 focus:ring-accent"
     >
       <div className="flex items-center gap-2">

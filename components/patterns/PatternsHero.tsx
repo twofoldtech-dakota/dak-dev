@@ -91,7 +91,7 @@ export function PatternsHero({ patternCount, chapterCount }: PatternsHeroProps) 
               Problems
             </Link>
             <Link
-              href="/patterns/graph"
+              href="/learn/patterns/graph"
               className="inline-flex items-center gap-3 px-6 py-3 border-2 border-text/30 bg-transparent text-muted font-bold text-sm uppercase tracking-wider hover:border-text hover:text-text hover:bg-surface hover:shadow-[4px_4px_0_0_var(--color-text)] transition-all duration-200 focus:outline-none focus:ring-4 focus:ring-accent focus:ring-offset-4 focus:ring-offset-background"
             >
               <span className="text-accent/60 font-mono" aria-hidden="true">03</span>
