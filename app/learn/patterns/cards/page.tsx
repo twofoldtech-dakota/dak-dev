@@ -13,7 +13,7 @@ export function generateMetadata(): Metadata {
   const ogImage = `${siteUrl}/api/og?type=pattern&title=${encodeURIComponent('Quick-Reference Cards')}`;
 
   return {
-    title: 'Pattern Quick-Reference Cards | Dakota Smith',
+    title: 'Pattern Quick-Reference Cards',
     description,
     keywords: [
       'pattern cards',

@@ -25,7 +25,7 @@ export async function generateMetadata({
   const chapter = getChapterBySlug(chapterSlug);
 
   if (!chapter) {
-    return { title: 'Chapter Not Found | Dakota Smith' };
+    return { title: 'Chapter Not Found' };
   }
 
   const patterns = getPatternsByChapter(chapter.number);

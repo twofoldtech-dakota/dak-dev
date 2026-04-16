@@ -52,7 +52,7 @@ export async function generateMetadata({
   const pattern = getPatternBySlug(slug);
 
   if (!pattern) {
-    return { title: 'Pattern Not Found | Dakota Smith' };
+    return { title: 'Pattern Not Found' };
   }
 
   const chapter = CHAPTERS.find(
@@ -63,7 +63,7 @@ export async function generateMetadata({
   const ogImageUrl = `${baseUrl}/api/og?type=pattern&title=${encodeURIComponent(pattern.frontmatter.name)}&chapter=${pattern.frontmatter.chapter}&number=${encodeURIComponent(pattern.frontmatter.number)}`;
 
   return {
-    title: `${pattern.frontmatter.name} — Pattern ${pattern.frontmatter.number} | Dakota Smith`,
+    title: `${pattern.frontmatter.name} — Pattern ${pattern.frontmatter.number}`,
     description: pattern.frontmatter.intent,
     keywords: pattern.frontmatter.keywords,
     openGraph: {

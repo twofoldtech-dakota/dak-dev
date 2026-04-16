@@ -32,7 +32,7 @@ export async function generateMetadata({
   if (!topic || !page) return {};
 
   return {
-    title: `${page.frontmatter.title} | Dakota Smith`,
+    title: page.frontmatter.title,
     description: page.frontmatter.description,
     keywords: page.frontmatter.keywords,
     openGraph: {

@@ -8,7 +8,7 @@ import { ConnectionsMap } from '@/components/learn/ConnectionsMap';
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://dak-dev.vercel.app';
 
 export const metadata: Metadata = {
-  title: 'Learn | Dakota Smith',
+  title: 'Learn',
   description: 'Expert guides for agentic engineering — patterns for AI-assisted development and deep-dives into Claude Code\'s toolkit.',
   openGraph: {
     title: 'Learn — Patterns & Claude Code Toolkit',

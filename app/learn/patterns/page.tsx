@@ -18,7 +18,7 @@ export function generateMetadata(): Metadata {
   const ogImage = `${siteUrl}/api/og?type=pattern&title=${encodeURIComponent('Agent Patterns')}`;
 
   return {
-    title: 'Agent Patterns | Dakota Smith',
+    title: 'Agent Patterns',
     description,
     keywords: [
       'AI coding patterns',

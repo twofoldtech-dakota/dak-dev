@@ -14,7 +14,7 @@ export function generateMetadata(): Metadata {
   const ogImage = `${siteUrl}/api/og?type=pattern&title=${encodeURIComponent('Pattern Language Map')}`;
 
   return {
-    title: 'Pattern Language Map | Dakota Smith',
+    title: 'Pattern Language Map',
     description,
     keywords: [
       'pattern language',

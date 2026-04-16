@@ -6,7 +6,7 @@ import { TOOLKIT_TOPICS, getToolkitPage } from '@/lib/toolkit';
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://dak-dev.vercel.app';
 
 export const metadata: Metadata = {
-  title: 'Claude Code Toolkit | Dakota Smith',
+  title: 'Claude Code Toolkit',
   description: 'Expert\'s guide to agentic engineering with Claude Code — 9 deep-dives into hooks, skills, agents, MCP, and more.',
   openGraph: {
     title: 'Claude Code Toolkit — Expert\'s Guide',
