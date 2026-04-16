@@ -29,6 +29,7 @@ export default function LearnLayout({ children }: { children: ReactNode }) {
         chapters={CHAPTERS}
         patterns={sidebarPatterns}
         toolkitTopics={TOOLKIT_TOPICS}
+        topicSubPages={topicSubPages}
         className="px-4 sm:px-6 lg:hidden pt-4"
       />
 

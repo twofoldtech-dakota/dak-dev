@@ -1,0 +1,63 @@
+---
+title: "Settings & Config: Expert's Guide"
+topic: "settings"
+order: 1
+description: "Master Claude Code's configuration system — permission architectures, model selection strategy, and profile management for production workflows."
+relatedPatterns: ["scope-fence", "constraint-over-instruction"]
+relatedTopics: ["hooks", "claude-md", "agents", "mcp"]
+published: true
+keywords: ["claude code settings", "configuration", "permissions", "model selection", "profiles"]
+---
+
+# Settings & Config
+
+Settings are the control plane of Claude Code. Every tool call, every model selection, every file access passes through a configuration hierarchy that determines what the agent can and cannot do. Getting this right is the difference between a productive AI assistant and a liability.
+
+## Why Settings Matter
+
+Prompts are suggestions. Settings are enforcement. You can tell Claude "never force-push" in CLAUDE.md, but a prompt injection in a file it reads can override that instruction. A `deny` rule in settings.json cannot be overridden by anything — not by the agent, not by prompt injection, not by a user-level allow rule. Settings are your hard boundary.
+
+## The Configuration Hierarchy
+
+Claude Code evaluates five configuration scopes, from highest to lowest priority:
+
+| Priority | Scope | Location | Shared? |
+|----------|-------|----------|---------|
+| 1 | Managed | Server-managed, MDM, or `managed-settings.json` | Deployed by IT |
+| 2 | CLI args | `--model`, `--permission-mode`, `--allowedTools` | Session only |
+| 3 | Local | `.claude/settings.local.json` | No (gitignored) |
+| 4 | Project | `.claude/settings.json` | Yes (committed) |
+| 5 | User | `~/.claude/settings.json` | No |
+
+The critical rule: **deny at any level blocks the tool at every level.** A project deny overrides a user allow. A managed deny overrides everything.
+
+The core configuration file:
+
+```json
+{
+  "$schema": "https://json.schemastore.org/claude-code-settings.json",
+  "permissions": {
+    "defaultMode": "default",
+    "allow": ["Bash(npm run *)", "Bash(git diff *)"],
+    "deny": ["Bash(git push --force *)", "Read(./.env)"]
+  },
+  "model": "sonnet",
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "Write|Edit",
+        "hooks": [{ "type": "command", "command": "npx prettier --write \"$CLAUDE_TOOL_ARG_file_path\"" }]
+      }
+    ]
+  }
+}
+```
+
+## What's Inside
+
+Explore the sub-pages for deep expertise:
+
+- **Mental Model** — The 5-scope hierarchy, permission evaluation order, model selection priority, and the profile system
+- **Playbook** — Permission architectures by team size, model routing strategies, CI/CD configs, and security-focused setups
+- **Compositions** — Settings combined with hooks, CLAUDE.md, MCP servers, subagents, and skills
+- **Pitfalls** — The Read/Edit bypass, inheritance bugs, silent ignore rules, configuration drift, and Bash pattern fragility

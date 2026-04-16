@@ -1,0 +1,60 @@
+---
+title: "Memory System: Expert's Guide"
+topic: "memory"
+order: 1
+description: "Master Claude Code's persistent memory — cross-session intelligence, memory taxonomy, and strategies for building institutional knowledge."
+relatedPatterns: ["memory-layer", "convention-file"]
+relatedTopics: ["claude-md", "agents", "skills", "hooks"]
+published: true
+keywords: ["claude code memory", "persistent context", "cross-session intelligence", "memory taxonomy"]
+---
+
+# Memory System
+
+Claude Code's memory system is a file-based persistence layer that lets the agent retain knowledge across sessions. Every correction you make, every architectural decision you explain, every workflow preference you demonstrate — memory captures it so you never repeat yourself.
+
+## Why Memory Matters
+
+Without memory, every Claude Code session starts from zero. The agent re-reads your codebase, re-discovers your conventions, and re-learns your preferences. Memory eliminates that cold-start penalty. A well-maintained memory directory turns Claude into a collaborator that accumulates institutional knowledge over weeks and months.
+
+## Memory vs. CLAUDE.md vs. Conversation Context
+
+These three systems serve different purposes. Using the wrong one wastes context window or loses information.
+
+| System | Who Writes | Persistence | Best For |
+|--------|-----------|-------------|----------|
+| **CLAUDE.md** | You | Permanent (in git) | Rules, conventions, architecture |
+| **Auto Memory** | Claude | Cross-session (local) | Learned patterns, decisions, project state |
+| **Conversation** | Generated | Single session | Current task context |
+
+**Rule of thumb:** If a new teammate needs it, put it in CLAUDE.md. If Claude learned it through work and it's not in the code, put it in memory. If it's only relevant right now, leave it in conversation context.
+
+A memory file with proper frontmatter:
+
+```markdown
+---
+name: auth-migration
+description: JWT to session cookie migration, status and blockers
+type: project
+---
+
+## Status
+Phase 2 of 3 complete. Session cookie rotation deployed 2026-04-12.
+
+## Blockers
+- Redis cluster needs TLS cert renewal before Phase 3
+- Mobile clients require SDK update for cookie-based auth
+
+## Decisions
+- Chose HttpOnly + SameSite=Strict over token refresh (2026-04-05)
+- 30-day session expiry, sliding window renewal
+```
+
+## What's Inside
+
+Explore the sub-pages for deep expertise:
+
+- **Mental Model** — How memory works internally: file-based persistence, the four memory types, MEMORY.md index mechanics, and lazy-loading behavior
+- **Playbook** — Production memory strategies: taxonomy design, effective descriptions, maintenance cadence, team patterns, and cross-project strategies
+- **Compositions** — Memory combined with CLAUDE.md, skills, agents, hooks, and MCP for persistent cross-session intelligence
+- **Pitfalls** — Memory bloat, silent truncation, stale memories, the 200-line ceiling, privacy risks, and debugging memory influence

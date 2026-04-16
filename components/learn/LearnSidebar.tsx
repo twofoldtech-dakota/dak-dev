@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { usePathname } from 'next/navigation';
 import Link from 'next/link';
 import type { ChapterMeta } from '@/lib/patterns';
@@ -45,14 +45,22 @@ export function LearnSidebar({
   const isInPatterns = pathname.startsWith('/learn/patterns');
   const isInToolkit = pathname.startsWith('/learn/toolkit');
 
-  const [patternsOpen, setPatternsOpen] = useState(isInPatterns || (!isInPatterns && !isInToolkit));
-  const [toolkitOpen, setToolkitOpen] = useState(isInToolkit);
+  const [patternsOpen, setPatternsOpen] = useState(true);
+  const [toolkitOpen, setToolkitOpen] = useState(true);
 
-  const activePatternSlug = isInPatterns
+  const activePatternSlug = isInPatterns && !pathname.startsWith('/learn/patterns/chapter/')
     ? pathname.replace('/learn/patterns/', '').split('/')[0]
     : null;
   const activePattern = patterns.find((p) => p.slug === activePatternSlug);
-  const activeChapterNum = activePattern?.chapter ?? null;
+
+  const activeChapterSlug = pathname.startsWith('/learn/patterns/chapter/')
+    ? pathname.replace('/learn/patterns/chapter/', '').split('/')[0]
+    : null;
+  const activeChapterFromSlug = activeChapterSlug
+    ? chapters.find((c) => c.slug === activeChapterSlug)
+    : null;
+
+  const activeChapterNum = activePattern?.chapter ?? activeChapterFromSlug?.number ?? null;
 
   const [expandedChapters, setExpandedChapters] = useState<Set<number>>(() => {
     const s = new Set<number>();
@@ -70,19 +78,33 @@ export function LearnSidebar({
     return s;
   });
 
+  // Sync section open state and topic/chapter expansion on navigation
+  useEffect(() => {
+    if (isInToolkit) {
+      setToolkitOpen(true);
+      if (activeTopicSlug) {
+        setExpandedTopics(new Set([activeTopicSlug]));
+      }
+    }
+    if (isInPatterns) {
+      setPatternsOpen(true);
+      if (activeChapterNum) {
+        setExpandedChapters(new Set([activeChapterNum]));
+      }
+    }
+  }, [pathname, isInToolkit, isInPatterns, activeTopicSlug, activeChapterNum]);
+
   const toggleChapter = (num: number) => {
     setExpandedChapters((prev) => {
-      const next = new Set(prev);
-      if (next.has(num)) next.delete(num); else next.add(num);
-      return next;
+      if (prev.has(num)) return new Set<number>();
+      return new Set<number>([num]);
     });
   };
 
   const toggleTopic = (slug: string) => {
     setExpandedTopics((prev) => {
-      const next = new Set(prev);
-      if (next.has(slug)) next.delete(slug); else next.add(slug);
-      return next;
+      if (prev.has(slug)) return new Set<string>();
+      return new Set<string>([slug]);
     });
   };
 

@@ -1,0 +1,40 @@
+---
+title: "Agent Teams: Expert's Guide"
+topic: "agent-teams"
+order: 1
+description: "Master multi-agent orchestration in Claude Code — role-based pipelines, coordination architectures, and when teams beat solo agents."
+relatedPatterns: ["parallel-fan-out", "checkpoint-loop", "vertical-slice"]
+relatedTopics: ["agents", "hooks", "skills", "memory"]
+published: true
+keywords: ["agent teams", "multi-agent orchestration", "coordination architectures", "role-based pipelines"]
+---
+
+# Agent Teams
+
+Agent teams coordinate multiple Claude Code sessions around a shared task list. One session leads, the rest work as teammates — each with its own context window, tools, and the ability to message others directly. This is Claude Code's answer to distributed systems: independent processes, asynchronous communication, and minimal shared state.
+
+## Why Teams Exist
+
+A single Claude Code session hits walls. Context windows fill. Sequential execution burns clock time on parallelizable work. One perspective misses what three would catch. Agent teams solve all three problems at once — parallel execution across independent context windows with built-in coordination.
+
+The tradeoff is real: each teammate is a full Claude instance. A 3-person team costs roughly 4x a solo session (3 workers + lead). Teams earn their cost when the task decomposes into genuinely independent units.
+
+## When Multi-Agent Beats Single-Agent
+
+| Scenario | Team? | Why |
+|----------|-------|-----|
+| 3+ independent subtasks across different domains | Yes | Parallel execution, no file conflicts |
+| Competing hypotheses for a bug | Yes | Fights anchoring bias |
+| Security + performance + correctness review | Yes | Different perspectives in parallel |
+| Sequential steps where each depends on the last | No | Coordination overhead exceeds benefit |
+| Multiple agents editing the same files | No | Overwrites without worktree isolation |
+| Simple, well-scoped task | No | Setup cost exceeds time saved |
+
+## What's Inside
+
+Explore the sub-pages for deep expertise:
+
+- **Mental Model** — Architecture patterns (orchestrator/worker, fan-out, pipeline, hierarchy) and the distributed systems mental model that makes teams predictable
+- **Playbook** — Production team architectures: code review teams, parallel test runners, research pipelines, and competing-hypotheses debugging
+- **Compositions** — Teams combined with hooks, skills, MCP, memory, and worktrees for production-grade workflows
+- **Pitfalls** — Context exhaustion, cost multiplication, worktree bugs, race conditions, and when teams make things worse

@@ -139,7 +139,7 @@ export default async function ChapterPage({
 
         {/* Chapter Header with grid bg */}
         <header
-          className={`mb-10 border-b-4 border-text pb-8 border-l-4 ${CHAPTER_BORDER_COLORS[chapter.number]} pl-6 patterns-grid-bg pt-8 -mx-4 sm:-mx-6 lg:-mx-0 px-6`}
+          className={`mb-10 border-b-4 border-text pb-8 border-l-4 ${CHAPTER_BORDER_COLORS[chapter.number]} pl-6 pt-8 -mx-4 sm:-mx-6 lg:-mx-0 px-6`}
         >
           <div className="flex items-baseline gap-3 mb-1">
             <span

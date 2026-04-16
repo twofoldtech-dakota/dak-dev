@@ -52,7 +52,7 @@ export default function PatternCardsPage() {
       <JsonLd data={breadcrumbSchema} />
 
       {/* Header */}
-      <header className="pt-2 pb-8 patterns-grid-bg -mx-4 sm:-mx-6 lg:-mx-0 px-4 sm:px-6 lg:px-0">
+      <header className="pt-2 pb-8 -mx-4 sm:-mx-6 lg:-mx-0 px-4 sm:px-6 lg:px-0">
         <nav className="mb-5" aria-label="Breadcrumb">
           <ol className="flex items-center gap-2 text-xs text-muted font-mono">
             <li>

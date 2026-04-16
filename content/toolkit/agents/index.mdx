@@ -1,0 +1,37 @@
+---
+title: "Agents & Subagents: Expert's Guide"
+topic: "agents"
+order: 1
+description: "Master Claude Code's agent delegation system — isolation strategies, worktree workflows, and production delegation patterns."
+relatedPatterns: ["parallel-fan-out", "scope-fence", "vertical-slice"]
+relatedTopics: ["agent-teams", "hooks", "skills", "settings"]
+published: true
+keywords: ["claude code agents", "subagents", "delegation patterns", "worktree isolation"]
+---
+
+# Agents & Subagents
+
+Subagents are Claude Code's delegation primitive. When you spawn one, Claude creates a separate instance with its own 200K-token context window, its own tool set, and zero knowledge of the parent conversation. The only data that crosses the boundary is the prompt you send in and the final message that comes back.
+
+## Why Subagents Matter
+
+Inline work hits a wall at scale. A single context window juggling test output, code review, and implementation fragments compresses useful context into noise. Subagents solve this by offloading bounded tasks into isolated containers — each with full tool access, fresh context, and a defined return contract.
+
+The cost model is real: each subagent burns tokens independently. Five parallel Opus subagents cost 5x. The payoff comes from context isolation, not raw throughput.
+
+## When to Delegate vs. Work Inline
+
+| Delegate | Stay Inline |
+|----------|-------------|
+| Task produces verbose output (test suites, log analysis) | Task takes fewer than 30 seconds |
+| You need tool restrictions (read-only reviewer) | Frequent back-and-forth with the user |
+| Work is self-contained with a clear return contract | Multiple phases share significant context |
+| 10+ files to explore or 3+ independent work items | Quick, targeted single-file change |
+| You want unbiased "fresh eyes" without conversation history | Latency is the primary concern |
+
+## What's Inside
+
+- **Mental Model** — How subagents work internally: context isolation, the 5 built-in types, inheritance rules, and worktree mechanics
+- **Playbook** — Production delegation patterns: the briefing pattern, foreground vs. background, worktree agents, and parallel execution
+- **Compositions** — Agents combined with skills, hooks, MCP, CLAUDE.md, and memory: what crosses the boundary and what doesn't
+- **Pitfalls** — Context exhaustion, over-delegation, poor briefing, worktree cleanup, cost multiplication, and race conditions

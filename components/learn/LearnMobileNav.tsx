@@ -1,10 +1,11 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { usePathname } from 'next/navigation';
 import Link from 'next/link';
 import type { ChapterMeta } from '@/lib/patterns';
 import type { ToolkitTopicMeta } from '@/lib/toolkit-types';
+import { SUB_PAGE_META, type ToolkitSubPage } from '@/lib/toolkit-types';
 
 const TEXT_COLORS: Record<number, string> = {
   1: 'text-chapter-1', 2: 'text-chapter-2', 3: 'text-chapter-3',
@@ -27,6 +28,7 @@ interface LearnMobileNavProps {
   chapters: ChapterMeta[];
   patterns: SidebarPattern[];
   toolkitTopics: ToolkitTopicMeta[];
+  topicSubPages: Record<string, ToolkitSubPage[]>;
   className?: string;
 }
 
@@ -34,6 +36,7 @@ export function LearnMobileNav({
   chapters,
   patterns,
   toolkitTopics,
+  topicSubPages,
   className = '',
 }: LearnMobileNavProps) {
   const [isOpen, setIsOpen] = useState(false);
@@ -42,19 +45,44 @@ export function LearnMobileNav({
     pathname.startsWith('/learn/toolkit') ? 'toolkit' : 'patterns'
   );
 
-  const activePatternSlug = pathname.startsWith('/learn/patterns/')
+  // Sync active tab on navigation
+  useEffect(() => {
+    if (pathname.startsWith('/learn/toolkit')) {
+      setActiveTab('toolkit');
+    } else if (pathname.startsWith('/learn/patterns')) {
+      setActiveTab('patterns');
+    }
+  }, [pathname]);
+
+  const activePatternSlug = pathname.startsWith('/learn/patterns/') && !pathname.startsWith('/learn/patterns/chapter/')
     ? pathname.replace('/learn/patterns/', '').split('/')[0]
     : null;
   const activePattern = patterns.find((p) => p.slug === activePatternSlug);
+
+  const activeChapterSlug = pathname.startsWith('/learn/patterns/chapter/')
+    ? pathname.replace('/learn/patterns/chapter/', '').split('/')[0]
+    : null;
+  const activeChapter = activeChapterSlug
+    ? chapters.find((c) => c.slug === activeChapterSlug)
+    : null;
+
   const activeTopicSlug = pathname.startsWith('/learn/toolkit/')
     ? pathname.replace('/learn/toolkit/', '').split('/')[0]
     : null;
   const activeTopic = toolkitTopics.find((t) => t.slug === activeTopicSlug);
+  const activeSubPage = activeTopicSlug
+    ? pathname.replace(`/learn/toolkit/${activeTopicSlug}/`, '').split('/')[0] as ToolkitSubPage
+    : null;
+  const activeSubMeta = activeSubPage && SUB_PAGE_META[activeSubPage] ? SUB_PAGE_META[activeSubPage] : null;
 
   const currentLabel = activePattern
     ? `${activePattern.number} ${activePattern.name}`
+    : activeChapter
+    ? `${activeChapter.number} ${activeChapter.name}`
     : activeTopic
-    ? activeTopic.name
+    ? activeSubMeta
+      ? `${activeTopic.name} › ${activeSubMeta.label}`
+      : activeTopic.name
     : 'Navigate Learn';
 
   return (
@@ -105,10 +133,16 @@ export function LearnMobileNav({
                     <Link
                       href={`/learn/patterns/chapter/${chapter.slug}`}
                       onClick={() => setIsOpen(false)}
-                      className={`flex items-center gap-3 px-4 py-3 border-l-4 ${BORDER_COLORS[chapter.number]} hover:bg-background`}
+                      className={`flex items-center gap-3 px-4 py-3 hover:bg-background transition-colors ${
+                        activeChapterSlug === chapter.slug || (activePatternSlug && chapterPatterns.some((p) => p.slug === activePatternSlug))
+                          ? 'font-semibold text-text bg-background'
+                          : 'text-muted'
+                      }`}
                     >
-                      <span className={`font-mono font-bold text-xs ${TEXT_COLORS[chapter.number]}`}>{chapter.number}</span>
-                      <span className="text-sm font-semibold">{chapter.name}</span>
+                      <span className={`font-mono font-bold text-xs shrink-0 ${TEXT_COLORS[chapter.number]}`}>{chapter.number}</span>
+                      <div className="min-w-0">
+                        <span className="text-sm block truncate">{chapter.name}</span>
+                      </div>
                     </Link>
                     {chapterPatterns.length > 0 && (
                       <ul>
@@ -117,8 +151,8 @@ export function LearnMobileNav({
                             <Link
                               href={`/learn/patterns/${pattern.slug}`}
                               onClick={() => setIsOpen(false)}
-                              className={`flex items-center gap-2 px-4 pl-10 py-2 text-sm transition-colors ${
-                                activePatternSlug === pattern.slug ? 'font-semibold text-text bg-background' : 'text-muted hover:text-text hover:bg-background'
+                              className={`flex items-center gap-2 px-4 pl-11 py-2 text-sm transition-colors ${
+                                activePatternSlug === pattern.slug ? 'font-semibold text-text bg-background' : 'text-muted/70 hover:text-text hover:bg-background'
                               }`}
                             >
                               <span className={`font-mono text-xs ${TEXT_COLORS[pattern.chapter]}`}>{pattern.number}</span>
@@ -137,23 +171,49 @@ export function LearnMobileNav({
           {activeTab === 'toolkit' && (
             <>
               <Link href="/learn/toolkit" onClick={() => setIsOpen(false)} className="block px-4 py-3 text-sm font-bold uppercase tracking-wider border-b-2 border-muted/20 hover:bg-background">All Topics</Link>
-              {toolkitTopics.map((topic) => (
-                <Link
-                  key={topic.slug}
-                  href={`/learn/toolkit/${topic.slug}`}
-                  onClick={() => setIsOpen(false)}
-                  className={`flex items-center gap-3 px-4 py-3 border-b border-muted/20 last:border-b-0 hover:bg-background transition-colors ${
-                    activeTopicSlug === topic.slug ? 'font-semibold text-text bg-background' : 'text-muted'
-                  }`}
-                >
-                  <svg className="w-4 h-4 text-accent/50 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d={topic.icon} />
-                  </svg>
-                  <div className="min-w-0">
-                    <span className="text-sm block truncate">{topic.name}</span>
+              {toolkitTopics.map((topic) => {
+                const subPages = topicSubPages[topic.slug] || [];
+                return (
+                  <div key={topic.slug} className="border-b border-muted/20 last:border-b-0">
+                    <Link
+                      href={`/learn/toolkit/${topic.slug}`}
+                      onClick={() => setIsOpen(false)}
+                      className={`flex items-center gap-3 px-4 py-3 hover:bg-background transition-colors ${
+                        activeTopicSlug === topic.slug ? 'font-semibold text-text bg-background' : 'text-muted'
+                      }`}
+                    >
+                      <svg className="w-4 h-4 text-accent/50 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d={topic.icon} />
+                      </svg>
+                      <div className="min-w-0">
+                        <span className="text-sm block truncate">{topic.name}</span>
+                      </div>
+                    </Link>
+                    {subPages.length > 0 && (
+                      <ul>
+                        {subPages.map((sub) => {
+                          const subMeta = SUB_PAGE_META[sub];
+                          const subHref = `/learn/toolkit/${topic.slug}/${sub}`;
+                          const isActive = pathname === subHref;
+                          return (
+                            <li key={sub}>
+                              <Link
+                                href={subHref}
+                                onClick={() => setIsOpen(false)}
+                                className={`flex items-center gap-2 px-4 pl-11 py-2 text-sm transition-colors ${
+                                  isActive ? 'font-semibold text-text bg-background' : 'text-muted/70 hover:text-text hover:bg-background'
+                                }`}
+                              >
+                                <span className="truncate">{subMeta.label}</span>
+                              </Link>
+                            </li>
+                          );
+                        })}
+                      </ul>
+                    )}
                   </div>
-                </Link>
-              ))}
+                );
+              })}
             </>
           )}
         </nav>

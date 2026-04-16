@@ -149,7 +149,7 @@ export default async function PatternPage({
       {patternSchema && <JsonLd data={patternSchema} />}
 
       {/* Hero */}
-      <header className="pt-2 pb-8 patterns-grid-bg -mx-4 sm:-mx-6 lg:-mx-0 px-4 sm:px-6 lg:px-0">
+      <header className="pt-2 pb-8 -mx-4 sm:-mx-6 lg:-mx-0 px-4 sm:px-6 lg:px-0">
         {/* Breadcrumb */}
         <nav className="mb-5" aria-label="Breadcrumb">
           <ol className="flex flex-wrap items-center gap-2 text-xs text-muted font-mono">

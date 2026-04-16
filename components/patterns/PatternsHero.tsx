@@ -15,7 +15,7 @@ interface PatternsHeroProps {
 
 export function PatternsHero({ patternCount, chapterCount }: PatternsHeroProps) {
   return (
-    <header className="relative min-h-[45vh] flex items-center border-b-4 border-text patterns-grid-bg-depth overflow-hidden">
+    <header className="relative min-h-[45vh] flex items-center border-b-4 border-text overflow-hidden">
 
       {/* Corner marks + coordinate labels */}
       <div className="absolute z-[2] top-3 left-3 w-8 h-8 border-t-2 border-l-2 border-accent/40" aria-hidden="true" />
