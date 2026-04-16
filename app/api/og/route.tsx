@@ -33,6 +33,8 @@ export async function GET(request: NextRequest) {
     const response =
       type === 'pattern'
         ? generatePatternOg(title, chapter, number)
+        : type === 'toolkit'
+        ? generateToolkitOg(title)
         : generatePostOg(title, date);
 
     // Deterministic inputs = deterministic output, cache aggressively
@@ -334,5 +336,70 @@ function generatePatternOg(
       width: 1200,
       height: 630,
     }
+  );
+}
+
+function generateToolkitOg(title: string) {
+  const accentColor = '#00ff88';
+
+  return new ImageResponse(
+    (
+      <div
+        style={{
+          height: '100%',
+          width: '100%',
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'flex-start',
+          justifyContent: 'flex-end',
+          backgroundColor: '#0A0A0A',
+          padding: '80px',
+          fontFamily: 'system-ui, sans-serif',
+          position: 'relative',
+        }}
+      >
+        <div
+          style={{
+            position: 'absolute',
+            top: 0, left: 0, right: 0, bottom: 0,
+            backgroundImage: 'linear-gradient(#333 1px, transparent 1px), linear-gradient(90deg, #333 1px, transparent 1px)',
+            backgroundSize: '48px 48px',
+            opacity: 0.2,
+          }}
+        />
+        <div
+          style={{
+            position: 'absolute',
+            top: 0, left: 0, width: '12px', height: '100%',
+            backgroundColor: accentColor,
+          }}
+        />
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '24px', width: '100%' }}>
+          <p style={{ fontSize: '24px', fontWeight: 700, color: accentColor, margin: 0, letterSpacing: '0.05em', textTransform: 'uppercase' as const }}>
+            Claude Code Toolkit
+          </p>
+          <div
+            style={{
+              display: 'flex', flexDirection: 'column', gap: '16px',
+              backgroundColor: '#0A0A0A',
+              border: `4px solid ${accentColor}`,
+              padding: '40px',
+              boxShadow: `8px 8px 0 0 ${accentColor}`,
+            }}
+          >
+            <h1 style={{ fontSize: '64px', fontWeight: 700, color: '#F5F5F5', margin: 0, lineHeight: 1.2, letterSpacing: '-0.02em', display: 'flex', flexWrap: 'wrap' as const }}>
+              {title}
+            </h1>
+          </div>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
+            <div style={{ width: '4px', height: '40px', backgroundColor: accentColor }} />
+            <p style={{ fontSize: '28px', fontWeight: 700, color: '#F5F5F5', margin: 0 }}>
+              Dakota Smith
+            </p>
+          </div>
+        </div>
+      </div>
+    ),
+    { width: 1200, height: 630 }
   );
 }
