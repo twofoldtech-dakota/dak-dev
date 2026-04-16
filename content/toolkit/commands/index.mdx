@@ -1,0 +1,66 @@
+---
+title: "Commands: Expert's Guide"
+topic: "commands"
+order: 1
+description: "Master Claude Code custom slash commands — workflow automation, command composition, and the line between commands and skills."
+relatedPatterns: ["progressive-disclosure", "convention-file"]
+relatedTopics: ["skills", "hooks", "claude-md"]
+published: true
+keywords: ["claude code commands", "slash commands", "workflow automation", "command composition"]
+---
+
+# Commands
+
+Slash commands are Claude Code's user-triggered automation layer. Each command is a markdown file that injects instructions into the conversation when you type `/name` — turning multi-step workflows into single keystrokes.
+
+## Why Commands Matter
+
+Without commands, you retype the same multi-paragraph prompts every session. "Review this PR for security issues, check for N+1 queries, verify error handling, output findings as severity/location/issue/fix" becomes `/review`. The prompt lives in version control, shared across the team, executed identically every time.
+
+Commands sit in `.claude/commands/` as `.md` files. The filename minus extension becomes the slash command name. `deploy.md` creates `/deploy`. Arguments pass through `$ARGUMENTS` or positional `$1`, `$2` placeholders. The entire file content enters the conversation as a single message — not a function call, but a prompt injection that Claude follows using its standard tools.
+
+A minimal command file:
+
+```markdown
+---
+name: review
+description: Review code changes for quality and security issues
+disable-model-invocation: true
+allowed-tools: Read,Grep,Glob,Bash(git diff:*)
+---
+
+# Code Review
+
+Review the changes in $ARGUMENTS.
+
+For each finding, report:
+- **Severity**: critical / warning / suggestion
+- **Location**: file:line
+- **Issue**: What's wrong
+- **Fix**: Concrete suggestion
+
+Do NOT make changes. Report only.
+```
+
+## When to Use Commands vs. Skills
+
+| Need | Use |
+|------|-----|
+| Explicit multi-step workflow triggered by the user | **Command** |
+| Background knowledge Claude loads automatically | Skill |
+| Workflow with supporting templates or scripts | Skill (directory structure) |
+| Destructive operation requiring human intent | **Command** with `disable-model-invocation: true` |
+| Simple saved prompt, single markdown file | **Command** |
+| Reusable across repos without per-project setup | User command (`~/.claude/commands/`) |
+| Deterministic enforcement, not suggestions | Hook |
+
+The critical distinction: commands are explicit and user-initiated. Skills can be model-initiated. If you never want Claude to run something without your say-so, it belongs in a command with `disable-model-invocation: true`.
+
+## What's Inside
+
+Explore the sub-pages for deep expertise:
+
+- **Mental Model** — How slash commands are discovered, resolved, expanded, and injected into context, plus the key architectural difference from skills
+- **Playbook** — Production command patterns: deployment pipelines, code review, parameterized workflows, meta-commands, and team-shared libraries
+- **Compositions** — Commands combined with skills, hooks, agents, MCP, and CLAUDE.md for orchestrated automation
+- **Pitfalls** — Autocomplete failures, commands vs skills confusion, context bloat, silent YAML errors, and platform-specific debugging

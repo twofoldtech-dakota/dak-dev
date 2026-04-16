@@ -75,13 +75,13 @@ function NavButton({
 export function PatternsSidebar({ chapters, patterns }: PatternsSidebarProps) {
   const pathname = usePathname();
 
-  const isChapterPage = pathname.startsWith('/patterns/chapter/');
+  const isChapterPage = pathname.startsWith('/learn/patterns/chapter/');
   const activeChapterSlug = isChapterPage
-    ? pathname.split('/patterns/chapter/')[1]?.split('/')[0]
+    ? pathname.split('/learn/patterns/chapter/')[1]?.split('/')[0]
     : null;
   const activePatternSlug =
-    !isChapterPage && pathname.startsWith('/patterns/')
-      ? pathname.split('/patterns/')[1]?.split('/')[0]
+    !isChapterPage && pathname.startsWith('/learn/patterns/')
+      ? pathname.split('/learn/patterns/')[1]?.split('/')[0]
       : null;
   const activePattern = patterns.find((p) => p.slug === activePatternSlug);
   const activeChapterNum = activePattern?.chapter ?? null;
@@ -116,9 +116,9 @@ export function PatternsSidebar({ chapters, patterns }: PatternsSidebarProps) {
     });
   };
 
-  const isOnPatternsIndex = pathname === '/patterns';
-  const isOnGraphPage = pathname === '/patterns/graph';
-  const isOnCardsPage = pathname === '/patterns/cards';
+  const isOnPatternsIndex = pathname === '/learn/patterns';
+  const isOnGraphPage = pathname === '/learn/patterns/graph';
+  const isOnCardsPage = pathname === '/learn/patterns/cards';
 
   return (
     <nav
@@ -128,7 +128,7 @@ export function PatternsSidebar({ chapters, patterns }: PatternsSidebarProps) {
       {/* Top navigation buttons */}
       <div className="grid grid-cols-1 gap-2 mb-6">
         <NavButton
-          href="/patterns"
+          href="/learn/patterns"
           isActive={isOnPatternsIndex}
           label="All Patterns"
           icon={
@@ -138,7 +138,7 @@ export function PatternsSidebar({ chapters, patterns }: PatternsSidebarProps) {
           }
         />
         <NavButton
-          href="/patterns/graph"
+          href="/learn/patterns/graph"
           isActive={isOnGraphPage}
           label="Language Map"
           icon={
@@ -148,7 +148,7 @@ export function PatternsSidebar({ chapters, patterns }: PatternsSidebarProps) {
           }
         />
         <NavButton
-          href="/patterns/cards"
+          href="/learn/patterns/cards"
           isActive={isOnCardsPage}
           label="Quick-Ref Cards"
           icon={
@@ -185,7 +185,7 @@ export function PatternsSidebar({ chapters, patterns }: PatternsSidebarProps) {
                 }`}
               >
                 <Link
-                  href={`/patterns/chapter/${chapter.slug}`}
+                  href={`/learn/patterns/chapter/${chapter.slug}`}
                   className={`flex-1 flex items-center gap-2.5 pl-3 pr-1 py-3 min-w-0 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-accent transition-colors ${
                     isActiveChapter ? 'text-text' : 'text-muted hover:text-text'
                   }`}
@@ -240,7 +240,7 @@ export function PatternsSidebar({ chapters, patterns }: PatternsSidebarProps) {
                     return (
                       <li key={pattern.slug}>
                         <Link
-                          href={`/patterns/${pattern.slug}`}
+                          href={`/learn/patterns/${pattern.slug}`}
                           className={`group flex items-center gap-2.5 pl-8 pr-3 py-2 text-sm transition-all duration-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-accent ${
                             isActive
                               ? `font-bold text-text border-l-4 ${BORDER_COLORS[pattern.chapter]} ${BG_COLORS[pattern.chapter]} -ml-px`

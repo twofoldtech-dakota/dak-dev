@@ -215,12 +215,12 @@ export function PatternLanguageGraph({
               }}
               onMouseEnter={() => setHoveredSlug(node.slug)}
               onMouseLeave={() => setHoveredSlug(null)}
-              onClick={() => router.push(`/patterns/${node.slug}`)}
+              onClick={() => router.push(`/learn/patterns/${node.slug}`)}
               role="link"
               tabIndex={0}
               aria-label={`Pattern ${node.number}: ${node.name}`}
               onKeyDown={(e) => {
-                if (e.key === 'Enter') router.push(`/patterns/${node.slug}`);
+                if (e.key === 'Enter') router.push(`/learn/patterns/${node.slug}`);
               }}
             >
               {/* Shadow */}

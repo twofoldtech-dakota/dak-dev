@@ -40,7 +40,7 @@ export function QuickReferenceCard({
 
   const Wrapper = isStandalone ? Link : 'div';
   const wrapperProps = isStandalone
-    ? { href: `/patterns/${frontmatter.slug}` }
+    ? { href: `/learn/patterns/${frontmatter.slug}` }
     : {};
   const TitleTag = isHero ? 'h1' : 'h3';
 

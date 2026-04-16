@@ -9,7 +9,7 @@ import { Search } from '@/components/ui/Search';
 
 const navigation = [
   { name: 'Home', href: '/' },
-  { name: 'Patterns', href: '/patterns' },
+  { name: 'Learn', href: '/learn' },
   { name: 'Blog', href: '/blog' },
   { name: 'About', href: '/about' },
 ];

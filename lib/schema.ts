@@ -5,6 +5,7 @@
 
 import type { PostFrontmatter } from './posts';
 import type { PatternFrontmatter, ChapterMeta } from './patterns';
+import type { ToolkitFrontmatter, ToolkitTopicMeta } from './toolkit';
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://dak-dev.vercel.app';
 const SITE_NAME = 'Dakota Smith Blog';
@@ -195,7 +196,7 @@ export function generatePatternSchema(
   pattern: PatternFrontmatter,
   chapter: ChapterMeta
 ) {
-  const patternUrl = `${SITE_URL}/patterns/${pattern.slug}`;
+  const patternUrl = `${SITE_URL}/learn/patterns/${pattern.slug}`;
 
   return {
     '@context': 'https://schema.org',
@@ -227,7 +228,7 @@ export function generatePatternCollectionSchema(
     '@type': 'CollectionPage',
     name: 'Agent Patterns — AI Coding Agent Reference',
     description: `A structured reference of ${patternCount} named patterns across ${chapterCount} chapters for working effectively with AI coding agents.`,
-    url: `${SITE_URL}/patterns`,
+    url: `${SITE_URL}/learn/patterns`,
     author: generatePersonSchema(),
     mainEntity: {
       '@type': 'ItemList',
@@ -248,11 +249,56 @@ export function generateChapterSchema(
     '@type': 'CollectionPage',
     name: `Chapter ${chapter.number}: ${chapter.name} — Agent Patterns`,
     description: chapter.description,
-    url: `${SITE_URL}/patterns/chapter/${chapter.slug}`,
+    url: `${SITE_URL}/learn/patterns/chapter/${chapter.slug}`,
     author: generatePersonSchema(),
     mainEntity: {
       '@type': 'ItemList',
       numberOfItems: patternCount,
+    },
+  };
+}
+
+/**
+ * Generate TechArticle schema for toolkit topic pages
+ */
+export function generateToolkitTopicSchema(
+  topic: ToolkitTopicMeta,
+  page: ToolkitFrontmatter
+) {
+  const topicUrl = `${SITE_URL}/learn/toolkit/${topic.slug}`;
+
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'TechArticle',
+    headline: page.title,
+    description: page.description,
+    url: topicUrl,
+    author: generatePersonSchema(),
+    publisher: generatePersonSchema(),
+    mainEntityOfPage: {
+      '@type': 'WebPage',
+      '@id': topicUrl,
+    },
+    keywords: page.keywords || [],
+    proficiencyLevel: 'Expert',
+    articleSection: 'Claude Code Toolkit',
+  };
+}
+
+/**
+ * Generate CollectionPage schema for the toolkit index
+ */
+export function generateToolkitCollectionSchema(topicCount: number) {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'CollectionPage',
+    name: 'Claude Code Toolkit — Expert\'s Guide to Agentic Engineering',
+    description: `${topicCount} expert deep-dives into Claude Code features for production agentic engineering.`,
+    url: `${SITE_URL}/learn/toolkit`,
+    author: generatePersonSchema(),
+    mainEntity: {
+      '@type': 'ItemList',
+      numberOfItems: topicCount,
     },
   };
 }

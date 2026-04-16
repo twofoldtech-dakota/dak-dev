@@ -109,7 +109,7 @@ export function ProblemIndex({ className = '', publishedSlugs }: ProblemIndexPro
                 {availablePatterns.map((pattern) => (
                   <Link
                     key={pattern.slug}
-                    href={`/patterns/${pattern.slug}`}
+                    href={`/learn/patterns/${pattern.slug}`}
                     className="inline-flex items-center gap-1.5 px-2.5 py-1 border border-text/40 hover:border-text text-xs font-semibold hover:bg-text hover:text-background transition-colors focus:outline-none focus:ring-2 focus:ring-accent"
                   >
                     <span className="font-mono text-[10px] text-accent">

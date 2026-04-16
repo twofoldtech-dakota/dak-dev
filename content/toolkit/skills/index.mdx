@@ -1,0 +1,42 @@
+---
+title: "Skills: Expert's Guide"
+topic: "skills"
+order: 1
+description: "Master Claude Code skills — reusable prompt engineering, skill composition, and invocation patterns for production workflows."
+relatedPatterns: ["progressive-disclosure", "convention-file"]
+relatedTopics: ["hooks", "commands", "claude-md", "agents"]
+published: true
+keywords: ["claude code skills", "prompt engineering", "skill composition", "invocation patterns"]
+---
+
+# Skills
+
+Skills are Claude Code's on-demand knowledge system. Each skill is a directory containing a `SKILL.md` file with YAML frontmatter and markdown instructions — loaded into context only when relevant, keeping your baseline token budget clean.
+
+## Why Skills Matter
+
+CLAUDE.md burns tokens on every turn whether the instructions are relevant or not. Skills solve this with progressive disclosure: Claude sees a lightweight registry of skill names and descriptions (~100 tokens each), then loads the full body only when the task demands it. Twenty skills cost ~2,000 tokens of always-present overhead. The same content in CLAUDE.md would cost that on every single turn regardless of relevance.
+
+## When to Use Skills vs. Alternatives
+
+| Need | Use |
+|------|-----|
+| Task-specific multi-step workflow | **Skill** |
+| Always-present project rules | CLAUDE.md |
+| Deterministic enforcement of constraints | Hook |
+| Block dangerous operations before execution | Hook (PreToolUse) |
+| Reusable procedure across multiple repos | **Skill** (personal `~/.claude/skills/`) |
+| One-off saved prompt | Legacy command (`.claude/commands/`) |
+| External tool connectivity | MCP server |
+| Distribute workflows as packages | **Skill** (plugin) |
+
+The critical distinction: skills extend what Claude *can* do on demand. Hooks constrain *how* Claude does it deterministically. CLAUDE.md tells Claude what it *should* do at all times.
+
+## What's Inside
+
+Explore the sub-pages for deep expertise:
+
+- **Mental Model** — How skills are loaded, matched, and injected through the three-stage progressive disclosure system
+- **Playbook** — Production skill architectures: knowledge-based, workflow, checklist-driven, and forked execution patterns
+- **Compositions** — Skills combined with hooks, agents, MCP, CLAUDE.md, and memory for orchestrated workflows
+- **Pitfalls** — Activation failures, context bloat, conflicting skills, and the anti-patterns that make skills unreliable

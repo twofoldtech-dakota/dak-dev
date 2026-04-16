@@ -1,6 +1,6 @@
 import { getAllPosts } from '@/lib/posts';
 import { Hero } from '@/components/home/Hero';
-import { PatternsShowcase } from '@/components/home/PatternsShowcase';
+import { LearnShowcase } from '@/components/home/LearnShowcase';
 import { ToolsBar } from '@/components/home/ToolsBar';
 import { JsonLd } from '@/components/seo/JsonLd';
 import { generateWebSiteSchema } from '@/lib/schema';
@@ -188,8 +188,8 @@ export default async function Home() {
         </div>
       </section>
 
-      {/* Agent Patterns Showcase */}
-      <PatternsShowcase />
+      {/* Learn Showcase — Patterns + Toolkit */}
+      <LearnShowcase />
 
       {/* Compact Tools Bar */}
       <ToolsBar />

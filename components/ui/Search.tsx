@@ -127,7 +127,7 @@ export function Search({ className = '' }: SearchProps) {
   const navigateToResult = (result: SearchIndexItem) => {
     const path =
       result.type === 'pattern'
-        ? `/patterns/${result.slug}`
+        ? `/learn/patterns/${result.slug}`
         : `/blog/${result.slug}`;
     router.push(path);
     setIsOpen(false);
