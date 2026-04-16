@@ -8,6 +8,7 @@ import { mdxComponents } from '@/components/blog/MdxComponents';
 import { getMdxOptions } from '@/lib/mdx-options';
 import { generateBreadcrumbSchema } from '@/lib/schema';
 import { JsonLd } from '@/components/seo/JsonLd';
+import { CodeBlockWrapper } from '@/components/blog/CodeBlockWrapper';
 import { TableOfContents } from '@/components/blog/TableOfContents';
 import { extractTableOfContents } from '@/lib/toc';
 
@@ -84,8 +85,10 @@ export default async function ToolkitSubPageRoute({
       </nav>
 
       <div className="lg:grid lg:grid-cols-[1fr_220px] lg:gap-10 px-4 sm:px-6 lg:px-0">
-        <article className="min-w-0 prose-neo">
+        <article className="min-w-0 prose prose-invert prose-lg mdx-content">
+          <CodeBlockWrapper>
           <MDXRemote source={page.content} components={mdxComponents} options={mdxOptions} />
+          </CodeBlockWrapper>
         </article>
 
         <aside className="hidden lg:block">
