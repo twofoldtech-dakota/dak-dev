@@ -18,6 +18,7 @@ import { PatternNavigation } from '@/components/patterns/PatternNavigation';
 import { QuickReferenceCard } from '@/components/patterns/QuickReferenceCard';
 import { ToolExamples } from '@/components/patterns/ToolExamples';
 import { patternMdxComponents } from '@/components/patterns/PatternMdxComponents';
+import { RelatedToolkitPanel } from '@/components/learn/RelatedToolkitPanel';
 import { JsonLd } from '@/components/seo/JsonLd';
 import {
   generateBreadcrumbSchema,
@@ -25,6 +26,17 @@ import {
 } from '@/lib/schema';
 import { getMdxOptions } from '@/lib/mdx-options';
 import Link from 'next/link';
+
+const PATTERN_TO_TOOLKIT: Record<string, string[]> = {
+  'convention-file': ['claude-md'],
+  'safety-net': ['hooks'],
+  'memory-layer': ['memory'],
+  'parallel-fan-out': ['agents', 'agent-teams'],
+  'progressive-disclosure': ['skills'],
+  'agent-friendly-architecture': ['mcp'],
+  'context-priming': ['claude-md'],
+  'scope-fence': ['hooks', 'settings'],
+};
 
 export async function generateStaticParams() {
   const slugs = getAllPatternSlugs();
@@ -240,6 +252,9 @@ export default async function PatternPage({
                   <div className="border-t border-text/10" />
                   <RelatedPatternsPanel relatedPatterns={relatedPatterns} />
                 </>
+              )}
+              {PATTERN_TO_TOOLKIT[slug] && (
+                <RelatedToolkitPanel topicSlugs={PATTERN_TO_TOOLKIT[slug]} />
               )}
             </div>
           </aside>
