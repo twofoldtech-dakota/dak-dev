@@ -4,8 +4,8 @@ import { useState } from 'react';
 import { usePathname } from 'next/navigation';
 import Link from 'next/link';
 import type { ChapterMeta } from '@/lib/patterns';
-import type { ToolkitTopicMeta } from '@/lib/toolkit';
-import { SUB_PAGE_META, type ToolkitSubPage } from '@/lib/toolkit';
+import type { ToolkitTopicMeta } from '@/lib/toolkit-types';
+import { SUB_PAGE_META, type ToolkitSubPage } from '@/lib/toolkit-types';
 
 const CHAPTER_BORDER_COLORS: Record<number, string> = {
   1: 'border-chapter-1', 2: 'border-chapter-2', 3: 'border-chapter-3',

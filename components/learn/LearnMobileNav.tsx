@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { usePathname } from 'next/navigation';
 import Link from 'next/link';
 import type { ChapterMeta } from '@/lib/patterns';
-import type { ToolkitTopicMeta } from '@/lib/toolkit';
+import type { ToolkitTopicMeta } from '@/lib/toolkit-types';
 
 const TEXT_COLORS: Record<number, string> = {
   1: 'text-chapter-1', 2: 'text-chapter-2', 3: 'text-chapter-3',

@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { getToolkitTopicBySlug } from '@/lib/toolkit';
+import { getToolkitTopicBySlug } from '@/lib/toolkit-types';
 
 interface RelatedToolkitPanelProps {
   topicSlugs: string[];
