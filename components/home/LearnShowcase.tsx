@@ -61,7 +61,7 @@ export function LearnShowcase() {
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
         <ScrollReveal>
-          <div className="mb-12 flex items-end justify-between border-b-4 border-text pb-6">
+          <div className="mb-12 flex flex-col sm:flex-row sm:items-end justify-between border-b-4 border-text pb-6 gap-4">
             <div>
               <h2 className="text-4xl md:text-5xl font-bold mb-2">Learn</h2>
               <p className="text-lg text-muted">
@@ -70,7 +70,7 @@ export function LearnShowcase() {
             </div>
             <Link
               href="/learn"
-              className="group hidden sm:inline-flex items-center gap-2 text-text font-semibold hover:underline underline-offset-4 decoration-4 focus:outline-none focus:ring-4 focus:ring-text focus:ring-offset-4 focus:ring-offset-background"
+              className="group inline-flex items-center gap-2 text-text font-semibold hover:underline underline-offset-4 decoration-4 focus:outline-none focus:ring-4 focus:ring-text focus:ring-offset-4 focus:ring-offset-background"
             >
               Explore All
               <svg
@@ -145,12 +145,12 @@ export function LearnShowcase() {
                     {allPatterns.length} patterns
                   </span>
                 </div>
-                <p className="text-muted mb-6 leading-relaxed">
+                <p className="text-muted mb-6 leading-relaxed break-words">
                   Named, repeatable techniques for AI-assisted engineering. Organized into {CHAPTERS.length} chapters from foundation to advanced orchestration.
                 </p>
 
                 {/* Mini Chapter Grid */}
-                <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 mb-6">
+                <div className="grid grid-cols-2 gap-2 mb-6">
                   {chapterStats.map((chapter) => (
                     <div
                       key={chapter.number}
@@ -200,7 +200,7 @@ export function LearnShowcase() {
                     {TOOLKIT_TOPICS.length} deep-dives
                   </span>
                 </div>
-                <p className="text-muted mb-6 leading-relaxed">
+                <p className="text-muted mb-6 leading-relaxed break-words">
                   Expert&apos;s guide to Claude Code internals. Mental models, production playbooks, composition patterns, and real-world pitfalls.
                 </p>
 
@@ -222,7 +222,7 @@ export function LearnShowcase() {
                       </svg>
                       <div className="min-w-0">
                         <span className="block text-sm font-bold text-text">{topic.name}</span>
-                        <span className="block text-[11px] text-muted leading-snug truncate">
+                        <span className="block text-[11px] text-muted leading-snug line-clamp-2">
                           {topic.description}
                         </span>
                       </div>
@@ -262,25 +262,16 @@ export function LearnShowcase() {
                       href={`/learn/patterns/${pattern.frontmatter.slug}`}
                       className={`group block border-2 border-text/20 hover:border-text/60 bg-surface/40 border-l-4 ${CHAPTER_BORDER_COLORS[pattern.frontmatter.chapter]} px-5 py-4 transition-all duration-150 hover:-translate-x-0.5 hover:shadow-[3px_3px_0_0_var(--color-text)] focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2 focus:ring-offset-background`}
                     >
-                      <span className="flex items-center gap-4">
+                      <span className="flex items-start sm:items-center gap-3 sm:gap-4 flex-wrap sm:flex-nowrap">
                         <span className={`font-mono text-xs font-bold ${CHAPTER_TEXT_COLORS[pattern.frontmatter.chapter]} tabular-nums flex-shrink-0 w-8`}>
                           {pattern.frontmatter.number}
                         </span>
-                        <span className="font-bold text-sm group-hover:underline decoration-2 underline-offset-4 flex-1 min-w-0 truncate">
+                        <span className="font-bold text-sm group-hover:underline decoration-2 underline-offset-4 flex-1 min-w-0">
                           {pattern.frontmatter.name}
                         </span>
                         <DifficultyBadge difficulty={pattern.frontmatter.difficulty} className="flex-shrink-0" />
-                        <svg
-                          className="w-4 h-4 text-muted/0 group-hover:text-muted group-hover:translate-x-0.5 transition-all flex-shrink-0"
-                          fill="none"
-                          stroke="currentColor"
-                          viewBox="0 0 24 24"
-                          aria-hidden="true"
-                        >
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                        </svg>
                       </span>
-                      <span className="block mt-1.5 pl-12 text-xs text-muted line-clamp-1">
+                      <span className="block mt-1.5 pl-11 sm:pl-12 text-xs text-muted line-clamp-2 sm:line-clamp-1">
                         {pattern.frontmatter.intent}
                       </span>
                     </Link>
