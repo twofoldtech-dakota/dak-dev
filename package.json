@@ -10,19 +10,19 @@
     "lint": "eslint .",
     "format": "prettier --write \"**/*.{ts,tsx,js,jsx,json,css,md}\"",
     "analyze": "ANALYZE=true next build --webpack",
-    "validate:content": "npx tsx scripts/validate-posts.ts",
-    "validate:content:all": "npx tsx scripts/validate-posts.ts --all",
-    "images:process": "npx tsx scripts/process-images.ts",
-    "images:validate": "npx tsx scripts/process-images.ts --validate",
-    "images:check": "npx tsx scripts/process-images.ts --check",
-    "images:placeholder": "npx tsx scripts/generate-placeholder-images.ts",
-    "thumbnail:create": "npx tsx scripts/generate-thumbnail.ts",
-    "resume:generate": "npx tsx scripts/generate-resume-pdf.ts",
-    "rss:test": "npx tsx scripts/test-rss-feed.ts",
-    "publish:prepare": "npx tsx scripts/publish-prepare.ts",
-    "publish:prepare:fix": "npx tsx scripts/publish-prepare.ts --fix",
-    "publish:prepare:all": "npx tsx scripts/publish-prepare.ts --all",
-    "generate:og": "npx tsx scripts/generate-default-og.ts"
+    "validate:content": "tsx scripts/validate-posts.ts",
+    "validate:content:all": "tsx scripts/validate-posts.ts --all",
+    "images:process": "tsx scripts/process-images.ts",
+    "images:validate": "tsx scripts/process-images.ts --validate",
+    "images:check": "tsx scripts/process-images.ts --check",
+    "images:placeholder": "tsx scripts/generate-placeholder-images.ts",
+    "thumbnail:create": "tsx scripts/generate-thumbnail.ts",
+    "resume:generate": "tsx scripts/generate-resume-pdf.ts",
+    "rss:test": "tsx scripts/test-rss-feed.ts",
+    "publish:prepare": "tsx scripts/publish-prepare.ts",
+    "publish:prepare:fix": "tsx scripts/publish-prepare.ts --fix",
+    "publish:prepare:all": "tsx scripts/publish-prepare.ts --all",
+    "generate:og": "tsx scripts/generate-default-og.ts"
   },
   "repository": {
     "type": "git",
@@ -31,13 +31,16 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
+  "packageManager": "pnpm@10.33.4",
+  "engines": {
+    "node": ">=22.22.2"
+  },
   "bugs": {
     "url": "https://github.com/twofoldtech-dakota/my-site/issues"
   },
   "homepage": "https://github.com/twofoldtech-dakota/my-site#readme",
   "dependencies": {
     "@giscus/react": "^3.1.0",
-    "@trigger.dev/sdk": "^4.3.3",
     "@vercel/analytics": "^1.6.1",
     "@vercel/speed-insights": "^1.3.1",
     "framer-motion": "^12.29.0",
@@ -49,13 +52,13 @@
     "reading-time": "^1.5.0",
     "rehype-pretty-code": "^0.14.1",
     "remark-gfm": "^4.0.1",
-    "resend": "^6.9.1",
     "sharp": "^0.34.5",
     "shiki": "^3.21.0"
   },
   "devDependencies": {
     "@next/bundle-analyzer": "^16.1.4",
     "@tailwindcss/postcss": "^4.1.18",
+    "@types/mdx": "^2.0.13",
     "@types/node": "^25.0.10",
     "@types/pdfkit": "^0.17.4",
     "@types/react": "^19.2.9",
@@ -68,6 +71,17 @@
     "postcss": "^8.5.6",
     "prettier": "^3.8.1",
     "tailwindcss": "^4.1.18",
+    "tsx": "^4.19.0",
     "typescript": "5.9.3"
+  },
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "esbuild",
+      "sharp",
+      "unrs-resolver"
+    ],
+    "overrides": {
+      "postcss@<8.5.10": ">=8.5.10"
+    }
   }
 }
