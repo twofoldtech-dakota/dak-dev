@@ -5,6 +5,36 @@ const bundleAnalyzer = withBundleAnalyzer({
   enabled: process.env.ANALYZE === 'true',
 });
 
+// Content-Security-Policy.
+// Next.js App Router injects inline bootstrap/hydration scripts. A strict
+// nonce-based policy would require per-request middleware, which forces
+// dynamic rendering and conflicts with this site's SSG performance budget.
+// We therefore allow 'unsafe-inline' for scripts but lock down every other
+// vector: no external script origins beyond the few we actually use,
+// object-src none, base-uri self, and tightly scoped connect/frame/img.
+const isDev = process.env.NODE_ENV !== 'production';
+
+const contentSecurityPolicy = [
+  "default-src 'self'",
+  "base-uri 'self'",
+  "object-src 'none'",
+  "frame-ancestors 'self'",
+  "form-action 'self'",
+  `script-src 'self' 'unsafe-inline' https://va.vercel-scripts.com https://giscus.app${
+    isDev ? " 'unsafe-eval'" : ''
+  }`,
+  "style-src 'self' 'unsafe-inline'",
+  "img-src 'self' data: https://images.unsplash.com",
+  "font-src 'self'",
+  `connect-src 'self' https://va.vercel-scripts.com https://*.vercel-insights.com${
+    isDev ? ' ws:' : ''
+  }`,
+  'frame-src https://giscus.app',
+  "worker-src 'self' blob:",
+  "manifest-src 'self'",
+  'upgrade-insecure-requests',
+].join('; ');
+
 const nextConfig: NextConfig = {
   // Enable React strict mode for better development experience
   reactStrictMode: true,
@@ -79,17 +109,29 @@ const nextConfig: NextConfig = {
             key: 'X-Frame-Options',
             value: 'SAMEORIGIN',
           },
-          {
-            key: 'X-XSS-Protection',
-            value: '1; mode=block',
-          },
+          // X-XSS-Protection intentionally omitted: the legacy auditor is
+          // deprecated, disabled in modern browsers, and can itself introduce
+          // cross-site information leaks. Content-Security-Policy replaces it.
           {
             key: 'Referrer-Policy',
             value: 'strict-origin-when-cross-origin',
           },
           {
+            key: 'Cross-Origin-Opener-Policy',
+            value: 'same-origin',
+          },
+          {
+            key: 'X-Permitted-Cross-Domain-Policies',
+            value: 'none',
+          },
+          {
             key: 'Permissions-Policy',
-            value: 'camera=(), microphone=(), geolocation=()',
+            value:
+              'camera=(), microphone=(), geolocation=(), browsing-topics=(), interest-cohort=()',
+          },
+          {
+            key: 'Content-Security-Policy',
+            value: contentSecurityPolicy,
           },
         ],
       },

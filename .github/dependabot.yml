@@ -1,0 +1,38 @@
+version: 2
+
+updates:
+  # Application dependencies (pnpm lockfile is read via the npm ecosystem).
+  - package-ecosystem: npm
+    directory: /
+    schedule:
+      interval: weekly
+      day: monday
+    open-pull-requests-limit: 5
+    # Mirror the pnpm minimum-release-age cooldown: don't open update PRs for
+    # versions younger than 7 days, so a compromised release is yanked first.
+    cooldown:
+      default-days: 7
+    groups:
+      # Batch low-risk minor/patch bumps into one reviewable PR.
+      minor-and-patch:
+        patterns:
+          - '*'
+        update-types:
+          - minor
+          - patch
+    # Major bumps stay as individual PRs for deliberate review.
+
+  # Keep GitHub Actions current. Because workflows pin actions to commit
+  # SHAs, this is the mechanism that advances those pins safely.
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: weekly
+      day: monday
+    open-pull-requests-limit: 5
+    cooldown:
+      default-days: 7
+    groups:
+      github-actions:
+        patterns:
+          - '*'
