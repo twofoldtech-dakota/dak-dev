@@ -10,16 +10,6 @@
     "featured": true
   },
   {
-    "id": "handoffkit",
-    "name": "HandoffKit",
-    "description": "AI-powered project handoff documentation for consulting agencies and freelancers. Connect your repo, generate comprehensive docs, and ship with confidence.",
-    "url": "https://handoffkit.ai/",
-    "icon": "app",
-    "category": "product",
-    "date": "2026-01",
-    "featured": true
-  },
-  {
     "id": "claude-marketplace",
     "name": "CMS Analyzers Marketplace",
     "description": "Claude Code plugins that analyze enterprise CMS codebases, deliver actionable reports with severity ratings, and generate custom AI enhancements.",
