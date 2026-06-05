@@ -181,6 +181,37 @@ icons, and boundary text contain no `fs` access, so Client Components
 bundle. Server loaders (`lib/harness.ts`, `lib/security.ts`) own the filesystem
 and re-export the types module so callers have one import site.
 
+### 4.1 The on-ramp layer (a non-pillar front door)
+
+`/learn/start` is a fifth Learn area that is **deliberately not a pillar**. It is
+a plain-English on-ramp for non-technical readers (founders, PMs, designers,
+ops) who watched an agentic-engineering demo and want to understand it, not
+build it. It decodes the vocabulary (the **Decoder**, a thematic glossary at
+`/learn/start/decoder`) and the core mental models (**explainers** at
+`/learn/start/explain/<slug>` and **Demo, Decoded** walkthroughs at
+`/learn/start/demo/<slug>`), then links *into* the four pillars.
+
+**Define-on-first-use toggletips are site-wide.** `lib/rehype-glossary.ts` runs
+in the shared MDX pipeline (`lib/mdx-options.ts`) and wraps the first occurrence
+of each Decoder term in any document in a `<glossaryterm>` element, mapped in
+`components/blog/MdxComponents.tsx` to an accessible click-toggletip
+(`components/learn/GlossaryTerm.tsx`) that links back to the Decoder. It skips
+code, links, and headings, and wraps each term at most once per document.
+
+It follows the per-section convention without claiming peer status: a boundary
+statement plus a client-safe types module (`lib/onramp-types.ts`, which also
+carries the glossary data so the Decoder client island imports it directly), a
+server loader (`lib/onramp.ts`) for the demo MDX, and a colocated routing
+invariant. Its identity colour is `amber` (chapter-5) — a fifth entry in
+`SECTION_THEME` (`components/learn/sectionTheme.ts`) chosen so the four-pillar
+colour contract (green/cyan/purple/red) stays intact.
+
+**It is excluded from the four-pillar sidebar/active-slug parsing on purpose.**
+`LearnSidebar` and `LearnMobileNav` key off `/learn/{patterns,toolkit,harness,
+security}`; `/learn/start` matches none and renders inside the Learn chrome with
+no pillar active. Discovery is via a CTA band on the `/learn` index, not the
+pillar nav. Wiring the on-ramp into that nav means revisiting both components.
+
 ---
 
 ## 5. Content pipeline

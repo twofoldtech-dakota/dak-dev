@@ -1,0 +1,71 @@
+---
+title: "Fix a Failing Test, Decoded"
+slug: "fix-a-failing-test"
+description: "A 60-second agent demo, slowed down with every move decoded in plain English — what an agent, a tool call, and a context window are, watched in real time."
+scenario: "Watch an agent find and fix a real bug — every move decoded in plain English as it happens."
+published: true
+keywords: ["AI agent demo explained", "what is an AI agent doing", "agent tool call explained", "agentic coding for non-technical"]
+---
+
+# Fix a Failing Test, Decoded
+
+Here is a demo people watch me run in under a minute: a test is broken, I ask an agent to fix it, and a moment later it is green. To anyone who has not seen it before, it looks like magic — or like nonsense words. It is neither.
+
+This is the same thing, slowed down, with every move decoded as it happens. No code required. By the end you will be able to name what you are looking at.
+
+## The task
+
+One automated **test** — a small script that checks the code still does what it should — is failing. The checkout is supposed to take 10% off a $100 order and charge $90. The test says it is charging the wrong amount.
+
+I type one instruction: *"Fix the failing test in the checkout flow."* Then I hand it to the agent.
+
+<Annotation term="Agent">
+Not a chatbot that answers a question. An **agent** takes the goal and works toward it on its own — reading, editing, and checking — until it is done. The chatbot tells you how to fix the bug; the agent fixes it.
+</Annotation>
+
+## Watch the loop
+
+The agent does not produce the fix in one shot. It works in a **loop**: think about what to do, do one thing, look at the result, repeat. Step through it yourself — press the button one turn at a time and watch what happens on the right.
+
+<AgentLoopStepper />
+
+Two things are worth naming as you step through it.
+
+<Annotation term="Tool call">
+When the agent runs `read_file` or `run_tests`, that is a **tool call** — the model asking the surrounding software to do something in the real world (open a file, run the tests) rather than writing text about it. The result comes back to the agent on the next line.
+</Annotation>
+
+<Annotation term="Context window">
+The bar on the right is the **context window** — the agent's working memory. Every step the agent takes gets added to it. Notice it only ever grows: the agent re-reads everything each turn, which is why long tasks eventually run out of room.
+</Annotation>
+
+## What happened, decoded
+
+Read back through the trace and it is no longer mysterious:
+
+- It **read the test** to learn what "correct" means — a tool call that pulled the test into its context window.
+- It **formed a hypothesis** about the bug — that is the model reasoning, the only part that happens "inside" the model.
+- It **read the code**, confirmed the bug (`price * 0.1` returns the discount, not the discounted price), and **made the one-line fix** — another tool call.
+- It **ran the tests** to check its own work, saw green, and **stopped**. That last part matters: the loop ended because the goal was met, not because it ran out of things to try.
+
+<Callout type="info" title="Why it stopped on its own">
+The agent kept going until the test passed, then quit. That "keep going until the goal is met" behaviour is the whole difference between an agent and a single answer — and the reason a good **harness** (the scaffolding around the model) also sets its own limits, so an agent that *cannot* reach the goal does not loop forever.
+</Callout>
+
+## What it did *not* do — and why that matters
+
+The honest version, because the hype usually skips it:
+
+- It did **not** "understand" the checkout the way you do. It predicted likely next steps from patterns. That works strikingly well here and fails in surprising places — so the human stays in the loop.
+- It can produce a **wrong** fix with exactly the same confidence. A person would hesitate; an agent often will not. That is why you review the change before it ships, not after.
+- This is a clean, well-scoped task — exactly the kind agents are good at today. Point the same agent at a vague, sprawling goal and the 2025 reality is messier. Useful, not autonomous.
+
+<Annotation term="Human-in-the-loop">
+You approving the fix before it ships is **human-in-the-loop** — the dial set to "asks before it counts." Turn the dial the other way and the agent acts first and reports back. Where you set it is a choice, not a fixed property of the tool.
+</Annotation>
+
+## The three-sentence version
+
+An **agent** is a model running **tool calls** in a **loop** toward a goal, using its **context window** as working memory, until a stop condition ends it. It generates likely next steps rather than truly understanding — so it is fast and capable on scoped work, and needs a human reviewing the important parts. That is the entire demo.
+
+Want the words on their own? Open [the Decoder](/learn/start/decoder). Want the real mechanics? The [Harness](/learn/harness) pillar builds this loop from the floor up.
