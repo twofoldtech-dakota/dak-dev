@@ -10,7 +10,7 @@
 // because the literals exist verbatim here — the same idiom ChapterHeader and
 // PatternCard already use for the chapter palette.
 
-export type SectionColor = 'green' | 'cyan' | 'purple' | 'red';
+export type SectionColor = 'green' | 'cyan' | 'purple' | 'red' | 'amber';
 
 export interface SectionTheme {
   /** Numbers, icons, stats, CTA — the section's voice. */
@@ -74,5 +74,19 @@ export const SECTION_THEME: Record<SectionColor, SectionTheme> = {
     line: 'bg-chapter-6',
     cardShadow: 'hover:shadow-[6px_6px_0_0_var(--color-chapter-6)]',
     rail: 'border-chapter-6/25',
+  },
+  // Amber — chapter-5 (#facc15). Identity for the Learn ON-RAMP (/learn/start),
+  // which is deliberately NOT a fifth pillar but a plain-English foundations
+  // layer in front of the four. A distinct warm colour keeps the four-pillar
+  // contract (green/cyan/purple/red) intact while signalling "begin here".
+  amber: {
+    text: 'text-chapter-5',
+    border: 'border-chapter-5',
+    borderTop: 'border-t-chapter-5',
+    borderLeft: 'border-l-chapter-5',
+    borderRight: 'border-r-chapter-5',
+    line: 'bg-chapter-5',
+    cardShadow: 'hover:shadow-[6px_6px_0_0_var(--color-chapter-5)]',
+    rail: 'border-chapter-5/25',
   },
 };
